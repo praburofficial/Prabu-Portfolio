@@ -1,16 +1,19 @@
-import { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { Header } from './components/Header';
 import { ParticleBackground } from './components/ParticleBackground';
-import { Hero } from './sections/Hero';
-import { About } from './sections/About';
-import { Skills } from './sections/Skills';
-import { Projects } from './sections/Projects';
-import { Journey } from './sections/Journey';
-import { Certifications } from './sections/Certifications';
-import { Contact } from './sections/Contact';
-import { Footer } from './components/Footer';
+import { Loading } from './components/Loading';
+
+// Lazy load sections and components
+const Hero = lazy(() => import('./sections/Hero').then(m => ({ default: m.Hero })));
+const About = lazy(() => import('./sections/About').then(m => ({ default: m.About })));
+const Skills = lazy(() => import('./sections/Skills').then(m => ({ default: m.Skills })));
+const Projects = lazy(() => import('./sections/Projects').then(m => ({ default: m.Projects })));
+const Journey = lazy(() => import('./sections/Journey').then(m => ({ default: m.Journey })));
+const Certifications = lazy(() => import('./sections/Certifications').then(m => ({ default: m.Certifications })));
+const Contact = lazy(() => import('./sections/Contact').then(m => ({ default: m.Contact })));
+const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
 /* Lenis smooth scroll wrapper */
 function SmoothScroll({ children }: { children: React.ReactNode }) {
@@ -37,13 +40,15 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
 function HomePage() {
   return (
     <main className="relative z-10 flex flex-col gap-10 lg:gap-20">
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Journey />
-      <Certifications />
-      <Contact />
+      <Suspense fallback={<Loading />}>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Journey />
+        <Certifications />
+        <Contact />
+      </Suspense>
     </main>
   );
 }
@@ -51,7 +56,9 @@ function HomePage() {
 function JourneyPage() {
   return (
     <main className="relative z-10 flex flex-col gap-10 lg:gap-20">
-      <Journey />
+      <Suspense fallback={<Loading />}>
+        <Journey />
+      </Suspense>
     </main>
   );
 }
@@ -59,7 +66,9 @@ function JourneyPage() {
 function CertificationsPage() {
   return (
     <main className="relative z-10 flex flex-col gap-10 lg:gap-20">
-      <Certifications />
+      <Suspense fallback={<Loading />}>
+        <Certifications />
+      </Suspense>
     </main>
   );
 }
@@ -81,7 +90,9 @@ function App() {
             <Route path="/certifications" element={<CertificationsPage />} />
           </Routes>
 
-          <Footer />
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
         </div>
       </SmoothScroll>
     </BrowserRouter>
