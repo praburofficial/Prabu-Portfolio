@@ -1,0 +1,489 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #00d4ff;
+    --color-secondary: #7c3aed;
+    --color-accent: #00FF9F;
+    --color-hotpink: #ff2d78;
+    --color-background: #050b18;
+    --color-glass: rgba(15, 23, 42, 0.85);
+    --color-glow: rgba(0, 212, 255, 0.6);
+    --color-border: rgba(0, 212, 255, 0.15);
+
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+}
+
+@layer utilities {
+    .bg-glass {
+        background: var(--color-glass);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+    }
+
+    .text-glow {
+        text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+    }
+
+    .text-glow-secondary {
+        animation: colorGlowCycle 6s ease-in-out infinite alternate;
+    }
+
+    .border-glow {
+        box-shadow: 0 0 10px var(--color-glow);
+    }
+
+    .gradient-text {
+        background: linear-gradient(-45deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+        background-size: 200% 200%;
+        animation: textGradient 6s ease infinite;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+/* ─── Base Keyframes ─── */
+@keyframes textGradient {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes colorGlowCycle {
+    0% {
+        text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+    }
+
+    33% {
+        text-shadow: 0 0 10px var(--color-secondary), 0 0 20px var(--color-secondary);
+    }
+
+    66% {
+        text-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+    }
+
+    100% {
+        text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px var(--color-glow);
+    }
+
+    50% {
+        box-shadow: 0 0 30px var(--color-glow), 0 0 10px var(--color-primary);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── Glitch Text Effect ─── */
+@keyframes glitch {
+    0% {
+        text-shadow: 2px 0 #00d4ff, -2px 0 #ff00ff;
+    }
+
+    20% {
+        text-shadow: -3px 2px #00d4ff, 3px -1px #ff00ff;
+    }
+
+    40% {
+        text-shadow: 3px -2px #00d4ff, -3px 1px #ff00ff;
+    }
+
+    60% {
+        text-shadow: -2px 3px #00d4ff, 2px -3px #ff00ff;
+    }
+
+    80% {
+        text-shadow: 2px -1px #00d4ff, -2px 1px #ff00ff;
+    }
+
+    100% {
+        text-shadow: -1px 2px #00d4ff, 1px -2px #ff00ff;
+    }
+}
+
+@keyframes glitch-skew {
+    0% {
+        transform: skew(0deg);
+    }
+
+    2% {
+        transform: skew(2deg);
+    }
+
+    4% {
+        transform: skew(0deg);
+    }
+
+    40% {
+        transform: skew(0deg);
+    }
+
+    42% {
+        transform: skew(-1deg);
+    }
+
+    44% {
+        transform: skew(0deg);
+    }
+
+    80% {
+        transform: skew(0deg);
+    }
+
+    82% {
+        transform: skew(3deg);
+    }
+
+    84% {
+        transform: skew(0deg);
+    }
+
+    100% {
+        transform: skew(0deg);
+    }
+}
+
+.glitch-text {
+    position: relative;
+    animation: glitch 2.5s infinite, glitch-skew 4s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch-text::before {
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(-45deg, #00d4ff, #7c3aed, #00FF9F);
+    background-size: 200% 200%;
+    animation: textGradient 6s ease infinite, glitch 3s infinite reverse;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.glitch-text::after {
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(-45deg, #00d4ff, #7c3aed, #00FF9F);
+    background-size: 200% 200%;
+    animation: textGradient 6s ease infinite, glitch 2s infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* ─── Neon Button Glow ─── */
+@keyframes neon-glow-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff, 0 0 20px rgba(0, 212, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 10px #00d4ff, 0 0 25px #00d4ff, 0 0 50px rgba(0, 212, 255, 0.6), 0 0 80px rgba(0, 212, 255, 0.3);
+    }
+}
+
+.neon-btn {
+    transition: all 0.3s ease;
+}
+
+.neon-btn:hover {
+    animation: neon-glow-pulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Bounce Scroll Indicator ─── */
+@keyframes bounce-scroll {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0) translateX(-50%);
+    }
+
+    40% {
+        transform: translateY(-12px) translateX(-50%);
+    }
+
+    60% {
+        transform: translateY(-6px) translateX(-50%);
+    }
+}
+
+/* ─── Conic Gradient Spin ─── */
+@keyframes conic-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ─── Shimmer Effect ─── */
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.shimmer-text {
+    background: linear-gradient(90deg, #00d4ff, #7c3aed, #ff2d78, #00d4ff);
+    background-size: 300% 100%;
+    animation: shimmer 4s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ─── Timeline Draw-in ─── */
+@keyframes draw-line {
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}
+
+/* ─── Card Shimmer Sweep ─── */
+@keyframes shimmer-sweep {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+/* ─── Underline Draw ─── */
+@keyframes draw-underline {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* ─── Floating drift for badges ─── */
+@keyframes drift-1 {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes drift-2 {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes drift-3 {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* ─── Circuit Grid Background ─── */
+@keyframes circuit-pulse {
+
+    0%,
+    100% {
+        opacity: 0.03;
+    }
+
+    50% {
+        opacity: 0.08;
+    }
+}
+
+.circuit-bg {
+    background-image:
+        linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: circuit-pulse 4s ease-in-out infinite;
+}
+
+/* ─── Timeline Horizontal Draw ─── */
+@keyframes draw-horizontal {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 75%;
+    }
+}
+
+/* ─── Global Styles ─── */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-background);
+    color: #ffffff;
+    overflow-x: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+::selection {
+    background-color: var(--color-primary);
+    color: #000;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-secondary);
+}
+
+/* ─── Floating label for contact form ─── */
+.floating-label-group {
+    position: relative;
+}
+
+.floating-label-group input,
+.floating-label-group textarea {
+    padding-top: 1.5rem;
+}
+
+.floating-label-group label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    font-size: 0.875rem;
+    color: rgba(156, 163, 175, 1);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.floating-label-group textarea~label {
+    top: 1.5rem;
+}
+
+.floating-label-group input:focus~label,
+.floating-label-group input:not(:placeholder-shown)~label,
+.floating-label-group textarea:focus~label,
+.floating-label-group textarea:not(:placeholder-shown)~label {
+    top: 0.5rem;
+    transform: translateY(0);
+    font-size: 0.7rem;
+    color: var(--color-primary);
+}
