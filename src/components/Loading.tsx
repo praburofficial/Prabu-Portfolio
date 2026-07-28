@@ -1,10 +1,16 @@
-
 export const Loading = () => {
     return (
-        <div className="flex h-[200px] w-full items-center justify-center">
-            <div className="relative h-12 w-12">
-                <div className="absolute top-0 left-0 h-full w-full rounded-full border-4 border-primary/20"></div>
-                <div className="absolute top-0 left-0 h-full w-full animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+        <div className="flex min-h-[45vh] w-full items-center justify-center" role="status" aria-live="polite">
+            <div className="flex flex-col items-center gap-5">
+                <div className="relative h-12 w-12">
+                    {/* Track */}
+                    <div className="absolute inset-0 rounded-full border-[3px] border-white/[0.07]" />
+                    {/* Sweep */}
+                    <div className="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-t-primary border-r-secondary" />
+                    {/* Core */}
+                    <div className="absolute inset-[30%] rounded-full bg-primary/70 blur-[6px] animate-breathe" />
+                </div>
+                <span className="text-[0.6875rem] uppercase tracking-[0.24em] text-faint">Loading</span>
             </div>
         </div>
     );

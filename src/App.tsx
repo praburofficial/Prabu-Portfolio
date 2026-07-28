@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
+import { motion } from 'framer-motion';
 import { Header } from './components/Header';
 import { ParticleBackground } from './components/ParticleBackground';
 import { Loading } from './components/Loading';
@@ -37,9 +38,23 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+/* Shared entrance for every routed page */
+function Page({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.main
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="relative z-10 flex flex-col"
+    >
+      {children}
+    </motion.main>
+  );
+}
+
 function HomePage() {
   return (
-    <main className="relative z-10 flex flex-col gap-10 lg:gap-20">
+    <Page>
       <Suspense fallback={<Loading />}>
         <Hero />
         <About />
@@ -49,27 +64,27 @@ function HomePage() {
         <Certifications />
         <Contact />
       </Suspense>
-    </main>
+    </Page>
   );
 }
 
 function JourneyPage() {
   return (
-    <main className="relative z-10 flex flex-col gap-10 lg:gap-20">
+    <Page>
       <Suspense fallback={<Loading />}>
         <Journey />
       </Suspense>
-    </main>
+    </Page>
   );
 }
 
 function CertificationsPage() {
   return (
-    <main className="relative z-10 flex flex-col gap-10 lg:gap-20">
+    <Page>
       <Suspense fallback={<Loading />}>
         <Certifications />
       </Suspense>
-    </main>
+    </Page>
   );
 }
 
@@ -77,9 +92,17 @@ function App() {
   return (
     <BrowserRouter>
       <SmoothScroll>
-        <div className="min-h-screen bg-background text-white selection:bg-primary selection:text-black">
+        <div className="relative min-h-screen bg-background text-ink antialiased">
           {/* Global Background Layer */}
           <ParticleBackground />
+
+          {/* Skip link — keyboard users land here first */}
+          <a
+            href="#home"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-btn focus:bg-primary focus:px-4 focus:py-2.5 focus:font-semibold focus:text-[#04121a]"
+          >
+            Skip to content
+          </a>
 
           {/* Static Header Nav */}
           <Header />

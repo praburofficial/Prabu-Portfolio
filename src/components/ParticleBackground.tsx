@@ -1,175 +1,91 @@
-import { useEffect, useRef } from 'react';
+import { useMemo } from 'react';
 import { cn } from '../lib/utils';
 
 interface ParticleBackgroundProps {
     className?: string;
 }
 
+/**
+ * Ambient page backdrop: an aurora gradient mesh, a masked grid, fine film
+ * grain and a sparse field of drifting motes.
+ *
+ * Everything is composited by the GPU (transform/opacity only) so it costs
+ * far less than a per-frame canvas simulation and stays silky on mobile.
+ */
 export function ParticleBackground({ className }: ParticleBackgroundProps) {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        let animationFrameId: number;
-
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-        resize();
-        window.addEventListener('resize', resize);
-
-        interface Node {
-            x: number;
-            y: number;
-            vx: number;
-            vy: number;
-            radius: number;
-        }
-
-        const nodesCount = Math.floor((window.innerWidth * window.innerHeight) / 15000);
-
-        const nodes: Node[] = Array.from({ length: Math.min(Math.max(nodesCount, 40), 90) }).map(() => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-            radius: Math.random() * 2 + 1,
-        }));
-
-        interface Pulse {
-            from: Node;
-            to: Node;
-            progress: number;
-            speed: number;
-            color: string;
-        }
-
-        let pulses: Pulse[] = [];
-        const colors = ['#00F5FF', '#8B5CF6', '#00FF9F'];
-
-        const draw = () => {
-            ctx.fillStyle = 'rgba(15, 15, 26, 0.4)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            nodes.forEach(node => {
-                node.x += node.vx;
-                node.y += node.vy;
-
-                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-            });
-
-            ctx.lineWidth = 1;
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 150) {
-                        const opacity = 1 - Math.pow(dist / 150, 1.5);
-                        ctx.strokeStyle = `rgba(0, 245, 255, ${opacity * 0.15})`;
-                        const useXFirst = (i + j) % 2 === 0;
-
-                        ctx.beginPath();
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        if (useXFirst) {
-                            ctx.lineTo(nodes[j].x, nodes[i].y);
-                            ctx.lineTo(nodes[j].x, nodes[j].y);
-                        } else {
-                            ctx.lineTo(nodes[i].x, nodes[j].y);
-                            ctx.lineTo(nodes[j].x, nodes[j].y);
-                        }
-                        ctx.stroke();
-
-                        if (Math.random() < 0.001) {
-                            pulses.push({
-                                from: nodes[i],
-                                to: nodes[j],
-                                progress: 0,
-                                speed: 0.01 + Math.random() * 0.015,
-                                color: colors[Math.floor(Math.random() * colors.length)],
-                            });
-                        }
-                    }
-                }
-            }
-
-            nodes.forEach(node => {
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 255, 159, 0.4)';
-                ctx.fill();
-            });
-
-            pulses = pulses.filter(pulse => {
-                pulse.progress += pulse.speed;
-                if (pulse.progress >= 1) return false;
-
-                let px, py;
-                const i = nodes.indexOf(pulse.from);
-                const j = nodes.indexOf(pulse.to);
-                const useXFirst = (i + j) % 2 === 0;
-
-                if (pulse.progress < 0.5) {
-                    const t = pulse.progress * 2;
-                    if (useXFirst) {
-                        px = pulse.from.x + (pulse.to.x - pulse.from.x) * t;
-                        py = pulse.from.y;
-                    } else {
-                        px = pulse.from.x;
-                        py = pulse.from.y + (pulse.to.y - pulse.from.y) * t;
-                    }
-                } else {
-                    const t = (pulse.progress - 0.5) * 2;
-                    if (useXFirst) {
-                        px = pulse.to.x;
-                        py = pulse.from.y + (pulse.to.y - pulse.from.y) * t;
-                    } else {
-                        px = pulse.from.x + (pulse.to.x - pulse.from.x) * t;
-                        py = pulse.to.y;
-                    }
-                }
-
-                ctx.beginPath();
-                ctx.arc(px, py, 3, 0, Math.PI * 2);
-                ctx.fillStyle = '#fff';
-                ctx.shadowColor = pulse.color;
-                ctx.shadowBlur = 15;
-                ctx.fill();
-
-                ctx.beginPath();
-                ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = pulse.color;
-                ctx.fill();
-
-                ctx.shadowBlur = 0;
-
-                return true;
-            });
-
-            animationFrameId = requestAnimationFrame(draw);
-        };
-
-        draw();
-
-        return () => {
-            window.removeEventListener('resize', resize);
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, []);
+    // Stable positions — generated once, never re-randomised across renders.
+    const motes = useMemo(
+        () =>
+            Array.from({ length: 26 }).map((_, i) => ({
+                left: `${(i * 37.6) % 100}%`,
+                top: `${(i * 61.3) % 100}%`,
+                size: i % 5 === 0 ? 2.5 : 1.5,
+                duration: `${9 + (i % 7) * 1.6}s`,
+                delay: `${(i % 9) * 0.7}s`,
+                opacity: 0.15 + (i % 4) * 0.09,
+            })),
+        []
+    );
 
     return (
-        <div className={cn("fixed inset-0 z-0 pointer-events-none overflow-hidden", className)}>
-            <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--color-primary)_0%,_transparent_40%)] opacity-10" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--color-secondary)_0%,_transparent_40%)] opacity-10" />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none" />
+        <div className={cn('fixed inset-0 z-0 overflow-hidden pointer-events-none', className)} aria-hidden="true">
+            {/* Base wash */}
+            <div className="absolute inset-0 bg-background" />
+
+            {/* ─── Aurora mesh ─── */}
+            <div className="absolute inset-0 opacity-[0.85]">
+                <div
+                    className="absolute -top-[20%] -left-[10%] h-[70vmax] w-[70vmax] rounded-full blur-[130px] animate-drift"
+                    style={{ background: 'radial-gradient(circle at 30% 30%, rgba(34,211,238,0.20), transparent 62%)' }}
+                />
+                <div
+                    className="absolute top-[10%] right-[-15%] h-[65vmax] w-[65vmax] rounded-full blur-[140px] animate-drift-alt"
+                    style={{ background: 'radial-gradient(circle at 60% 40%, rgba(139,92,246,0.22), transparent 62%)' }}
+                />
+                <div
+                    className="absolute bottom-[-25%] left-[20%] h-[60vmax] w-[60vmax] rounded-full blur-[150px] animate-drift"
+                    style={{
+                        background: 'radial-gradient(circle at 50% 50%, rgba(52,211,153,0.13), transparent 62%)',
+                        animationDelay: '-8s',
+                    }}
+                />
+                <div
+                    className="absolute bottom-[5%] right-[10%] h-[45vmax] w-[45vmax] rounded-full blur-[130px] animate-drift-alt"
+                    style={{
+                        background: 'radial-gradient(circle at 50% 50%, rgba(244,114,182,0.10), transparent 62%)',
+                        animationDelay: '-14s',
+                    }}
+                />
+            </div>
+
+            {/* ─── Masked precision grid ─── */}
+            <div className="absolute inset-0 grid-lines mask-radial opacity-40" />
+
+            {/* ─── Drifting motes ─── */}
+            {motes.map((m, i) => (
+                <span
+                    key={i}
+                    className="absolute rounded-full bg-white animate-float"
+                    style={{
+                        left: m.left,
+                        top: m.top,
+                        width: m.size,
+                        height: m.size,
+                        opacity: m.opacity,
+                        animationDuration: m.duration,
+                        animationDelay: m.delay,
+                    }}
+                />
+            ))}
+
+            {/* ─── Film grain ─── */}
+            <div className="absolute inset-0 noise opacity-[0.035] mix-blend-overlay" />
+
+            {/* ─── Vignette so content always wins the contrast fight ─── */}
+            <div
+                className="absolute inset-0"
+                style={{ background: 'radial-gradient(ellipse 90% 70% at 50% 0%, transparent 40%, rgba(5,6,12,0.75) 100%)' }}
+            />
         </div>
     );
 }

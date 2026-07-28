@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '../components/GlassCard';
+import { SectionHeading } from '../components/SectionHeading';
 import Tilt from 'react-parallax-tilt';
+import { Github, ExternalLink } from 'lucide-react';
 
 const projects = [
     {
@@ -24,7 +26,7 @@ const projects = [
     {
         title: 'Code Blaza Technology-Company Website',
         description: 'Engineered a modern, responsive agency website featuring modular frontend components, prioritizing accessibility and scalable UI architecture.',
-        image: './cbt.jpeg',
+        image: './cbt.png',
         tags: ['React.js', 'Tailwind CSS', 'Frontend'],
         links: { live: '', github: '' },
         color: '#00FF9F',
@@ -50,12 +52,30 @@ const projects = [
         category: 'React.js',
     },
     {
+        title: 'DocPix - PDF and Image Conversion Tool',
+        description: 'A versatile PDF and image conversion tool for seamless document processing and format transformations.',
+        image: './docpix.png',
+        tags: ['Python', 'tkinter'],
+        links: { live: '', github: '' },
+        color: '#f97316',
+        category: 'Python',
+    },
+    {
         title: 'Snake Game-Web Application',
         description: 'A modern recreation of the classic retro snake arcade game, featuring smooth grid-based movement and dynamic score tracking.',
         image: './snake-game.jpeg',
         tags: ['HTML5', 'CSS3', 'JavaScript'],
         links: { live: '', github: '' },
         color: '#00FF9F',
+        category: 'HTML/CSS',
+    },
+    {
+        title: 'Chess Game-Web Application',
+        description: 'A classic chess game built from scratch with full move validation, piece highlighting, and an intuitive drag-and-drop interface for two-player gameplay.',
+        image: './chess.png',
+        tags: ['HTML5', 'CSS3', 'JavaScript'],
+        links: { live: '', github: '' },
+        color: '#7c3aed',
         category: 'HTML/CSS',
     },
     {
@@ -83,102 +103,144 @@ const projects = [
 export function Projects() {
 
     return (
-        <section id="projects" className="relative py-24 z-10">
-            <div className="max-w-7xl mx-auto px-6">
-                {/* Section Title */}
-                <motion.div
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-12"
-                >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 font-['Outfit'] relative inline-block">
-                        Mission <span className="gradient-text">Logs</span>
-                        {/* Animated underline */}
-                        <motion.div
-                            className="absolute -bottom-2 left-0 h-1 bg-primary rounded-full shadow-[0_0_10px_var(--color-primary)]"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: '100%' }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                        />
-                    </h2>
-                </motion.div>
+        <section id="projects" className="relative z-10 py-24 sm:py-32">
+            <div className="mx-auto max-w-7xl px-6">
+                <SectionHeading
+                    eyebrow="Selected Work"
+                    title="Mission"
+                    highlight="Logs"
+                    description="Products, tools and experiments — built end to end, from wireframe to shipped interface."
+                    className="mb-16"
+                />
 
-
-                {/* Project Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* ─── Project grid ─── */}
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     <AnimatePresence mode="popLayout">
-                        {projects.map((project, index) => (
-                            <motion.div
-                                key={project.title}
-                                layout
-                                initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                            >
-                                <Tilt
-                                    tiltMaxAngleX={12}
-                                    tiltMaxAngleY={12}
-                                    glareEnable={true}
-                                    glareMaxOpacity={0.2}
-                                    glareColor="#00d4ff"
-                                    glarePosition="all"
+                        {projects.map((project, index) => {
+                            const hasLinks = Boolean(project.links.github || project.links.live);
+
+                            return (
+                                <motion.article
+                                    key={project.title}
+                                    layout
+                                    initial={{ opacity: 0, y: 44, scale: 0.96 }}
+                                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.96 }}
+                                    viewport={{ once: true, margin: '-60px' }}
+                                    transition={{ duration: 0.65, delay: (index % 3) * 0.09, ease: [0.16, 1, 0.3, 1] }}
                                     className="h-full"
                                 >
-                                    <GlassCard
-                                        glow
-                                        className="h-full p-0 overflow-hidden group hover:-translate-y-2 transition-all duration-500"
-                                        style={{
-                                            borderTop: `2px solid`,
-                                            borderImage: `linear-gradient(90deg, #00d4ff, #7c3aed) 1`,
-                                        }}
+                                    <Tilt
+                                        tiltMaxAngleX={6}
+                                        tiltMaxAngleY={6}
+                                        scale={1.01}
+                                        transitionSpeed={1800}
+                                        glareEnable
+                                        glareMaxOpacity={0.12}
+                                        glareColor="#ffffff"
+                                        glarePosition="all"
+                                        glareBorderRadius="20px"
+                                        className="h-full"
                                     >
-                                        {/* Image with hover overlay */}
-                                        <div className="relative h-52 w-full overflow-hidden">
-                                            <img
-                                                src={project.image}
-                                                alt={project.title}
-                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        <GlassCard glow className="group flex h-full flex-col p-0">
+                                            {/* Aura that matches the project's accent colour */}
+                                            <div
+                                                className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                                                style={{ background: `radial-gradient(120% 70% at 50% 0%, ${project.color}22, transparent 65%)` }}
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#050b18] via-[#050b18]/40 to-transparent pointer-events-none" />
-                                        </div>
 
-                                        {/* Content */}
-                                        <div className="p-6">
-                                            <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors font-['Outfit'] line-clamp-2">
-                                                {project.title}
-                                            </h3>
-                                            <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
-                                                {project.description}
-                                            </p>
+                                            {/* ─── Cover ─── */}
+                                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-card">
+                                                <img
+                                                    src={project.image}
+                                                    alt={project.title}
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                    className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]"
+                                                />
+                                                {/* Scrim so the title always has contrast */}
+                                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080a12] via-[#080a12]/25 to-transparent" />
+                                                <div
+                                                    className="pointer-events-none absolute inset-0 opacity-0 mix-blend-overlay transition-opacity duration-700 group-hover:opacity-100"
+                                                    style={{ background: `linear-gradient(140deg, ${project.color}55, transparent 60%)` }}
+                                                />
 
-                                            {/* Tech tags */}
-                                            <div className="flex flex-wrap gap-2 mb-4">
-                                                {project.tags.map(tag => (
-                                                    <span
-                                                        key={tag}
-                                                        className="text-xs font-semibold px-2.5 py-1 rounded bg-[#050b18] border border-[#00d4ff]/20 text-gray-300 hover:text-primary hover:border-primary/50 hover:shadow-[0_0_10px_rgba(0,212,255,0.2)] transition-all cursor-default"
-                                                    >
-                                                        {tag}
-                                                    </span>
-                                                ))}
+                                                {/* Index chip — opaque so it survives bright screenshots */}
+                                                <span className="badge-over-image absolute left-4 top-4 rounded-pill px-2.5 py-1 font-display text-[0.6875rem] font-bold tracking-[0.1em]">
+                                                    {String(index + 1).padStart(2, '0')}
+                                                </span>
                                             </div>
 
+                                            {/* ─── Body ─── */}
+                                            <div className="flex flex-1 flex-col p-6">
+                                                {/* Category kicker */}
+                                                <span
+                                                    className="mb-2.5 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em]"
+                                                    style={{ color: project.color }}
+                                                >
+                                                    <span
+                                                        className="h-1.5 w-1.5 rounded-full"
+                                                        style={{ background: project.color, boxShadow: `0 0 10px ${project.color}` }}
+                                                    />
+                                                    {project.category}
+                                                </span>
 
-                                        </div>
+                                                <h3 className="line-clamp-2 font-display text-[1.0625rem] font-bold leading-snug tracking-[-0.02em] text-ink transition-colors duration-300 group-hover:text-primary">
+                                                    {project.title}
+                                                </h3>
 
-                                        {/* Hover glow */}
-                                        <div
-                                            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                            style={{ boxShadow: `0 0 30px ${project.color}25` }}
-                                        />
-                                    </GlassCard>
-                                </Tilt>
-                            </motion.div>
-                        ))}
+                                                <p className="mt-2.5 line-clamp-3 text-[0.875rem] leading-relaxed text-muted">
+                                                    {project.description}
+                                                </p>
+
+                                                {/* Tech badges */}
+                                                <ul className="mt-auto flex flex-wrap gap-2 pt-5">
+                                                    {project.tags.map((tag) => (
+                                                        <li
+                                                            key={tag}
+                                                            className="cursor-default rounded-[9px] border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[0.6875rem] font-medium text-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+                                                        >
+                                                            {tag}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+
+                                                {/* Links render only for projects that actually have them —
+                                                    no dead buttons on the ones that don't. */}
+                                                {hasLinks && (
+                                                    <div className="mt-5 flex items-center gap-2 border-t border-white/[0.07] pt-5">
+                                                        {project.links.github && (
+                                                            <a
+                                                                href={project.links.github}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                aria-label={`${project.title} source on GitHub`}
+                                                                className="inline-flex items-center gap-1.5 rounded-btn surface px-3 py-2 text-[0.75rem] font-semibold text-muted transition-all duration-300 hover:-translate-y-0.5 hover:text-ink"
+                                                            >
+                                                                <Github className="h-4 w-4" />
+                                                                Code
+                                                            </a>
+                                                        )}
+                                                        {project.links.live && (
+                                                            <a
+                                                                href={project.links.live}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                aria-label={`${project.title} live demo`}
+                                                                className="inline-flex items-center gap-1.5 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-3 py-2 text-[0.75rem] font-semibold text-[#04121a] transition-all duration-300 hover:-translate-y-0.5"
+                                                            >
+                                                                <ExternalLink className="h-4 w-4" />
+                                                                Live Demo
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </GlassCard>
+                                    </Tilt>
+                                </motion.article>
+                            );
+                        })}
                     </AnimatePresence>
                 </div>
             </div>

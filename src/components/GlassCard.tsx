@@ -1,27 +1,34 @@
 import { cn } from '../lib/utils';
 import { motion, type HTMLMotionProps } from 'framer-motion';
 
-interface GlassCardProps extends HTMLMotionProps<"div"> {
+interface GlassCardProps extends HTMLMotionProps<'div'> {
     children: React.ReactNode;
     className?: string;
+    /** Adds the animated gradient hairline border + lift shadow on hover. */
     glow?: boolean;
 }
 
+/**
+ * The workhorse surface of the site: frosted glass, a 1px specular top edge,
+ * 20px radius and an optional gradient border that fades in on hover.
+ */
 export function GlassCard({ children, className, glow = false, ...props }: GlassCardProps) {
     return (
         <motion.div
             className={cn(
-                "relative overflow-hidden transition-all duration-300",
-                "bg-[rgba(15,23,42,0.85)] backdrop-blur-[20px] border border-[rgba(0,212,255,0.15)] rounded-2xl",
-                glow && "hover:border-primary/50 hover:shadow-[0_0_20px_rgba(0,212,255,0.15)]",
+                'group/card relative isolate overflow-hidden rounded-card surface hairline',
+                'transition-[transform,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                glow && 'border-gradient hover:border-border-strong hover:shadow-e3',
                 className
             )}
             {...props}
         >
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
-            <div className="relative z-10">
-                {children}
-            </div>
+            {/* Interior top-light so the glass reads as a physical pane */}
+            <div
+                className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+                style={{ background: 'radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,0.07), transparent 60%)' }}
+            />
+            {children}
         </motion.div>
     );
 }

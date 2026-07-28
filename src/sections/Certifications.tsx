@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { Variants } from 'framer-motion';
 import { GlassCard } from '../components/GlassCard';
-import { Award, Trophy, Github, Linkedin, ExternalLink, X, Download } from 'lucide-react';
+import { SectionHeading } from '../components/SectionHeading';
+import { Award, Trophy, Github, Linkedin, Maximize2, X, Download } from 'lucide-react';
 
 /* Re-ordered certificates as requested */
 const certificates = [
@@ -220,25 +220,11 @@ const eventCertificates = [
     }
 ];
 
-/* Letter-by-letter title with spring physics */
-const titleText = "Certifications";
-const letterVariants: Variants = {
-    hidden: { opacity: 0, y: -40, rotateX: -90 },
-    visible: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        rotateX: 0,
-        transition: {
-            delay: i * 0.06,
-            type: 'spring',
-            stiffness: 200,
-            damping: 12,
-        },
-    }),
-};
+const tabs = ['Course Certifications', 'Event Certifications'] as const;
+type Tab = (typeof tabs)[number];
 
 export function Certifications() {
-    const [activeTab, setActiveTab] = useState<'Course Certifications' | 'Event Certifications'>('Course Certifications');
+    const [activeTab, setActiveTab] = useState<Tab>('Course Certifications');
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     // Lock background scroll when the image modal is open
@@ -253,172 +239,185 @@ export function Certifications() {
         };
     }, [selectedImage]);
 
-    // Generate stable star positions on mount lazily
-    const [stars] = useState(() =>
-        Array.from({ length: 50 }).map(() => ({
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            duration: `${2 + Math.random() * 3}s`,
-            delay: `${Math.random() * 3}s`,
-        }))
+    // Close the lightbox on Escape
+    useEffect(() => {
+        if (!selectedImage) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setSelectedImage(null);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [selectedImage]);
+
+    const list = activeTab === 'Course Certifications' ? certificates : eventCertificates;
+
+    const counts = useMemo(
+        () => ({
+            'Course Certifications': certificates.length,
+            'Event Certifications': eventCertificates.length,
+        }),
+        []
     );
 
     return (
-        <section id="certifications" className="relative py-24 z-10 min-h-screen">
-            {/* Star particle effect */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {stars.map((star, i) => (
-                    <div
-                        key={i}
-                        className="absolute w-1 h-1 rounded-full bg-white/30"
-                        style={{
-                            top: star.top,
-                            left: star.left,
-                            animation: `pulse-glow ${star.duration} ease-in-out infinite`,
-                            animationDelay: star.delay,
-                        }}
-                    />
-                ))}
-            </div>
+        <section id="certifications" className="relative z-10 py-24 sm:py-32">
+            {/* Soft spotlight */}
+            <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-[40rem]"
+                style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139,92,246,0.10), transparent 70%)' }}
+            />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                {/* Dramatic letter-by-letter title */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 font-['Outfit'] inline-flex">
-                        {titleText.split('').map((char, i) => (
-                            <motion.span
-                                key={i}
-                                custom={i}
-                                variants={letterVariants}
-                                className={i < 7 ? 'text-white' : 'gradient-text'}
-                                style={{ display: 'inline-block' }}
-                            >
-                                {char}
-                            </motion.span>
-                        ))}
-                    </h2>
-                    <div className="w-24 h-1 bg-primary mx-auto rounded-full shadow-[0_0_10px_var(--color-primary)]" />
-                </motion.div>
+            <div className="relative z-10 mx-auto max-w-7xl px-6">
+                <SectionHeading
+                    eyebrow="Credentials"
+                    title="Certifications &"
+                    highlight="Awards"
+                    description="Courses completed and events competed in — every certificate is viewable and downloadable."
+                    className="mb-12"
+                />
 
-                {/* Tabs */}
-                <div className="flex flex-wrap justify-center gap-4 mb-12">
-                    {(['Course Certifications', 'Event Certifications'] as const).map((tab) => (
-                        <button
-                            key={tab}
-                            onClick={() => setActiveTab(tab)}
-                            className={`px-6 py-2.5 rounded-full font-['Outfit'] font-bold transition-all duration-300 ${activeTab === tab
-                                ? 'bg-primary text-white shadow-[0_0_15px_var(--color-primary)] scale-105'
-                                : 'bg-white/5 text-gray-400 border border-white/10 hover:text-white hover:bg-white/10'
-                                }`}
-                        >
-                            {tab}
-                        </button>
-                    ))}
-                </div>
-
-                {/* 4-column card grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                    {(activeTab === 'Course Certifications' ? certificates : eventCertificates).map((cert, index) => (
-                        <motion.div
-                            key={cert.title + activeTab}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.15 }}
-                        >
-                            <GlassCard
-                                glow
-                                className="h-full group hover:-translate-y-2 hover:border-primary/40 transition-all duration-500 relative overflow-hidden flex flex-col cursor-pointer"
-                            >
-                                {/* Diagonal shimmer sweep */}
-                                <div
-                                    className="absolute inset-0 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                    style={{
-                                        background: 'linear-gradient(135deg, transparent 30%, rgba(0,212,255,0.08) 50%, transparent 70%)',
-                                        backgroundSize: '200% 200%',
-                                        animation: 'shimmer 3s ease-in-out infinite',
-                                    }}
-                                />
-
-                                {/* Certificate Image Header - Click to view full image */}
-                                <div
-                                    className="relative h-48 w-full overflow-hidden border-b border-white/5"
-                                    onClick={() => setSelectedImage(cert.image)}
+                {/* ─── Segmented tabs ─── */}
+                <div className="mb-12 flex justify-center">
+                    <div role="tablist" aria-label="Certificate categories" className="inline-flex gap-1 rounded-pill surface p-1.5">
+                        {tabs.map((tab) => {
+                            const isActive = activeTab === tab;
+                            return (
+                                <button
+                                    key={tab}
+                                    role="tab"
+                                    aria-selected={isActive}
+                                    onClick={() => setActiveTab(tab)}
+                                    className={`relative rounded-pill px-4 py-2.5 text-[0.8125rem] font-semibold transition-colors duration-300 sm:px-6 ${isActive ? 'text-[#04121a]' : 'text-muted hover:text-ink'
+                                        }`}
                                 >
-                                    <img
-                                        src={cert.image}
-                                        alt={cert.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
-                                    {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#050b18] via-transparent to-transparent pointer-events-none" />
-
-                                    {/* Year badge over image */}
-                                    <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full z-20 pointer-events-none">
-                                        <span className="text-xs font-bold text-white tracking-wider">{cert.date}</span>
-                                    </div>
-
-                                    {/* Hover zoom overlay indicator */}
-                                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 backdrop-blur-[2px] pointer-events-none">
-                                        <ExternalLink className="w-8 h-8 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]" />
-                                    </div>
-                                </div>
-
-                                {/* Content Body */}
-                                <div className="p-5 flex-1 flex flex-col relative z-20 bg-[#050b18]/40" onClick={() => setSelectedImage(cert.image)}>
-                                    {/* Trophy Icon overriding the image cut */}
-                                    <div className="absolute -top-8 left-5">
-                                        <div
-                                            className="w-12 h-12 rounded-xl bg-[#0a1628] border border-[rgba(0,212,255,0.2)] flex items-center justify-center group-hover:animate-pulse transition-all shadow-xl"
-                                            style={{ boxShadow: `0 0 20px ${cert.gradeColor}30` }}
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="cert-tab"
+                                            transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                                            className="absolute inset-0 rounded-pill bg-gradient-to-b from-primary-soft to-primary shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_8px_24px_-10px_rgba(34,211,238,0.9)]"
+                                        />
+                                    )}
+                                    <span className="relative z-10 inline-flex items-center gap-2">
+                                        {tab}
+                                        <span
+                                            className={`rounded-pill px-1.5 py-0.5 text-[0.625rem] font-bold ${isActive ? 'bg-black/15 text-[#04121a]' : 'bg-white/[0.07] text-faint'
+                                                }`}
                                         >
-                                            {cert.grade === 'A+ Grade'
-                                                ? <Trophy className="w-6 h-6" style={{ color: cert.gradeColor, filter: `drop-shadow(0 0 5px ${cert.gradeColor})` }} />
-                                                : <Award className="w-6 h-6" style={{ color: cert.gradeColor, filter: `drop-shadow(0 0 5px ${cert.gradeColor})` }} />
-                                            }
-                                        </div>
-                                    </div>
-
-                                    {/* Push text down because of the floating icon */}
-                                    <div className="pt-6 flex-1 flex flex-col pointer-events-none">
-                                        <h3 className="text-base md:text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors font-['Outfit'] line-clamp-2">
-                                            {cert.title}
-                                        </h3>
-                                        <p className="text-gray-400 text-xs md:text-sm mb-4 flex-1">{cert.issuer}</p>
-
-                                        {/* Grade removed as requested */}
-                                    </div>
-                                </div>
-                            </GlassCard>
-                        </motion.div>
-                    ))}
+                                            {counts[tab]}
+                                        </span>
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
 
-                {/* Social Links */}
+                {/* ─── Certificate grid ─── */}
+                <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    <AnimatePresence mode="popLayout">
+                        {list.map((cert, index) => (
+                            <motion.div
+                                key={cert.title + cert.image}
+                                layout
+                                initial={{ opacity: 0, y: 26, scale: 0.96 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.96 }}
+                                transition={{ duration: 0.5, delay: Math.min(index, 8) * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                                <GlassCard glow className="group h-full p-0">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedImage(cert.image)}
+                                        aria-label={`View ${cert.title} certificate full screen`}
+                                        className="flex h-full w-full flex-col text-left transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1.5"
+                                    >
+                                        {/* Preview */}
+                                        <div className="relative aspect-[16/11] w-full overflow-hidden rounded-t-card">
+                                            <img
+                                                src={cert.image}
+                                                alt={cert.title}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.09]"
+                                            />
+                                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080a12] via-transparent to-transparent" />
+
+                                            {/* Year — opaque so it reads over pale certificate scans */}
+                                            <span className="badge-over-image pointer-events-none absolute right-3 top-3 rounded-pill px-2.5 py-1 text-[0.6875rem] font-bold tracking-wide">
+                                                {cert.date}
+                                            </span>
+
+                                            {/* Zoom affordance */}
+                                            <span className="pointer-events-none absolute inset-0 grid place-items-center bg-background/45 opacity-0 backdrop-blur-[2px] transition-opacity duration-400 group-hover:opacity-100">
+                                                <span className="grid h-11 w-11 place-items-center rounded-full surface-strong">
+                                                    <Maximize2 className="h-4.5 w-4.5 text-ink" />
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        {/* Body */}
+                                        <div className="relative flex flex-1 flex-col p-5 pt-8">
+                                            {/* Floating award tile straddling the image edge */}
+                                            <span
+                                                className="absolute -top-6 left-5 grid h-12 w-12 place-items-center rounded-[15px] surface-strong transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-105"
+                                                style={{ boxShadow: `0 12px 30px -12px ${cert.gradeColor}90, inset 0 0 0 1px ${cert.gradeColor}33` }}
+                                            >
+                                                {cert.grade === 'A+ Grade' ? (
+                                                    <Trophy className="h-5 w-5" style={{ color: cert.gradeColor }} />
+                                                ) : (
+                                                    <Award className="h-5 w-5" style={{ color: cert.gradeColor }} />
+                                                )}
+                                            </span>
+
+                                            <h3 className="line-clamp-2 font-display text-[0.9375rem] font-bold leading-snug tracking-[-0.015em] text-ink transition-colors duration-300 group-hover:text-primary">
+                                                {cert.title}
+                                            </h3>
+                                            <p className="mt-2 line-clamp-2 flex-1 text-[0.8125rem] leading-relaxed text-muted">
+                                                {cert.issuer}
+                                            </p>
+
+                                            <span className="mt-4 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-faint transition-colors duration-300 group-hover:text-primary">
+                                                View certificate
+                                                <Maximize2 className="h-3 w-3" />
+                                            </span>
+                                        </div>
+                                    </button>
+                                </GlassCard>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
+
+                {/* ─── Social links ─── */}
                 <motion.div
-                    className="flex justify-center gap-4 mt-8"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
+                    className="mt-16 flex justify-center gap-3"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.5 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                    <a href="https://github.com/praburofficial" target="_blank" rel="noopener noreferrer"
-                        className="p-3 bg-white/5 rounded-full border border-white/10 text-gray-400 hover:text-primary hover:border-primary/50 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(0,212,255,0.4)]">
-                        <Github className="w-5 h-5" />
+                    <a
+                        href="https://github.com/praburofficial"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub profile"
+                        className="grid h-12 w-12 place-items-center rounded-btn surface text-muted transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:text-primary"
+                    >
+                        <Github className="h-5 w-5" />
                     </a>
-                    <a href="https://www.linkedin.com/in/prabu-r12092005" target="_blank" rel="noopener noreferrer"
-                        className="p-3 bg-white/5 rounded-full border border-white/10 text-gray-400 hover:text-secondary hover:border-secondary/50 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(124,58,237,0.4)]">
-                        <Linkedin className="w-5 h-5" />
+                    <a
+                        href="https://www.linkedin.com/in/prabu-r12092005"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn profile"
+                        className="grid h-12 w-12 place-items-center rounded-btn surface text-muted transition-all duration-300 hover:-translate-y-1 hover:border-secondary/45 hover:text-secondary-soft"
+                    >
+                        <Linkedin className="h-5 w-5" />
                     </a>
                 </motion.div>
             </div>
 
-            {/* Full Screen Image Modal Portaled */}
+            {/* ─── Lightbox ─── */}
             {createPortal(
                 <AnimatePresence>
                     {selectedImage && (
@@ -427,41 +426,42 @@ export function Certifications() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedImage(null)}
-                            className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 cursor-zoom-out"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-label="Certificate preview"
+                            className="fixed inset-0 z-[9999] flex cursor-zoom-out items-center justify-center bg-background/92 p-4 backdrop-blur-2xl sm:p-8"
                             data-lenis-prevent="true"
                         >
-                            {/* Action Buttons Container */}
-                            <div className="absolute top-6 right-6 flex items-center gap-4 z-50">
-                                {/* Download Button */}
+                            <div className="absolute right-5 top-5 z-50 flex items-center gap-2 sm:right-8 sm:top-8">
                                 <a
                                     href={selectedImage}
                                     download={selectedImage.split('/').pop() || 'certificate'}
-                                    className="p-3 bg-primary/20 backdrop-blur-sm rounded-full hover:bg-primary/40 hover:scale-110 transition-all group flex items-center justify-center border border-primary/30 shadow-[0_0_15px_rgba(0,212,255,0.3)]"
+                                    className="grid h-12 w-12 place-items-center rounded-btn surface-strong text-primary transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
                                     onClick={(e) => e.stopPropagation()}
                                     title="Download Certificate"
+                                    aria-label="Download certificate"
                                 >
-                                    <Download className="w-6 h-6 text-primary" />
+                                    <Download className="h-5 w-5" />
                                 </a>
-
-                                {/* Enhanced Close / "Wrong" Button */}
                                 <button
-                                    className="p-3 bg-red-500/80 rounded-full hover:bg-red-500 hover:scale-110 transition-all group flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.5)]"
+                                    className="grid h-12 w-12 place-items-center rounded-btn surface-strong text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-hotpink/50 hover:text-hotpink"
                                     onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
                                     title="Close"
+                                    aria-label="Close preview"
                                 >
-                                    <X className="w-6 h-6 text-white" />
+                                    <X className="h-5 w-5" />
                                 </button>
                             </div>
 
                             <motion.img
-                                initial={{ scale: 0.8, y: 20 }}
-                                animate={{ scale: 1, y: 0 }}
-                                exit={{ scale: 0.8, y: 20 }}
-                                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                                initial={{ scale: 0.92, y: 18, opacity: 0 }}
+                                animate={{ scale: 1, y: 0, opacity: 1 }}
+                                exit={{ scale: 0.92, y: 18, opacity: 0 }}
+                                transition={{ type: 'spring', damping: 26, stiffness: 300 }}
                                 src={selectedImage}
                                 alt="Full Screen Certificate"
-                                className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-[0_0_40px_rgba(0,212,255,0.3)] border border-primary/20"
-                                onClick={(e) => e.stopPropagation()} // Prevent click from closing when clicking image itself
+                                className="max-h-[88vh] max-w-full cursor-default rounded-panel object-contain shadow-e3 ring-1 ring-white/10"
+                                onClick={(e) => e.stopPropagation()}
                             />
                         </motion.div>
                     )}
