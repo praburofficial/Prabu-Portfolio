@@ -46,9 +46,9 @@ export function SectionHeading({
             <motion.span
                 custom={0}
                 variants={rise}
-                className="inline-flex items-center gap-2 rounded-pill surface px-3.5 py-1.5"
+                className="inline-flex items-center gap-2 rounded-pill border border-border bg-surface px-3.5 py-1.5"
             >
-                <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_var(--color-primary)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_0_3px_rgba(37,99,235,0.14)]" />
                 <span className="eyebrow text-muted">{eyebrow}</span>
             </motion.span>
 
@@ -56,7 +56,7 @@ export function SectionHeading({
             <motion.h2
                 custom={1}
                 variants={rise}
-                className="mt-6 text-[clamp(2rem,5vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.03em]"
+                className="mt-5 text-[clamp(1.875rem,4.6vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.035em] sm:mt-6"
             >
                 <span className="text-gradient">{title}</span>
                 {highlight && <> <span className="text-gradient-brand">{highlight}</span></>}
@@ -67,7 +67,7 @@ export function SectionHeading({
                     custom={2}
                     variants={rise}
                     className={cn(
-                        'mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg',
+                        'mt-4 max-w-[60ch] text-[0.9375rem] leading-relaxed text-muted sm:mt-5 sm:text-lg',
                         align === 'center' && 'mx-auto'
                     )}
                 >
@@ -79,12 +79,12 @@ export function SectionHeading({
             <motion.div
                 custom={3}
                 variants={rise}
-                className={cn('mt-8 h-px w-full max-w-[420px]', align === 'left' && 'max-w-[220px]')}
+                className={cn('mt-7 h-px w-full max-w-[420px] sm:mt-8', align === 'left' && 'max-w-[220px]')}
                 style={{
                     background:
                         align === 'center'
-                            ? 'linear-gradient(90deg, transparent, rgba(34,211,238,0.55), rgba(139,92,246,0.45), transparent)'
-                            : 'linear-gradient(90deg, rgba(34,211,238,0.6), transparent)',
+                            ? 'linear-gradient(90deg, transparent, rgba(37,99,235,0.45), rgba(124,58,237,0.35), transparent)'
+                            : 'linear-gradient(90deg, rgba(37,99,235,0.55), transparent)',
                 }}
             />
         </motion.div>

@@ -5,27 +5,27 @@ export function CircuitComputerIcon() {
         <div className="relative w-40 h-40 flex items-center justify-center">
             {/* The Computer Monitor core */}
             <motion.div
-                className="absolute z-10 w-28 h-20 border-[2px] border-primary rounded-md bg-background flex flex-col justify-between p-1 shadow-[0_0_25px_rgba(0,245,255,0.4)] backdrop-blur-md"
+                className="absolute z-10 w-28 h-20 border-[2px] border-primary/70 rounded-md bg-white flex flex-col justify-between p-1 shadow-[0_10px_28px_-12px_rgba(37,99,235,0.55)]"
             >
                 {/* Screen content animation */}
-                <div className="w-full h-[60px] bg-[#0A0A12] rounded border border-primary/30 relative overflow-hidden">
+                <div className="w-full h-[60px] bg-slate-50 rounded border border-primary/25 relative overflow-hidden">
                     {/* Scanning line */}
                     <motion.div
                         animate={{ y: ['-100%', '300%'] }}
                         transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
-                        className="absolute top-0 left-0 w-full h-[2px] bg-primary shadow-[0_0_10px_var(--color-primary)]"
+                        className="absolute top-0 left-0 w-full h-[2px] bg-primary/70"
                     />
                     {/* Code blocks abstract */}
-                    <div className="absolute top-2 left-2 flex flex-col gap-1.5 opacity-80">
+                    <div className="absolute top-2 left-2 flex flex-col gap-1.5 opacity-90">
                         <div className="w-12 h-1 bg-secondary rounded animate-pulse" />
                         <div className="w-20 h-1 bg-primary rounded animate-pulse" style={{ animationDelay: '0.2s' }} />
                         <div className="w-10 h-1 bg-accent rounded animate-pulse" style={{ animationDelay: '0.4s' }} />
-                        <div className="w-14 h-1 bg-secondary rounded animate-pulse" style={{ animationDelay: '0.6s' }} />
+                        <div className="w-14 h-1 bg-violet rounded animate-pulse" style={{ animationDelay: '0.6s' }} />
                     </div>
                 </div>
                 {/* Stand */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-4 bg-primary/30 rounded-t-sm border border-b-0 border-primary" />
-                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-primary rounded-full shadow-[0_0_15px_var(--color-primary)]" />
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-4 bg-primary/15 rounded-t-sm border border-b-0 border-primary/60" />
+                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-primary rounded-full" />
             </motion.div>
 
             {/* SVG Circuits moving outwards */}

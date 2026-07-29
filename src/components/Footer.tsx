@@ -32,28 +32,28 @@ export function Footer() {
     };
 
     return (
-        <footer className="relative z-10 mt-8 overflow-hidden border-t border-white/[0.07]">
+        <footer className="relative z-10 mt-8 overflow-hidden border-t border-border bg-surface/60">
             {/* Top hairline glow */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
             <div
                 className="pointer-events-none absolute inset-x-0 top-0 h-64"
-                style={{ background: 'radial-gradient(ellipse 50% 100% at 50% 0%, rgba(34,211,238,0.07), transparent 70%)' }}
+                style={{ background: 'radial-gradient(ellipse 50% 100% at 50% 0%, rgba(37,99,235,0.06), transparent 70%)' }}
             />
 
-            <div className="relative mx-auto max-w-7xl px-6 py-16">
-                <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
+            <div className="shell relative py-12 sm:py-16">
+                <div className="grid gap-10 sm:grid-cols-2 sm:gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
 
                     {/* ─── Brand ─── */}
-                    <div>
+                    <div className="sm:col-span-2 lg:col-span-1">
                         <a
                             href="/#home"
                             onClick={(e) => handleNavClick(e, '/#home')}
                             className="group inline-flex items-center gap-3"
                         >
-                            <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-[14px] surface-strong">
+                            <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-[14px] shadow-[0_6px_18px_-8px_rgba(37,99,235,0.7)]">
                                 <span
-                                    className="absolute inset-0 opacity-80 transition-opacity duration-500 group-hover:opacity-100"
-                                    style={{ background: 'linear-gradient(140deg, rgba(34,211,238,0.35), rgba(139,92,246,0.28))' }}
+                                    className="absolute inset-0 transition-transform duration-500 group-hover:scale-110"
+                                    style={{ background: 'linear-gradient(140deg, #3b82f6, #4f46e5 55%, #7c3aed)' }}
                                 />
                                 <span className="relative font-display text-[15px] font-extrabold tracking-tight text-white">PR</span>
                             </span>
@@ -63,7 +63,8 @@ export function Footer() {
                         </a>
 
                         <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">
-                            Frontend Developer &amp; UI/UX Designer building clean, responsive interfaces with React.js and Tailwind CSS.
+                            Full Stack Developer &amp; UI/UX Designer building clean, responsive products with React.js,
+                            Tailwind CSS, Python and FastAPI.
                         </p>
 
                         <div className="mt-6 flex gap-2.5">
@@ -74,7 +75,7 @@ export function Footer() {
                                     target={social.href.startsWith('http') ? '_blank' : undefined}
                                     rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                                     aria-label={social.name}
-                                    className="grid h-11 w-11 place-items-center rounded-btn surface text-muted transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:text-primary"
+                                    className="grid h-11 w-11 place-items-center rounded-btn border border-border bg-white text-muted shadow-e1 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:text-primary"
                                 >
                                     <social.icon className="h-[18px] w-[18px]" />
                                 </a>
@@ -106,7 +107,7 @@ export function Footer() {
                         <p className="eyebrow">Get in touch</p>
                         <ul className="mt-5 space-y-3 text-sm">
                             <li>
-                                <a href="mailto:prabur2k5@gmail.com" className="text-muted transition-colors hover:text-primary">
+                                <a href="mailto:prabur2k5@gmail.com" className="break-all text-muted transition-colors hover:text-primary">
                                     prabur2k5@gmail.com
                                 </a>
                             </li>
@@ -121,7 +122,7 @@ export function Footer() {
                         <a
                             href="/#contact"
                             onClick={(e) => handleNavClick(e, '/#contact')}
-                            className="mt-6 inline-flex items-center gap-2 rounded-btn surface px-4 py-2.5 text-[0.8125rem] font-semibold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/45 hover:text-primary"
+                            className="mt-6 inline-flex items-center gap-2 rounded-btn border border-border bg-white px-4 py-2.5 text-[0.8125rem] font-semibold text-ink shadow-e1 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
                         >
                             Start a conversation
                         </a>
@@ -129,15 +130,15 @@ export function Footer() {
                 </div>
 
                 {/* ─── Bottom bar ─── */}
-                <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.07] pt-8 sm:flex-row">
-                    <p className="text-sm text-faint">
+                <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-7 sm:mt-14 sm:flex-row sm:pt-8">
+                    <p className="text-center text-sm text-faint sm:text-left">
                         © {new Date().getFullYear()} PRABU. All rights reserved.
                     </p>
 
                     <button
                         type="button"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="group inline-flex items-center gap-2 rounded-pill surface px-4 py-2 text-[0.8125rem] font-medium text-muted transition-all duration-300 hover:border-primary/45 hover:text-primary"
+                        className="group inline-flex items-center gap-2 rounded-pill border border-border bg-white px-4 py-2 text-[0.8125rem] font-medium text-muted shadow-e1 transition-all duration-300 hover:border-primary/40 hover:text-primary"
                     >
                         Back to top
                         <ArrowUp className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5" />

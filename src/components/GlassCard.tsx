@@ -9,24 +9,25 @@ interface GlassCardProps extends HTMLMotionProps<'div'> {
 }
 
 /**
- * The workhorse surface of the site: frosted glass, a 1px specular top edge,
- * 20px radius and an optional gradient border that fades in on hover.
+ * The workhorse surface of the site: a crisp white pane on a soft neutral
+ * ground, a 1px tinted top edge, an 18px radius and an optional gradient
+ * border that fades in on hover.
  */
 export function GlassCard({ children, className, glow = false, ...props }: GlassCardProps) {
     return (
         <motion.div
             className={cn(
-                'group/card relative isolate overflow-hidden rounded-card surface hairline',
+                'group/card relative isolate overflow-hidden rounded-card surface-soft hairline',
                 'transition-[transform,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
                 glow && 'border-gradient hover:border-border-strong hover:shadow-e3',
                 className
             )}
             {...props}
         >
-            {/* Interior top-light so the glass reads as a physical pane */}
+            {/* Interior top-light so the pane reads as a physical surface */}
             <div
-                className="pointer-events-none absolute inset-0 -z-10 opacity-60"
-                style={{ background: 'radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,0.07), transparent 60%)' }}
+                className="pointer-events-none absolute inset-0 -z-10 opacity-70"
+                style={{ background: 'radial-gradient(120% 80% at 50% -10%, rgba(37,99,235,0.05), transparent 62%)' }}
             />
             {children}
         </motion.div>

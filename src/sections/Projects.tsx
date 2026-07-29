@@ -3,6 +3,7 @@ import { GlassCard } from '../components/GlassCard';
 import { SectionHeading } from '../components/SectionHeading';
 import Tilt from 'react-parallax-tilt';
 import { Github, ExternalLink } from 'lucide-react';
+import { toneStyle } from '../lib/palette';
 
 const projects = [
     {
@@ -103,21 +104,22 @@ const projects = [
 export function Projects() {
 
     return (
-        <section id="projects" className="relative z-10 py-24 sm:py-32">
-            <div className="mx-auto max-w-7xl px-6">
+        <section id="projects" className="section-y relative z-10">
+            <div className="shell">
                 <SectionHeading
                     eyebrow="Selected Work"
                     title="Mission"
                     highlight="Logs"
                     description="Products, tools and experiments — built end to end, from wireframe to shipped interface."
-                    className="mb-16"
+                    className="mb-12 sm:mb-16"
                 />
 
                 {/* ─── Project grid ─── */}
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                     <AnimatePresence mode="popLayout">
                         {projects.map((project, index) => {
                             const hasLinks = Boolean(project.links.github || project.links.live);
+                            const t = toneStyle(project.color);
 
                             return (
                                 <motion.article
@@ -131,61 +133,64 @@ export function Projects() {
                                     className="h-full"
                                 >
                                     <Tilt
-                                        tiltMaxAngleX={6}
-                                        tiltMaxAngleY={6}
+                                        tiltMaxAngleX={5}
+                                        tiltMaxAngleY={5}
                                         scale={1.01}
                                         transitionSpeed={1800}
                                         glareEnable
-                                        glareMaxOpacity={0.12}
+                                        glareMaxOpacity={0.08}
                                         glareColor="#ffffff"
                                         glarePosition="all"
-                                        glareBorderRadius="20px"
+                                        glareBorderRadius="18px"
+                                        tiltEnable={typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches}
                                         className="h-full"
                                     >
-                                        <GlassCard glow className="group flex h-full flex-col p-0">
+                                        <GlassCard glow className="group flex h-full flex-col p-0 hover:shadow-e3">
                                             {/* Aura that matches the project's accent colour */}
                                             <div
                                                 className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-                                                style={{ background: `radial-gradient(120% 70% at 50% 0%, ${project.color}22, transparent 65%)` }}
+                                                style={{ background: `radial-gradient(120% 70% at 50% 0%, ${t.fg}14, transparent 65%)` }}
                                             />
 
                                             {/* ─── Cover ─── */}
-                                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-card">
+                                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-card bg-surface-2">
                                                 <img
                                                     src={project.image}
                                                     alt={project.title}
                                                     loading="lazy"
                                                     decoding="async"
-                                                    className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]"
+                                                    className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
                                                 />
-                                                {/* Scrim so the title always has contrast */}
-                                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080a12] via-[#080a12]/25 to-transparent" />
+                                                {/* Gentle bottom scrim keeps the chip legible on busy screenshots */}
+                                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/25 via-transparent to-transparent" />
                                                 <div
-                                                    className="pointer-events-none absolute inset-0 opacity-0 mix-blend-overlay transition-opacity duration-700 group-hover:opacity-100"
-                                                    style={{ background: `linear-gradient(140deg, ${project.color}55, transparent 60%)` }}
+                                                    className="pointer-events-none absolute inset-0 opacity-0 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-100"
+                                                    style={{ background: `linear-gradient(140deg, ${t.fg}18, transparent 60%)` }}
                                                 />
+                                                {/* Hairline so the image sits inside the card, not on top of it */}
+                                                <div className="pointer-events-none absolute inset-0 rounded-t-card ring-1 ring-inset ring-slate-900/[0.06]" />
 
-                                                {/* Index chip — opaque so it survives bright screenshots */}
+                                                {/* Index chip */}
                                                 <span className="badge-over-image absolute left-4 top-4 rounded-pill px-2.5 py-1 font-display text-[0.6875rem] font-bold tracking-[0.1em]">
                                                     {String(index + 1).padStart(2, '0')}
                                                 </span>
                                             </div>
 
                                             {/* ─── Body ─── */}
-                                            <div className="flex flex-1 flex-col p-6">
+                                            <div className="flex flex-1 flex-col p-5 sm:p-6">
                                                 {/* Category kicker */}
                                                 <span
                                                     className="mb-2.5 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.12em]"
-                                                    style={{ color: project.color }}
+                                                    style={{ color: t.fg }}
                                                 >
                                                     <span
                                                         className="h-1.5 w-1.5 rounded-full"
-                                                        style={{ background: project.color, boxShadow: `0 0 10px ${project.color}` }}
+                                                        style={{ background: t.fg, boxShadow: `0 0 0 3px ${t.bg}` }}
                                                     />
                                                     {project.category}
                                                 </span>
 
-                                                <h3 className="line-clamp-2 font-display text-[1.0625rem] font-bold leading-snug tracking-[-0.02em] text-ink transition-colors duration-300 group-hover:text-primary">
+                                                <h3 className="line-clamp-2 font-display text-[1rem] font-bold leading-snug tracking-[-0.02em] text-ink transition-colors duration-300 group-hover:text-primary sm:text-[1.0625rem]">
                                                     {project.title}
                                                 </h3>
 
@@ -198,7 +203,7 @@ export function Projects() {
                                                     {project.tags.map((tag) => (
                                                         <li
                                                             key={tag}
-                                                            className="cursor-default rounded-[9px] border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[0.6875rem] font-medium text-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+                                                            className="cursor-default rounded-[9px] border border-border bg-surface px-2.5 py-1 text-[0.6875rem] font-medium text-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary-tint hover:text-primary"
                                                         >
                                                             {tag}
                                                         </li>
@@ -208,14 +213,14 @@ export function Projects() {
                                                 {/* Links render only for projects that actually have them —
                                                     no dead buttons on the ones that don't. */}
                                                 {hasLinks && (
-                                                    <div className="mt-5 flex items-center gap-2 border-t border-white/[0.07] pt-5">
+                                                    <div className="mt-5 flex items-center gap-2 border-t border-border pt-5">
                                                         {project.links.github && (
                                                             <a
                                                                 href={project.links.github}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
                                                                 aria-label={`${project.title} source on GitHub`}
-                                                                className="inline-flex items-center gap-1.5 rounded-btn surface px-3 py-2 text-[0.75rem] font-semibold text-muted transition-all duration-300 hover:-translate-y-0.5 hover:text-ink"
+                                                                className="inline-flex items-center gap-1.5 rounded-btn border border-border bg-white px-3 py-2 text-[0.75rem] font-semibold text-muted shadow-e1 transition-all duration-300 hover:-translate-y-0.5 hover:border-border-strong hover:text-ink"
                                                             >
                                                                 <Github className="h-4 w-4" />
                                                                 Code
@@ -227,7 +232,7 @@ export function Projects() {
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
                                                                 aria-label={`${project.title} live demo`}
-                                                                className="inline-flex items-center gap-1.5 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-3 py-2 text-[0.75rem] font-semibold text-[#04121a] transition-all duration-300 hover:-translate-y-0.5"
+                                                                className="inline-flex items-center gap-1.5 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-3 py-2 text-[0.75rem] font-semibold text-white shadow-[0_8px_20px_-10px_rgba(37,99,235,0.8)] transition-all duration-300 hover:-translate-y-0.5"
                                                             >
                                                                 <ExternalLink className="h-4 w-4" />
                                                                 Live Demo

@@ -84,33 +84,36 @@ export function Header() {
         <header className="fixed inset-x-0 top-0 z-50">
             {/* Reading-progress hairline */}
             <motion.div
-                className="absolute inset-x-0 top-0 h-[2px] origin-left"
+                className="absolute inset-x-0 top-0 z-10 h-[2px] origin-left"
                 style={{
                     scaleX: progress,
-                    background: 'linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-hotpink))',
+                    background: 'linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-violet))',
                 }}
             />
 
             <div
                 className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
-                    ? 'border-b border-white/[0.07] bg-background/60 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.9)]'
+                    ? 'border-b border-border bg-white/75 backdrop-blur-xl backdrop-saturate-150 shadow-[0_4px_24px_-16px_rgba(15,23,42,0.35)]'
                     : 'border-b border-transparent bg-transparent'
                     }`}
             >
-                <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-6">
+                <div className="shell flex h-16 items-center justify-between gap-4 sm:h-20 sm:gap-6">
                     {/* ─── Wordmark ─── */}
                     <a
                         href="/#home"
                         onClick={(e) => handleNavClick(e, '/#home')}
-                        className="group flex shrink-0 items-center gap-3"
+                        className="group flex shrink-0 items-center gap-2.5 sm:gap-3"
                         aria-label="Prabu — back to top"
                     >
-                        <span className="relative grid h-10 w-10 place-items-center rounded-[13px] surface-strong overflow-hidden">
-                            <span
-                                className="absolute inset-0 opacity-80 transition-opacity duration-500 group-hover:opacity-100"
-                                style={{ background: 'linear-gradient(140deg, rgba(34,211,238,0.35), rgba(139,92,246,0.28))' }}
+                        <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-[11px] bg-surface-2 shadow-[0_6px_18px_-8px_rgba(37,99,235,0.55)] ring-1 ring-slate-900/[0.07] sm:h-10 sm:w-10 sm:rounded-[13px]">
+                            <img
+                                src="/profile.jpg"
+                                alt=""
+                                width={80}
+                                height={80}
+                                decoding="async"
+                                className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
                             />
-                            <span className="relative font-display text-[15px] font-extrabold tracking-tight text-white">PR</span>
                         </span>
                         <span className="hidden font-display text-lg font-bold tracking-[-0.02em] text-ink sm:block">
                             Prabu<span className="text-primary">.</span>
@@ -120,7 +123,7 @@ export function Header() {
                     {/* ─── Desktop pill nav ─── */}
                     <nav
                         aria-label="Primary"
-                        className="hidden items-center gap-1 rounded-pill surface px-2 py-1.5 lg:flex"
+                        className="hidden items-center gap-0.5 rounded-pill border border-border bg-white/70 p-1.5 shadow-e1 backdrop-blur-xl lg:flex xl:gap-1"
                     >
                         {navLinks.map((link) => {
                             const isActive = isLinkActive(link);
@@ -130,14 +133,14 @@ export function Header() {
                                         <motion.span
                                             layoutId="nav-pill"
                                             transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                                            className="absolute inset-0 rounded-pill bg-white/[0.09] shadow-[0_0_0_1px_rgba(255,255,255,0.09),0_4px_14px_-6px_rgba(34,211,238,0.55)]"
+                                            className="absolute inset-0 rounded-pill bg-surface-2 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.05)]"
                                         />
                                     )}
                                     <span className="relative z-10">{link.name}</span>
                                 </>
                             );
 
-                            const cls = `relative rounded-pill px-3.5 py-2 text-[0.8125rem] font-medium transition-colors duration-300 ${isActive ? 'text-ink' : 'text-muted hover:text-ink'
+                            const cls = `relative rounded-pill px-3 py-2 text-[0.8125rem] font-medium transition-colors duration-300 xl:px-3.5 ${isActive ? 'text-primary' : 'text-muted hover:text-ink'
                                 }`;
 
                             return link.isHash ? (
@@ -158,12 +161,12 @@ export function Header() {
                         })}
                     </nav>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                         {/* ─── Desktop CTA ─── */}
                         <a
                             href="/#contact"
                             onClick={(e) => handleNavClick(e, '/#contact')}
-                            className="group hidden items-center gap-1.5 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-4 py-2.5 text-[0.8125rem] font-semibold text-[#04121a] shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_8px_24px_-10px_rgba(34,211,238,0.8)] transition-all duration-300 hover:shadow-[0_1px_0_rgba(255,255,255,0.55)_inset,0_14px_34px_-12px_rgba(34,211,238,0.95)] sm:inline-flex"
+                            className="group hidden items-center gap-1.5 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-4 py-2.5 text-[0.8125rem] font-semibold text-white shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_22px_-10px_rgba(37,99,235,0.8)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_14px_32px_-12px_rgba(37,99,235,0.9)] sm:inline-flex"
                         >
                             Let's talk
                             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -171,7 +174,7 @@ export function Header() {
 
                         {/* ─── Mobile trigger ─── */}
                         <button
-                            className="grid h-11 w-11 place-items-center rounded-[13px] surface text-ink transition-colors hover:bg-white/[0.08] lg:hidden"
+                            className="grid h-11 w-11 place-items-center rounded-[13px] border border-border bg-white text-ink shadow-e1 transition-colors hover:bg-surface lg:hidden"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-expanded={mobileMenuOpen}
                             aria-controls="mobile-nav"
@@ -203,7 +206,7 @@ export function Header() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="fixed inset-0 top-20 -z-10 bg-background/80 backdrop-blur-xl lg:hidden"
+                            className="fixed inset-0 top-16 -z-10 bg-slate-900/20 backdrop-blur-sm sm:top-20 lg:hidden"
                         />
                         <motion.nav
                             id="mobile-nav"
@@ -212,12 +215,13 @@ export function Header() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -12 }}
                             transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                            className="mx-4 mt-3 overflow-hidden rounded-panel surface-strong p-3 lg:hidden"
+                            className="mx-3 mt-3 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain rounded-panel border border-border bg-white/95 p-3 shadow-e3 backdrop-blur-2xl sm:mx-4 lg:hidden"
+                            data-lenis-prevent="true"
                         >
                             <div className="flex flex-col">
                                 {navLinks.map((link, i) => {
                                     const isActive = isLinkActive(link);
-                                    const cls = `flex items-center justify-between rounded-btn px-4 py-3.5 text-base font-medium transition-colors ${isActive ? 'bg-white/[0.07] text-primary' : 'text-muted hover:bg-white/[0.05] hover:text-ink'
+                                    const cls = `flex items-center justify-between rounded-btn px-4 py-3.5 text-base font-medium transition-colors ${isActive ? 'bg-primary-tint text-primary' : 'text-muted hover:bg-surface-2 hover:text-ink'
                                         }`;
                                     const inner = (
                                         <>
@@ -250,7 +254,7 @@ export function Header() {
                             <a
                                 href="/#contact"
                                 onClick={(e) => handleNavClick(e, '/#contact')}
-                                className="mt-3 flex items-center justify-center gap-2 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-5 py-3.5 font-semibold text-[#04121a]"
+                                className="mt-3 flex items-center justify-center gap-2 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-5 py-3.5 font-semibold text-white shadow-[0_10px_26px_-12px_rgba(37,99,235,0.9)]"
                             >
                                 Let's talk
                                 <ArrowUpRight className="h-4 w-4" />

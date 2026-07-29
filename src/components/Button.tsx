@@ -13,19 +13,19 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
 
 const variants = {
     primary:
-        'text-[#04121a] bg-gradient-to-b from-primary-soft to-primary shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_10px_30px_-10px_rgba(34,211,238,0.7)] hover:shadow-[0_1px_0_rgba(255,255,255,0.55)_inset,0_16px_40px_-12px_rgba(34,211,238,0.85)]',
+        'text-white bg-gradient-to-b from-primary-soft to-primary shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_10px_28px_-10px_rgba(37,99,235,0.65)] hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_18px_40px_-12px_rgba(37,99,235,0.75)]',
     secondary:
-        'text-white bg-gradient-to-b from-secondary-soft to-secondary shadow-[0_1px_0_rgba(255,255,255,0.28)_inset,0_10px_30px_-10px_rgba(139,92,246,0.7)] hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_16px_40px_-12px_rgba(139,92,246,0.85)]',
+        'text-white bg-gradient-to-b from-secondary-soft to-secondary shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_10px_28px_-10px_rgba(79,70,229,0.65)] hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_18px_40px_-12px_rgba(79,70,229,0.75)]',
     outline:
-        'text-ink surface hover:border-border-strong hover:bg-white/[0.07] shadow-e1 hover:shadow-e2',
+        'text-ink surface hover:border-border-strong hover:bg-surface shadow-e1 hover:shadow-e2',
     ghost:
-        'text-muted hover:text-ink hover:bg-white/[0.06] border border-transparent',
+        'text-muted hover:text-ink hover:bg-surface-2 border border-transparent',
 } as const;
 
 const sizes = {
     sm: 'h-10 px-4 text-sm gap-2',
     md: 'h-12 px-6 text-[0.9375rem] gap-2',
-    lg: 'h-14 px-8 text-base gap-2.5',
+    lg: 'h-13 px-6 text-[0.9375rem] gap-2.5 sm:h-14 sm:px-8 sm:text-base',
 } as const;
 
 export function Button({
@@ -74,7 +74,7 @@ export function Button({
         >
             {/* Light sweep on hover */}
             <span
-                className="pointer-events-none absolute inset-0 -translate-x-[130%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:translate-x-[130%]"
+                className="pointer-events-none absolute inset-0 -translate-x-[130%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:translate-x-[130%]"
             />
             <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
         </motion.button>

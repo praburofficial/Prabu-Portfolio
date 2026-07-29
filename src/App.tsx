@@ -99,7 +99,7 @@ function App() {
           {/* Skip link — keyboard users land here first */}
           <a
             href="#home"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-btn focus:bg-primary focus:px-4 focus:py-2.5 focus:font-semibold focus:text-[#04121a]"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-btn focus:bg-primary focus:px-4 focus:py-2.5 focus:font-semibold focus:text-white focus:shadow-e2"
           >
             Skip to content
           </a>

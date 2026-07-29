@@ -3,6 +3,7 @@ import { GlassCard } from '../components/GlassCard';
 import { SectionHeading } from '../components/SectionHeading';
 import { Reveal } from '../components/Reveal';
 import { Mail, Phone, MapPin, Github, Linkedin, ArrowUpRight } from 'lucide-react';
+import { toneStyle } from '../lib/palette';
 
 export function Contact() {
     const contactItems = [
@@ -12,35 +13,36 @@ export function Contact() {
     ];
 
     return (
-        <section id="contact" className="relative z-10 py-24 sm:py-32">
+        <section id="contact" className="section-y relative z-10">
             {/* Spotlight */}
             <div
                 className="pointer-events-none absolute inset-0"
-                style={{ background: 'radial-gradient(ellipse 55% 45% at 50% 30%, rgba(34,211,238,0.09), transparent 70%)' }}
+                style={{ background: 'radial-gradient(ellipse 55% 45% at 50% 25%, rgba(37,99,235,0.07), transparent 70%)' }}
             />
 
-            <div className="relative z-10 mx-auto max-w-5xl px-6">
+            <div className="shell-narrow relative z-10">
                 <SectionHeading
                     eyebrow="Contact"
                     title="Get in"
                     highlight="Touch"
                     description="Have a role, a project or just an idea worth building? My inbox is always open."
-                    className="mb-16"
+                    className="mb-12 sm:mb-16"
                 />
 
                 {/* ══════════ Contact details ══════════ */}
                 <div className="grid gap-4 sm:grid-cols-3">
                     {contactItems.map((item, index) => {
+                        const t = toneStyle(item.color);
                         const inner = (
                             <>
                                 <span
-                                    className="grid h-14 w-14 place-items-center rounded-[17px] transition-transform duration-500 group-hover:scale-110"
-                                    style={{ background: `${item.color}14`, boxShadow: `inset 0 0 0 1px ${item.color}33` }}
+                                    className="grid h-12 w-12 place-items-center rounded-[15px] transition-transform duration-500 group-hover:scale-110 sm:h-14 sm:w-14 sm:rounded-[17px]"
+                                    style={{ background: t.bg, boxShadow: `inset 0 0 0 1px ${t.ring}` }}
                                 >
-                                    <item.icon className="h-6 w-6" style={{ color: item.color }} />
+                                    <item.icon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: t.fg }} />
                                 </span>
 
-                                <span className="mt-5 block text-[0.6875rem] uppercase tracking-[0.14em] text-faint">
+                                <span className="mt-4 block text-[0.6875rem] uppercase tracking-[0.14em] text-faint sm:mt-5">
                                     {item.label}
                                 </span>
                                 <span className="mt-1.5 block break-words font-medium text-ink transition-colors duration-300 group-hover:text-primary">
@@ -55,13 +57,13 @@ export function Contact() {
 
                         return (
                             <Reveal key={item.label} delay={index * 0.08}>
-                                <GlassCard glow className="group h-full">
+                                <GlassCard glow className="group h-full hover:-translate-y-1">
                                     {item.href ? (
-                                        <a href={item.href} className="flex h-full flex-col p-6">
+                                        <a href={item.href} className="flex h-full flex-col p-5 sm:p-6">
                                             {inner}
                                         </a>
                                     ) : (
-                                        <div className="flex h-full flex-col p-6">{inner}</div>
+                                        <div className="flex h-full flex-col p-5 sm:p-6">{inner}</div>
                                     )}
                                 </GlassCard>
                             </Reveal>
@@ -70,72 +72,76 @@ export function Contact() {
                 </div>
 
                 {/* ══════════ Call to action ══════════ */}
-                <Reveal delay={0.16} className="mt-6">
-                    <GlassCard glow className="relative overflow-hidden p-8 text-center sm:p-12">
-                        {/* Availability */}
-                        <span className="inline-flex items-center gap-2.5 rounded-pill surface px-4 py-2">
-                            <span className="relative flex h-2 w-2">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_var(--color-accent)]" />
+                <div className="mt-4">
+
+                    {/* ─── The pitch ─── */}
+                    <Reveal delay={0.12}>
+                        <GlassCard glow className="relative flex h-full flex-col overflow-hidden p-6 sm:p-9">
+                            {/* Availability */}
+                            <span className="inline-flex w-fit items-center gap-2.5 rounded-pill border border-border bg-surface px-4 py-2">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-soft opacity-70" />
+                                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent shadow-[0_0_0_3px_rgba(5,150,105,0.16)]" />
+                                </span>
+                                <span className="text-[0.8125rem] font-semibold text-ink">Available for Work</span>
                             </span>
-                            <span className="text-[0.8125rem] font-medium text-ink">Available for Work</span>
-                        </span>
 
-                        <h3 className="mt-6 font-display text-[clamp(1.5rem,3.5vw,2.25rem)] font-bold leading-tight tracking-[-0.03em]">
-                            <span className="text-gradient">Let's build something</span>{' '}
-                            <span className="text-gradient-brand">worth shipping</span>
-                        </h3>
+                            <h3 className="mt-6 font-display text-[clamp(1.375rem,3.2vw,2rem)] font-bold leading-tight tracking-[-0.03em]">
+                                <span className="text-gradient">Let's build something</span>{' '}
+                                <span className="text-gradient-brand">worth shipping</span>
+                            </h3>
 
-                        <p className="mx-auto mt-4 max-w-xl text-[0.9375rem] leading-relaxed text-muted">
-                            Open to frontend roles and freelance work. Drop me a line and I'll get back to you.
-                        </p>
+                            <p className="mt-4 max-w-xl text-[0.9375rem] leading-relaxed text-muted">
+                                Open to full stack roles and freelance work. Drop me a line and I'll get back to you.
+                            </p>
 
-                        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-                            <a
-                                href="mailto:prabur2k5@gmail.com"
-                                className="group/cta inline-flex h-14 items-center gap-2.5 overflow-hidden rounded-btn bg-gradient-to-b from-primary-soft to-primary px-8 font-semibold text-[#04121a] shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_12px_34px_-12px_rgba(34,211,238,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.55)_inset,0_18px_44px_-14px_rgba(34,211,238,0.95)]"
-                            >
-                                <Mail className="h-[18px] w-[18px]" />
-                                Email me
-                            </a>
+                            <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8">
+                                <a
+                                    href="mailto:prabur2k5@gmail.com"
+                                    className="group/cta inline-flex h-13 items-center gap-2.5 overflow-hidden rounded-btn bg-gradient-to-b from-primary-soft to-primary px-6 font-semibold text-white shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_12px_30px_-12px_rgba(37,99,235,0.85)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_18px_40px_-14px_rgba(37,99,235,0.95)] sm:h-14 sm:px-8"
+                                >
+                                    <Mail className="h-[18px] w-[18px]" />
+                                    Email me
+                                </a>
 
-                            <a
-                                href="https://github.com/praburofficial"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="GitHub profile"
-                                className="grid h-14 w-14 place-items-center rounded-btn surface text-muted transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:text-primary"
-                            >
-                                <Github className="h-5 w-5" />
-                            </a>
-                            <a
-                                href="https://www.linkedin.com/in/prabu-r12092005"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="LinkedIn profile"
-                                className="grid h-14 w-14 place-items-center rounded-btn surface text-muted transition-all duration-300 hover:-translate-y-1 hover:border-secondary/45 hover:text-secondary-soft"
-                            >
-                                <Linkedin className="h-5 w-5" />
-                            </a>
-                        </div>
+                                <a
+                                    href="https://github.com/praburofficial"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="GitHub profile"
+                                    className="grid h-13 w-13 place-items-center rounded-btn border border-border bg-white text-muted shadow-e1 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:text-primary sm:h-14 sm:w-14"
+                                >
+                                    <Github className="h-5 w-5" />
+                                </a>
+                                <a
+                                    href="https://www.linkedin.com/in/prabu-r12092005"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="LinkedIn profile"
+                                    className="grid h-13 w-13 place-items-center rounded-btn border border-border bg-white text-muted shadow-e1 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:text-secondary sm:h-14 sm:w-14"
+                                >
+                                    <Linkedin className="h-5 w-5" />
+                                </a>
+                            </div>
 
-                        {/* Decorative corner glows */}
-                        <motion.div
-                            aria-hidden="true"
-                            className="pointer-events-none absolute -bottom-28 -right-20 h-64 w-64 rounded-full blur-3xl"
-                            style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.30), transparent 70%)' }}
-                            animate={{ opacity: [0.5, 0.9, 0.5] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                        />
-                        <motion.div
-                            aria-hidden="true"
-                            className="pointer-events-none absolute -bottom-28 -left-20 h-64 w-64 rounded-full blur-3xl"
-                            style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.24), transparent 70%)' }}
-                            animate={{ opacity: [0.9, 0.5, 0.9] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                        />
-                    </GlassCard>
-                </Reveal>
+                            {/* Decorative corner glows */}
+                            <motion.div
+                                aria-hidden="true"
+                                className="pointer-events-none absolute -bottom-28 -right-20 h-64 w-64 rounded-full blur-3xl"
+                                style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 70%)' }}
+                                animate={{ opacity: [0.5, 0.9, 0.5] }}
+                                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                            />
+                            <motion.div
+                                aria-hidden="true"
+                                className="pointer-events-none absolute -bottom-28 -left-20 h-64 w-64 rounded-full blur-3xl"
+                                style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.16), transparent 70%)' }}
+                                animate={{ opacity: [0.9, 0.5, 0.9] }}
+                                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                            />
+                        </GlassCard>
+                    </Reveal>
+                </div>
             </div>
         </section>
     );

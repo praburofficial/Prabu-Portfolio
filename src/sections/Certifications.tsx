@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '../components/GlassCard';
 import { SectionHeading } from '../components/SectionHeading';
 import { Award, Trophy, Github, Linkedin, Maximize2, X, Download } from 'lucide-react';
+import { toneStyle } from '../lib/palette';
 
 /* Re-ordered certificates as requested */
 const certificates = [
@@ -260,25 +261,30 @@ export function Certifications() {
     );
 
     return (
-        <section id="certifications" className="relative z-10 py-24 sm:py-32">
+        <section id="certifications" className="section-y relative z-10">
             {/* Soft spotlight */}
             <div
                 className="pointer-events-none absolute inset-x-0 top-0 h-[40rem]"
-                style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(139,92,246,0.10), transparent 70%)' }}
+                style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,58,237,0.07), transparent 70%)' }}
             />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-6">
+            <div className="shell relative z-10">
                 <SectionHeading
                     eyebrow="Credentials"
                     title="Certifications &"
                     highlight="Awards"
                     description="Courses completed and events competed in — every certificate is viewable and downloadable."
-                    className="mb-12"
+                    className="mb-10 sm:mb-12"
                 />
 
                 {/* ─── Segmented tabs ─── */}
-                <div className="mb-12 flex justify-center">
-                    <div role="tablist" aria-label="Certificate categories" className="inline-flex gap-1 rounded-pill surface p-1.5">
+                <div className="mb-10 flex justify-center sm:mb-12">
+                    {/* Stacks under 640px — the two labels can't share a 320px row. */}
+                    <div
+                        role="tablist"
+                        aria-label="Certificate categories"
+                        className="flex w-full max-w-[22rem] flex-col gap-1 rounded-panel border border-border bg-surface p-1.5 shadow-e1 sm:inline-flex sm:w-auto sm:max-w-none sm:flex-row sm:rounded-pill"
+                    >
                         {tabs.map((tab) => {
                             const isActive = activeTab === tab;
                             return (
@@ -287,20 +293,20 @@ export function Certifications() {
                                     role="tab"
                                     aria-selected={isActive}
                                     onClick={() => setActiveTab(tab)}
-                                    className={`relative rounded-pill px-4 py-2.5 text-[0.8125rem] font-semibold transition-colors duration-300 sm:px-6 ${isActive ? 'text-[#04121a]' : 'text-muted hover:text-ink'
+                                    className={`relative w-full rounded-pill px-4 py-2.5 text-[0.8125rem] font-semibold transition-colors duration-300 sm:w-auto sm:px-6 ${isActive ? 'text-white' : 'text-muted hover:text-ink'
                                         }`}
                                 >
                                     {isActive && (
                                         <motion.span
                                             layoutId="cert-tab"
                                             transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                                            className="absolute inset-0 rounded-pill bg-gradient-to-b from-primary-soft to-primary shadow-[0_1px_0_rgba(255,255,255,0.45)_inset,0_8px_24px_-10px_rgba(34,211,238,0.9)]"
+                                            className="absolute inset-0 rounded-pill bg-gradient-to-b from-primary-soft to-primary shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_22px_-10px_rgba(37,99,235,0.9)]"
                                         />
                                     )}
-                                    <span className="relative z-10 inline-flex items-center gap-2">
-                                        {tab}
+                                    <span className="relative z-10 inline-flex w-full items-center justify-center gap-2">
+                                        <span className="truncate">{tab}</span>
                                         <span
-                                            className={`rounded-pill px-1.5 py-0.5 text-[0.625rem] font-bold ${isActive ? 'bg-black/15 text-[#04121a]' : 'bg-white/[0.07] text-faint'
+                                            className={`rounded-pill px-1.5 py-0.5 text-[0.625rem] font-bold ${isActive ? 'bg-white/20 text-white' : 'bg-white text-faint'
                                                 }`}
                                         >
                                             {counts[tab]}
@@ -313,84 +319,87 @@ export function Certifications() {
                 </div>
 
                 {/* ─── Certificate grid ─── */}
-                <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     <AnimatePresence mode="popLayout">
-                        {list.map((cert, index) => (
-                            <motion.div
-                                key={cert.title + cert.image}
-                                layout
-                                initial={{ opacity: 0, y: 26, scale: 0.96 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.96 }}
-                                transition={{ duration: 0.5, delay: Math.min(index, 8) * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                                <GlassCard glow className="group h-full p-0">
-                                    <button
-                                        type="button"
-                                        onClick={() => setSelectedImage(cert.image)}
-                                        aria-label={`View ${cert.title} certificate full screen`}
-                                        className="flex h-full w-full flex-col text-left transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1.5"
-                                    >
-                                        {/* Preview */}
-                                        <div className="relative aspect-[16/11] w-full overflow-hidden rounded-t-card">
-                                            <img
-                                                src={cert.image}
-                                                alt={cert.title}
-                                                loading="lazy"
-                                                decoding="async"
-                                                className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.09]"
-                                            />
-                                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080a12] via-transparent to-transparent" />
+                        {list.map((cert, index) => {
+                            const t = toneStyle(cert.gradeColor);
+                            return (
+                                <motion.div
+                                    key={cert.title + cert.image}
+                                    layout
+                                    initial={{ opacity: 0, y: 26, scale: 0.96 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.96 }}
+                                    transition={{ duration: 0.5, delay: Math.min(index, 8) * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                    <GlassCard glow className="group h-full p-0 hover:shadow-e3">
+                                        <button
+                                            type="button"
+                                            onClick={() => setSelectedImage(cert.image)}
+                                            aria-label={`View ${cert.title} certificate full screen`}
+                                            className="flex h-full w-full flex-col text-left transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1.5"
+                                        >
+                                            {/* Preview */}
+                                            <div className="relative aspect-[16/11] w-full overflow-hidden rounded-t-card bg-surface-2">
+                                                <img
+                                                    src={cert.image}
+                                                    alt={cert.title}
+                                                    loading="lazy"
+                                                    decoding="async"
+                                                    className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.07]"
+                                                />
+                                                <div className="pointer-events-none absolute inset-0 rounded-t-card ring-1 ring-inset ring-slate-900/[0.06]" />
 
-                                            {/* Year — opaque so it reads over pale certificate scans */}
-                                            <span className="badge-over-image pointer-events-none absolute right-3 top-3 rounded-pill px-2.5 py-1 text-[0.6875rem] font-bold tracking-wide">
-                                                {cert.date}
-                                            </span>
-
-                                            {/* Zoom affordance */}
-                                            <span className="pointer-events-none absolute inset-0 grid place-items-center bg-background/45 opacity-0 backdrop-blur-[2px] transition-opacity duration-400 group-hover:opacity-100">
-                                                <span className="grid h-11 w-11 place-items-center rounded-full surface-strong">
-                                                    <Maximize2 className="h-4.5 w-4.5 text-ink" />
+                                                {/* Year */}
+                                                <span className="badge-over-image pointer-events-none absolute right-3 top-3 rounded-pill px-2.5 py-1 text-[0.6875rem] font-bold tracking-wide">
+                                                    {cert.date}
                                                 </span>
-                                            </span>
-                                        </div>
 
-                                        {/* Body */}
-                                        <div className="relative flex flex-1 flex-col p-5 pt-8">
-                                            {/* Floating award tile straddling the image edge */}
-                                            <span
-                                                className="absolute -top-6 left-5 grid h-12 w-12 place-items-center rounded-[15px] surface-strong transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-105"
-                                                style={{ boxShadow: `0 12px 30px -12px ${cert.gradeColor}90, inset 0 0 0 1px ${cert.gradeColor}33` }}
-                                            >
-                                                {cert.grade === 'A+ Grade' ? (
-                                                    <Trophy className="h-5 w-5" style={{ color: cert.gradeColor }} />
-                                                ) : (
-                                                    <Award className="h-5 w-5" style={{ color: cert.gradeColor }} />
-                                                )}
-                                            </span>
+                                                {/* Zoom affordance */}
+                                                <span className="pointer-events-none absolute inset-0 grid place-items-center bg-white/55 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
+                                                    <span className="grid h-11 w-11 place-items-center rounded-full border border-border bg-white text-primary shadow-e2">
+                                                        <Maximize2 className="h-[18px] w-[18px]" />
+                                                    </span>
+                                                </span>
+                                            </div>
 
-                                            <h3 className="line-clamp-2 font-display text-[0.9375rem] font-bold leading-snug tracking-[-0.015em] text-ink transition-colors duration-300 group-hover:text-primary">
-                                                {cert.title}
-                                            </h3>
-                                            <p className="mt-2 line-clamp-2 flex-1 text-[0.8125rem] leading-relaxed text-muted">
-                                                {cert.issuer}
-                                            </p>
+                                            {/* Body */}
+                                            <div className="relative flex flex-1 flex-col p-5 pt-8">
+                                                {/* Floating award tile straddling the image edge */}
+                                                <span
+                                                    className="absolute -top-6 left-5 grid h-12 w-12 place-items-center rounded-[15px] border border-border bg-white transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-105"
+                                                    style={{ boxShadow: t.shadow }}
+                                                >
+                                                    {cert.grade === 'A+ Grade' ? (
+                                                        <Trophy className="h-5 w-5" style={{ color: t.fg }} />
+                                                    ) : (
+                                                        <Award className="h-5 w-5" style={{ color: t.fg }} />
+                                                    )}
+                                                </span>
 
-                                            <span className="mt-4 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-faint transition-colors duration-300 group-hover:text-primary">
-                                                View certificate
-                                                <Maximize2 className="h-3 w-3" />
-                                            </span>
-                                        </div>
-                                    </button>
-                                </GlassCard>
-                            </motion.div>
-                        ))}
+                                                <h3 className="line-clamp-2 font-display text-[0.9375rem] font-bold leading-snug tracking-[-0.015em] text-ink transition-colors duration-300 group-hover:text-primary">
+                                                    {cert.title}
+                                                </h3>
+                                                <p className="mt-2 line-clamp-2 flex-1 text-[0.8125rem] leading-relaxed text-muted">
+                                                    {cert.issuer}
+                                                </p>
+
+                                                <span className="mt-4 inline-flex items-center gap-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-faint transition-colors duration-300 group-hover:text-primary">
+                                                    View certificate
+                                                    <Maximize2 className="h-3 w-3" />
+                                                </span>
+                                            </div>
+                                        </button>
+                                    </GlassCard>
+                                </motion.div>
+                            );
+                        })}
                     </AnimatePresence>
                 </motion.div>
 
                 {/* ─── Social links ─── */}
                 <motion.div
-                    className="mt-16 flex justify-center gap-3"
+                    className="mt-14 flex justify-center gap-3 sm:mt-16"
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -401,7 +410,7 @@ export function Certifications() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="GitHub profile"
-                        className="grid h-12 w-12 place-items-center rounded-btn surface text-muted transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:text-primary"
+                        className="grid h-12 w-12 place-items-center rounded-btn border border-border bg-white text-muted shadow-e1 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:text-primary"
                     >
                         <Github className="h-5 w-5" />
                     </a>
@@ -410,7 +419,7 @@ export function Certifications() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="LinkedIn profile"
-                        className="grid h-12 w-12 place-items-center rounded-btn surface text-muted transition-all duration-300 hover:-translate-y-1 hover:border-secondary/45 hover:text-secondary-soft"
+                        className="grid h-12 w-12 place-items-center rounded-btn border border-border bg-white text-muted shadow-e1 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:text-secondary"
                     >
                         <Linkedin className="h-5 w-5" />
                     </a>
@@ -429,14 +438,14 @@ export function Certifications() {
                             role="dialog"
                             aria-modal="true"
                             aria-label="Certificate preview"
-                            className="fixed inset-0 z-[9999] flex cursor-zoom-out items-center justify-center bg-background/92 p-4 backdrop-blur-2xl sm:p-8"
+                            className="fixed inset-0 z-[9999] flex cursor-zoom-out items-center justify-center bg-slate-900/45 p-4 backdrop-blur-xl sm:p-8"
                             data-lenis-prevent="true"
                         >
-                            <div className="absolute right-5 top-5 z-50 flex items-center gap-2 sm:right-8 sm:top-8">
+                            <div className="absolute right-4 top-4 z-50 flex items-center gap-2 sm:right-8 sm:top-8">
                                 <a
                                     href={selectedImage}
                                     download={selectedImage.split('/').pop() || 'certificate'}
-                                    className="grid h-12 w-12 place-items-center rounded-btn surface-strong text-primary transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
+                                    className="grid h-12 w-12 place-items-center rounded-btn border border-border bg-white text-primary shadow-e2 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50"
                                     onClick={(e) => e.stopPropagation()}
                                     title="Download Certificate"
                                     aria-label="Download certificate"
@@ -444,7 +453,7 @@ export function Certifications() {
                                     <Download className="h-5 w-5" />
                                 </a>
                                 <button
-                                    className="grid h-12 w-12 place-items-center rounded-btn surface-strong text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-hotpink/50 hover:text-hotpink"
+                                    className="grid h-12 w-12 place-items-center rounded-btn border border-border bg-white text-ink shadow-e2 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet/50 hover:text-violet"
                                     onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
                                     title="Close"
                                     aria-label="Close preview"
@@ -460,7 +469,7 @@ export function Certifications() {
                                 transition={{ type: 'spring', damping: 26, stiffness: 300 }}
                                 src={selectedImage}
                                 alt="Full Screen Certificate"
-                                className="max-h-[88vh] max-w-full cursor-default rounded-panel object-contain shadow-e3 ring-1 ring-white/10"
+                                className="max-h-[88vh] max-w-full cursor-default rounded-panel bg-white object-contain shadow-e3 ring-1 ring-slate-900/10"
                                 onClick={(e) => e.stopPropagation()}
                             />
                         </motion.div>
