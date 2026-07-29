@@ -62,6 +62,15 @@ const projects = [
         category: 'Python',
     },
     {
+        title: 'BuilDial - Construction Service Directory',
+        description: 'A platform connecting homeowners with verified construction professionals, from civil engineers to interior designers, with transparent pricing and ratings.',
+        image: './buildial.png',
+        tags: ['React.js', 'Tailwind CSS'],
+        links: { live: '', github: '' },
+        color: '#2563EB',
+        category: 'React.js',
+    },
+    {
         title: 'Snake Game-Web Application',
         description: 'A modern recreation of the classic retro snake arcade game, featuring smooth grid-based movement and dynamic score tracking.',
         image: './snake-game.jpeg',
