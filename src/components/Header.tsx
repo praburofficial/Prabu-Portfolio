@@ -10,6 +10,7 @@ const navLinks = [
     { name: 'Projects', href: '/#projects', isHash: true },
     { name: 'Journey', href: '/#journey', isHash: true },
     { name: 'Certifications', href: '/#certifications', isHash: true },
+    { name: 'Extracurricular', href: '/#extracurricular', isHash: true },
     { name: 'Contact', href: '/#contact', isHash: true },
 ];
 

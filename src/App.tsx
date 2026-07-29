@@ -13,6 +13,7 @@ const Skills = lazy(() => import('./sections/Skills').then(m => ({ default: m.Sk
 const Projects = lazy(() => import('./sections/Projects').then(m => ({ default: m.Projects })));
 const Journey = lazy(() => import('./sections/Journey').then(m => ({ default: m.Journey })));
 const Certifications = lazy(() => import('./sections/Certifications').then(m => ({ default: m.Certifications })));
+const Extracurricular = lazy(() => import('./sections/Extracurricular').then(m => ({ default: m.Extracurricular })));
 const Contact = lazy(() => import('./sections/Contact').then(m => ({ default: m.Contact })));
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
@@ -62,6 +63,7 @@ function HomePage() {
         <Projects />
         <Journey />
         <Certifications />
+        <Extracurricular />
         <Contact />
       </Suspense>
     </Page>
@@ -88,6 +90,16 @@ function CertificationsPage() {
   );
 }
 
+function ExtracurricularPage() {
+  return (
+    <main className="relative z-10 flex flex-col gap-10 lg:gap-20">
+      <Suspense fallback={<Loading />}>
+        <Extracurricular />
+      </Suspense>
+    </main>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -111,6 +123,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/journey" element={<JourneyPage />} />
             <Route path="/certifications" element={<CertificationsPage />} />
+            <Route path="/extracurricular" element={<ExtracurricularPage />} />
           </Routes>
 
           <Suspense fallback={null}>
