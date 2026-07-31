@@ -3,8 +3,16 @@ import { useRef } from 'react';
 import { useScroll, useSpring } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 
-// Manually edit these years to match each image sequence from 1.webp to 23.webp
-const years = [
+interface JourneyEvent {
+    year: string;
+    title: string;
+    organization: string;
+    description: string;
+    image: string;
+    isActive?: boolean;
+}
+
+const baseYears = [
     '2023', '2023', '2023', '2024', '2024',
     '2024', '2025', '2025', '2025', '2025',
     '2025', '2025', '2025', '2025', '2025',
@@ -12,14 +20,51 @@ const years = [
     '2026', '2026', '2026'
 ];
 
-const events = years.map((year, i) => ({
-    year,
-    title: `Memory ${i + 1}`,
-    organization: 'Journey Captured',
-    description: 'Reflecting on the continuous milestones and unforgettable moments gathered along my path.',
-    image: `/${i + 1}.webp`,
-    isActive: i === years.length - 1, // Add pulsing effect to the last image
-}));
+const events: JourneyEvent[] = [
+    ...baseYears.map((year, i) => ({
+        year,
+        title: `Memory ${i + 1}`,
+        organization: 'Journey Captured',
+        description: 'Reflecting on the continuous milestones and unforgettable moments gathered along my path.',
+        image: `/${i + 1}.webp`,
+    })),
+    {
+        year: '2025',
+        title: "1st Prize ALGONEXUS'25",
+        organization: 'Student Achievement',
+        description: 'Awarded 1st Prize for Short Film at ALGONEXUS 2025 symposium, Jayalakshmi Institute of Technology.',
+        image: '/journey-achievement-poster.jpg',
+    },
+    {
+        year: '2026',
+        title: 'College ERP Presentation',
+        organization: 'Gnanamani Institutions',
+        description: 'Presenting Development of a Secure and Scalable College ERP with OCR Integration.',
+        image: '/journey-erp-presentation.jpg',
+    },
+    {
+        year: '2026',
+        title: 'Project Team Leaders',
+        organization: 'Gnanamani CSE',
+        description: 'Final Year ERP Project Team standing together after successful demonstration.',
+        image: '/journey-team-formals.jpg',
+    },
+    {
+        year: '2026',
+        title: 'Faculty & HOD Recognition',
+        organization: 'Academic Excellence',
+        description: 'Receiving recognition and award honors with college HOD and faculty members.',
+        image: '/journey-faculty-award.jpg',
+    },
+    {
+        year: '2026',
+        title: 'Developer Studio Team',
+        organization: 'Tech & Creative Collaboration',
+        description: 'Group photo with the development and creative studio team members.',
+        image: '/journey-team-group.jpg',
+        isActive: true,
+    },
+];
 
 export function Journey() {
     const railRef = useRef<HTMLDivElement>(null);

@@ -71,6 +71,33 @@ const projects = [
         category: 'React.js',
     },
     {
+        title: 'Thamizhoviyaa Home Goodies - E-Commerce Store',
+        description: 'An organic herbal & natural products e-commerce store featuring cold wood-pressed oils, pure forest honey, herbal powders, category filtering, and shopping cart experience.',
+        image: './thamizhoviyaa-ecommerce.png',
+        tags: ['React.js', 'Tailwind CSS', 'Python Fast API'],
+        links: { live: '', github: '' },
+        color: '#10b981',
+        category: 'React.js',
+    },
+    {
+        title: 'Easy Pest Control - Professional Extermination Services',
+        description: 'A modern service platform for eco-friendly pest control, termite protection, and home disinfection with online booking, service pricing, and multi-region coverage.',
+        image: './easy-pest-control.png',
+        tags: ['React.js', 'Tailwind CSS', 'Web Services'],
+        links: { live: '', github: '' },
+        color: '#eab308',
+        category: 'React.js',
+    },
+    {
+        title: 'StayHive - PG & Home Rental Platform',
+        description: 'A comprehensive property rental platform for finding verified PGs, hostels, rental homes, and apartments with zero brokerage, property comparison, and direct listing management.',
+        image: './stayhive.png',
+        tags: ['React.js', 'Tailwind CSS'],
+        links: { live: '', github: '' },
+        color: '#2563eb',
+        category: 'React.js',
+    },
+    {
         title: 'Snake Game-Web Application',
         description: 'A modern recreation of the classic retro snake arcade game, featuring smooth grid-based movement and dynamic score tracking.',
         image: './snake-game.jpeg',
@@ -162,13 +189,13 @@ export function Projects() {
                                             />
 
                                             {/* ─── Cover ─── */}
-                                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-card bg-surface-2">
+                                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-card bg-surface-2 flex items-center justify-center p-1.5">
                                                 <img
                                                     src={project.image}
                                                     alt={project.title}
                                                     loading="lazy"
                                                     decoding="async"
-                                                    className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
+                                                    className="h-full w-full object-contain object-center rounded-lg transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
                                                 />
                                                 {/* Gentle bottom scrim keeps the chip legible on busy screenshots */}
                                                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/25 via-transparent to-transparent" />

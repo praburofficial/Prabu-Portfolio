@@ -60,6 +60,7 @@ const youtubeAdminRoles = [
         badge: 'Media & Film Channel',
         gradient: 'from-red-500/20 to-rose-500/20',
         borderColor: '#ef4444',
+        logo: './3d-productions-logo.jpg',
     },
     {
         title: 'Gnan CSE Hub-Gnanamani College of Technology',
@@ -70,6 +71,7 @@ const youtubeAdminRoles = [
         badge: 'Institutional Channel',
         gradient: 'from-blue-500/20 to-cyan-500/20',
         borderColor: '#00d4ff',
+        logo: './gnan-cse-hub-logo.png',
     },
     {
         title: 'Thamizhoviyaa Home Goodies',
@@ -80,6 +82,7 @@ const youtubeAdminRoles = [
         badge: 'Brand Channel',
         gradient: 'from-emerald-500/20 to-teal-500/20',
         borderColor: '#10b981',
+        logo: './thamizhoviyaa-logo.jpg',
     },
     {
         title: 'Boxart Studio',
@@ -90,6 +93,7 @@ const youtubeAdminRoles = [
         badge: 'Craft & Studio Creator',
         gradient: 'from-purple-500/20 to-pink-500/20',
         borderColor: '#7c3aed',
+        logo: './boxart-studio-logo.jpg',
     },
 ];
 
@@ -158,7 +162,7 @@ export function Extracurricular() {
 
     return (
         <section id="extracurricular" className="relative py-24 z-10 min-h-screen">
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="w-full px-6 md:px-12 lg:px-16 relative z-10">
                 {/* Header Title */}
                 <motion.div
                     initial="hidden"
@@ -331,11 +335,21 @@ export function Extracurricular() {
                                     <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${channel.gradient}`} />
 
                                     <div>
-                                        {/* Header area with prominent YouTube Logo */}
+                                        {/* Header area with channel logo */}
                                         <div className="flex items-start justify-between gap-2 mb-4">
-                                            <div className="w-10 h-10 rounded-xl bg-red-600/10 border border-red-500/30 flex items-center justify-center text-red-600 shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                                                <Youtube className="w-5 h-5 fill-red-600 text-white" />
-                                            </div>
+                                            {channel.logo ? (
+                                                <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform overflow-hidden">
+                                                    <img
+                                                        src={channel.logo}
+                                                        alt={channel.title}
+                                                        className="w-full h-full object-contain rounded-lg"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="w-10 h-10 rounded-xl bg-red-600/10 border border-red-500/30 flex items-center justify-center text-red-600 shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                                                    <Youtube className="w-5 h-5 fill-red-600 text-white" />
+                                                </div>
+                                            )}
                                             <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-slate-100 text-slate-700 border border-slate-200">
                                                 {channel.badge}
                                             </span>

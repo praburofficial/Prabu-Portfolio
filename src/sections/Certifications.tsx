@@ -17,6 +17,14 @@ const certificates = [
         image: '/csc.webp',
     },
     {
+        title: 'Bharat Blockchain Yatra - Web3 & Blockchain Explorer',
+        issuer: 'IDS & Hedera (KIOT Salem)',
+        grade: 'Participated',
+        gradeColor: '#00d4ff',
+        date: '2023',
+        image: '/blockchain-explorer.png',
+    },
+    {
         title: 'Data Science Foundation',
         issuer: 'Great Learning',
         grade: 'A Grade',
@@ -55,6 +63,22 @@ const certificates = [
         gradeColor: '#10b981',
         date: '2024',
         image: '/java.webp',
+    },
+    {
+        title: 'Innovation in AI App Development',
+        issuer: 'Way2me (GCT)',
+        grade: 'Workshop',
+        gradeColor: '#00d4ff',
+        date: '2024',
+        image: '/innovation-in-ai-app.png',
+    },
+    {
+        title: 'One Day Web Development Workshop',
+        issuer: 'VR Soft Tech',
+        grade: 'Workshop',
+        gradeColor: '#00d4ff',
+        date: '2025',
+        image: '/web-dev-workshop-vrsoft.png',
     },
     {
         title: 'Html & css Bootcamp',
@@ -113,12 +137,36 @@ const certificates = [
         image: '/js.webp',
     },
     {
+        title: 'AI for Software Engineers',
+        issuer: 'Turnip Innovations',
+        grade: 'National Level Webinar',
+        gradeColor: '#f59e0b',
+        date: '2025',
+        image: '/ai-for-software-engineers.png',
+    },
+    {
         title: 'HackerRank Problem Solving in Python',
         issuer: 'HackerRank',
         grade: 'Verified',
         gradeColor: '#7c3aed',
         date: '2025',
         image: '/hacker.webp',
+    },
+    {
+        title: 'Learnathon 2025',
+        issuer: 'ICT Academy',
+        grade: 'Completed',
+        gradeColor: '#10b981',
+        date: '2025',
+        image: '/learnathon-2025.jpg',
+    },
+    {
+        title: 'Python for Data Science',
+        issuer: 'NPTEL (IIT Madras)',
+        grade: '55% Score',
+        gradeColor: '#00d4ff',
+        date: '2026',
+        image: '/nptel-python-data-science.jpg',
     }
 ];
 
