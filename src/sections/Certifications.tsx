@@ -266,6 +266,14 @@ const eventCertificates = [
         gradeColor: '#00d4ff',
         date: '2026',
         image: '/26.jpeg',
+    },
+    {
+        title: 'National Conference Paper Presentation',
+        issuer: 'Selvam College of Technology',
+        grade: 'Participated',
+        gradeColor: '#7c3aed',
+        date: '2026',
+        image: '/confrence.jpeg',
     }
 ];
 
