@@ -61,9 +61,9 @@ export function About() {
                         <GlassCard glow className="flex h-full flex-col p-6 sm:p-9 lg:p-10">
                             <div className="flex flex-col items-center gap-7 text-center sm:flex-row sm:items-start sm:gap-8 sm:text-left">
                                 {/* Portrait with spinning conic ring */}
-                                <div className="group relative h-32 w-32 shrink-0 animate-float gpu sm:h-40 sm:w-40 lg:h-44 lg:w-44">
+                                <div className="group relative h-44 w-44 shrink-0 animate-float gpu sm:h-52 sm:w-52 md:h-56 md:w-56 lg:h-64 lg:w-64">
                                     <div
-                                        className="absolute -inset-[2px] rounded-full opacity-90"
+                                        className="absolute -inset-[2.5px] rounded-full opacity-90"
                                         style={{
                                             background: 'conic-gradient(from 0deg, #2563eb, #4f46e5, #7c3aed, #059669, #2563eb)',
                                             animation: 'conic-spin 8s linear infinite',
@@ -82,28 +82,28 @@ export function About() {
                                     </div>
                                 </div>
 
-                                <div className="min-w-0">
-                                    <h3 className="font-display text-xl font-bold shimmer-text sm:text-2xl">The Journey</h3>
+                                <div className="min-w-0 flex-1">
+                                    <h3 className="font-display text-xl font-bold shimmer-text sm:text-2xl lg:text-3xl">The Journey</h3>
 
-                                    <div className="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
-                                        <span className="inline-flex items-center gap-1.5 rounded-pill border border-border bg-surface px-3 py-1 text-[0.75rem] text-muted">
-                                            <MapPin className="h-3.5 w-3.5 text-violet" /> Namakkal, Tamil Nadu
+                                    <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
+                                        As a Computer Science and Engineering student at Gnanamani College of Technology, I'm deeply passionate about the intersection of design, technology, and user experience.
+                                    </p>
+                                    <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
+                                        With a solid foundation in component-based UI architecture, responsive web design, and a deep love for Tailwind CSS and React.js, I continuously strive to bring static designs to life. My goal is to build products that are not just functional, but visually stunning and highly interactive.
+                                    </p>
+
+                                    <div className="mt-5 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+                                        <span className="inline-flex items-center gap-1.5 rounded-pill border border-border bg-surface px-3.5 py-1.5 text-xs text-muted transition-colors hover:border-violet/40 hover:bg-violet/5 hover:text-ink">
+                                            <MapPin className="h-3.5 w-3.5 shrink-0 text-violet" /> Namakkal, Tamil Nadu
                                         </span>
                                         <a
                                             href="mailto:prabur2k5@gmail.com"
-                                            className="inline-flex max-w-full items-center gap-1.5 rounded-pill border border-border bg-surface px-3 py-1 text-[0.75rem] text-muted transition-colors hover:border-primary/40 hover:bg-primary-tint hover:text-primary"
+                                            className="inline-flex max-w-full items-center gap-1.5 rounded-pill border border-border bg-surface px-3.5 py-1.5 text-xs text-muted transition-colors hover:border-primary/40 hover:bg-primary-tint hover:text-primary"
                                         >
                                             <Mail className="h-3.5 w-3.5 shrink-0 text-primary" />
                                             <span className="truncate">prabur2k5@gmail.com</span>
                                         </a>
                                     </div>
-
-                                    <p className="mt-5 text-[0.9375rem] leading-relaxed text-muted">
-                                        As a Computer Science and Engineering student at Gnanamani College of Technology, I'm deeply passionate about the intersection of design, technology, and user experience.
-                                    </p>
-                                    <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
-                                        With a solid foundation in component-based UI architecture, responsive web design, and a deep love for Tailwind CSS and React.js, I continuously strive to bring static designs to life. My goal is to build products that are not just functional, but visually stunning and highly interactive.
-                                    </p>
                                 </div>
                             </div>
 
