@@ -113,9 +113,6 @@
         color: var(--color-ink);
     }
 
-    p {
-    }
-
     ::selection {
         background-color: color-mix(in srgb, var(--color-primary) 18%, transparent);
         color: var(--color-ink);
