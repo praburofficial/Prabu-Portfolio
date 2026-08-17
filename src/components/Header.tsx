@@ -106,7 +106,7 @@ export function Header() {
                         className="group flex shrink-0 items-center gap-2.5 sm:gap-3"
                         aria-label="Prabu — back to top"
                     >
-                        <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-[11px] bg-surface-2 shadow-[0_6px_18px_-8px_rgba(37,99,235,0.55)] ring-1 ring-slate-900/[0.07] sm:h-10 sm:w-10 sm:rounded-[13px]">
+                        <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-[11px] bg-surface-2 shadow-[0_6px_18px_-8px_rgba(16,185,129,0.55)] ring-1 ring-slate-900/[0.07] sm:h-10 sm:w-10 sm:rounded-[13px]">
                             <img
                                 src="/profile.jpg"
                                 alt=""
@@ -117,7 +117,7 @@ export function Header() {
                             />
                         </span>
                         <span className="hidden font-display text-lg font-bold tracking-[-0.02em] text-ink sm:block">
-                            Prabu<span className="text-primary">.</span>
+                            Prabu R<span className="text-primary">.</span>
                         </span>
                     </a>
 
@@ -163,15 +163,7 @@ export function Header() {
                     </nav>
 
                     <div className="flex items-center gap-2 sm:gap-3">
-                        {/* ─── Desktop CTA ─── */}
-                        <a
-                            href="/#contact"
-                            onClick={(e) => handleNavClick(e, '/#contact')}
-                            className="group hidden items-center gap-1.5 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-4 py-2.5 text-[0.8125rem] font-semibold text-white shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_8px_22px_-10px_rgba(37,99,235,0.8)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgba(255,255,255,0.35)_inset,0_14px_32px_-12px_rgba(37,99,235,0.9)] sm:inline-flex"
-                        >
-                            Let's talk
-                            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </a>
+
 
                         {/* ─── Mobile trigger ─── */}
                         <button
@@ -252,14 +244,7 @@ export function Header() {
                                 })}
                             </div>
 
-                            <a
-                                href="/#contact"
-                                onClick={(e) => handleNavClick(e, '/#contact')}
-                                className="mt-3 flex items-center justify-center gap-2 rounded-btn bg-gradient-to-b from-primary-soft to-primary px-5 py-3.5 font-semibold text-white shadow-[0_10px_26px_-12px_rgba(37,99,235,0.9)]"
-                            >
-                                Let's talk
-                                <ArrowUpRight className="h-4 w-4" />
-                            </a>
+
                         </motion.nav>
                     </>
                 )}

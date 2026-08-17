@@ -25,6 +25,9 @@ const badges = [
     { name: 'PostgreSQL', color: 'hover:border-primary/40 hover:bg-primary-tint hover:text-primary', drift: 'drift-1' },
     { name: 'Python', color: 'hover:border-secondary/40 hover:bg-secondary-tint hover:text-secondary', drift: 'drift-2' },
     { name: 'FastAPI', color: 'hover:border-accent/40 hover:bg-accent-tint hover:text-accent', drift: 'drift-3' },
+    { name: 'Node.js', color: 'hover:border-accent/40 hover:bg-accent-tint hover:text-accent', drift: 'drift-1' },
+    { name: 'Firebase', color: 'hover:border-primary/40 hover:bg-primary-tint hover:text-primary', drift: 'drift-2' },
+    { name: 'REST API', color: 'hover:border-secondary/40 hover:bg-secondary-tint hover:text-secondary', drift: 'drift-3' },
 ];
 
 /* ── Presentation-only grouping. Every label below is an existing skill/badge name. ── */
@@ -51,7 +54,7 @@ const stackSplit = [
         icon: Server,
         tint: '#8b5cf6',
         summary: 'REST services, data modelling and API integration end to end.',
-        items: ['Python', 'FastAPI', 'API Integration', 'PostgreSQL'],
+        items: ['Python', 'FastAPI', 'Node.js', 'REST API', 'API Integration', 'Firebase', 'PostgreSQL'],
     },
 ];
 
@@ -59,8 +62,8 @@ const stackSplit = [
 const toolkit = [
     { title: 'Programming Languages', icon: Braces, tint: '#22d3ee', items: ['JavaScript', 'Python'] },
     { title: 'Frontend', icon: Code2, tint: '#00d4ff', items: ['React.js', 'Tailwind CSS', 'HTML5 / CSS3', 'Responsive Design'] },
-    { title: 'Backend', icon: Server, tint: '#8b5cf6', items: ['Python', 'FastAPI', 'API Integration'] },
-    { title: 'Database', icon: Database, tint: '#34d399', items: ['PostgreSQL'] },
+    { title: 'Backend', icon: Server, tint: '#8b5cf6', items: ['Python', 'FastAPI', 'Node.js', 'REST API', 'API Integration'] },
+    { title: 'Database', icon: Database, tint: '#34d399', items: ['PostgreSQL', 'Firebase'] },
     { title: 'Design', icon: Palette, tint: '#f472b6', items: ['UI/UX Design', 'Wireframing', 'Prototyping'] },
     { title: 'Tools & Version Control', icon: Wrench, tint: '#fbbf24', items: ['Git / GitHub', 'Postman', 'VS Code'] },
 ];
@@ -152,7 +155,7 @@ function SkillDial({ skill, index }: { skill: (typeof skills)[0]; index: number 
 
 export function Skills() {
     return (
-        <section id="skills" className="section-y relative z-10">
+        <section id="skills" className="section-y relative z-10 overflow-hidden">
             {/* Faint precision grid behind the section */}
             <div className="pointer-events-none absolute inset-0 grid-lines mask-radial opacity-50" />
 

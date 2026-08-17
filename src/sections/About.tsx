@@ -14,16 +14,18 @@ const education = [
 
 /* Ordered oldest first, by start date. */
 const experience = [
-    { role: 'Frontend Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal', date: 'Mar \'25 - May \'26', isCurrent: false },
-    { role: 'Web Developer Intern', company: 'Optimus Technocrates pvt ltd', location: 'Salem', date: 'Jul \'25 - Aug \'25', isCurrent: false },
-    { role: 'Fullstack Developer Intern', company: 'Qmex', location: 'Coimbatore', date: 'Aug \'26 - Present', isCurrent: true },
+    { role: 'Frontend Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal', date: '10-Mar-25 TO 10-Jun-26', isCurrent: false },
+    { role: 'Web Developer Intern', company: 'Optimus Technocrates pvt ltd', location: 'Salem', date: '11-Jul-25 TO 09-Aug-25', isCurrent: false },
+        { role: 'React Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal', date: '10-Sep-25 TO 10-May-26', isCurrent: false },
+
+    { role: 'Fullstack Developer Intern', company: 'Qmex', location: 'Coimbatore', date: '01-Aug-26 TO 31-Aug-26', isCurrent: false },
 ];
 
 /* Skills overview — the four disciplines listed on the résumé. */
 const disciplines = [
     { icon: Layers, label: 'Frontend Development', detail: 'React.js · JavaScript · Tailwind CSS', tint: '#22d3ee' },
     { icon: Palette, label: 'UI/UX Design', detail: 'Wireframing · Prototyping', tint: '#f472b6' },
-    { icon: Database, label: 'Backend & Database', detail: 'Python · FastAPI · PostgreSQL', tint: '#8b5cf6' },
+    { icon: Database, label: 'Backend & Database', detail: 'Python · FastAPI · Node.js · Firebase · REST API · PostgreSQL', tint: '#8b5cf6' },
     { icon: Wrench, label: 'Tools & Version Control', detail: 'Git · GitHub · Postman · VS Code', tint: '#34d399' },
 ];
 
@@ -44,7 +46,7 @@ export function About() {
     const [timelineRef, timelineInView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
     return (
-        <section id="about" className="section-y relative z-10">
+        <section id="about" className="section-y relative z-10 overflow-hidden">
             <div className="shell">
                 <SectionHeading
                     eyebrow="About"
@@ -57,7 +59,7 @@ export function About() {
                 <div className="grid items-stretch gap-5 sm:gap-6 lg:grid-cols-12">
 
                     {/* ══════════ Story card ══════════ */}
-                    <Reveal direction="right" className="lg:col-span-7">
+                    <Reveal direction="right" className="min-w-0 lg:col-span-7">
                         <GlassCard glow className="flex h-full flex-col p-6 sm:p-9 lg:p-10">
                             <div className="flex flex-col items-center gap-7 text-center sm:flex-row sm:items-start sm:gap-8 sm:text-left">
                                 {/* Portrait with spinning conic ring */}
@@ -82,7 +84,7 @@ export function About() {
                                     </div>
                                 </div>
 
-                                <div className="min-w-0 flex-1">
+                                <div className="min-w-0 w-full flex-1">
                                     <h3 className="font-display text-xl font-bold shimmer-text sm:text-2xl lg:text-3xl">The Journey</h3>
 
                                     <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted">
@@ -138,7 +140,7 @@ export function About() {
                     </Reveal>
 
                     {/* ══════════ Education + Experience ══════════ */}
-                    <Reveal direction="left" delay={0.12} className="lg:col-span-5">
+                    <Reveal direction="left" delay={0.12} className="min-w-0 lg:col-span-5">
                         <GlassCard glow className="flex h-full flex-col gap-9 p-6 sm:gap-10 sm:p-9 lg:p-10">
 
                             {/* ─── Education timeline ─── */}

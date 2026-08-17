@@ -213,7 +213,7 @@ export function Hero() {
                     initial={{ opacity: 0, scale: 0.92 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1.1, ease, delay: 0.25 }}
-                    className="relative mx-auto flex w-full max-w-[20rem] items-center justify-center sm:max-w-[24rem] lg:max-w-[30rem]"
+                    className="relative mx-auto mt-8 flex w-full max-w-[16rem] items-center justify-center sm:mt-0 sm:max-w-[24rem] lg:max-w-[30rem]"
                 >
                     {/* Orbit rings. Each spinning ring lives inside a centring wrapper —
                         the rotate keyframes own `transform`, so they can't also carry the

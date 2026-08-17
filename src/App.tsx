@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Header } from './components/Header';
 import { ParticleBackground } from './components/ParticleBackground';
 import { Loading } from './components/Loading';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 
 // Lazy load sections and components
 const Hero = lazy(() => import('./sections/Hero').then(m => ({ default: m.Hero })));
@@ -15,6 +16,7 @@ const Journey = lazy(() => import('./sections/Journey').then(m => ({ default: m.
 const Certifications = lazy(() => import('./sections/Certifications').then(m => ({ default: m.Certifications })));
 const Extracurricular = lazy(() => import('./sections/Extracurricular').then(m => ({ default: m.Extracurricular })));
 const Contact = lazy(() => import('./sections/Contact').then(m => ({ default: m.Contact })));
+const Copyrights = lazy(() => import('./sections/Copyrights').then(m => ({ default: m.Copyrights })));
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
 /* Lenis smooth scroll wrapper */
@@ -100,6 +102,16 @@ function ExtracurricularPage() {
   );
 }
 
+function CopyrightsPage() {
+  return (
+    <Page>
+      <Suspense fallback={<Loading />}>
+        <Copyrights />
+      </Suspense>
+    </Page>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -124,11 +136,15 @@ function App() {
             <Route path="/journey" element={<JourneyPage />} />
             <Route path="/certifications" element={<CertificationsPage />} />
             <Route path="/extracurricular" element={<ExtracurricularPage />} />
+            <Route path="/copyrights" element={<CopyrightsPage />} />
           </Routes>
 
           <Suspense fallback={null}>
             <Footer />
           </Suspense>
+
+          {/* Floating WhatsApp Button */}
+          <FloatingWhatsApp />
         </div>
       </SmoothScroll>
     </BrowserRouter>

@@ -98,6 +98,15 @@ const projects = [
         category: 'React.js',
     },
     {
+        title: 'Herbal Based Workshop',
+        description: 'Conducted an extensive herbal based workshop project focusing on natural remedies and wellness.',
+        image: './project.png',
+        tags: ['Workshop', 'Herbal'],
+        links: { live: '', github: '' },
+        color: '#10b981',
+        category: 'Workshop',
+    },
+    {
         title: 'Snake Game-Web Application',
         description: 'A modern recreation of the classic retro snake arcade game, featuring smooth grid-based movement and dynamic score tracking.',
         image: './snake-game.jpeg',
@@ -140,7 +149,7 @@ const projects = [
 export function Projects() {
 
     return (
-        <section id="projects" className="section-y relative z-10">
+        <section id="projects" className="section-y relative z-10 overflow-hidden">
             <div className="shell">
                 <SectionHeading
                     eyebrow="Selected Work"
