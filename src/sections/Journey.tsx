@@ -62,6 +62,13 @@ const events: JourneyEvent[] = [
         organization: 'Tech & Creative Collaboration',
         description: 'Group photo with the development and creative studio team members.',
         image: '/journey-team-group.jpg',
+    },
+    {
+        year: '2026',
+        title: 'Code Blaza Technology',
+        organization: 'Journey at CBT',
+        description: 'Capturing moments and milestones at Code Blaza Technology.',
+        image: '/cbt.jpeg',
         isActive: true,
     },
 ];
