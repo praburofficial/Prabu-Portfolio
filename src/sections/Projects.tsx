@@ -107,6 +107,15 @@ const projects = [
         category: 'Workshop',
     },
     {
+        title: 'MediShop ERP - Medical Shop Management',
+        description: 'A complete medical shop billing and management software featuring fast billing, smart inventory with expiry alerts, and powerful reports.',
+        image: './medical.png',
+        tags: ['React.js', 'Tailwind CSS'],
+        links: { live: '', github: '' },
+        color: '#2563EB',
+        category: 'React.js',
+    },
+    {
         title: 'Snake Game-Web Application',
         description: 'A modern recreation of the classic retro snake arcade game, featuring smooth grid-based movement and dynamic score tracking.',
         image: './snake-game.jpeg',
