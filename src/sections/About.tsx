@@ -6,18 +6,19 @@ import { useInView } from 'react-intersection-observer';
 import { GraduationCap, Briefcase, MapPin, Mail, ExternalLink, Crown } from 'lucide-react';
 
 const education = [
-    { degree: 'B.E. Computer Science', school: 'Gnanamani College of Technology', date: 'May 2026', score: 'CGPA: 7.86', isCurrent: true },
-    { degree: 'Higher Secondary (XII)', school: 'GHSS, Puduchatram', date: 'May 2022', score: 'Score: 73%', isCurrent: false },
-    { degree: 'SSLC (X)', school: 'GHSS, Kalangani', date: 'Mar 2020', score: 'Score: 69%', isCurrent: false },
+    { degree: 'B.E. in Computer Science and Engineering', school: 'Gnanamani College of Technology', date: '27/10/22 – 31/05/26', score: 'CGPA: 7.86', isCurrent: true, location: 'Namakkal, Tamil Nadu' },
+    { degree: 'Higher Secondary (HSC) - XII', school: 'Government Higher Secondary School, Puduchatram', date: '01/06/21 – 31/05/22', score: 'Percentage: 73%', isCurrent: false, location: 'Puduchatram' },
+    { degree: 'Secondary (SSLC) - X', school: 'Government Higher Secondary School, Kalangani', date: '01//06/19 – 31/03/20', score: 'Percentage: 69%', isCurrent: false, location: 'Kalangani' },
 ];
 
 /* Ordered oldest first, by start date. */
 const experience = [
-    { role: 'Frontend Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal', date: '10-Mar-25 TO 10-Jun-26', isCurrent: false, website: 'https://codeblazatechnology.in' },
-    { role: 'Web Developer Intern', company: 'Optimus Technocrates pvt ltd', location: 'Salem', date: '11-Jul-25 TO 09-Aug-25', isCurrent: false },
-    { role: 'React Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal', date: '10-Sep-25 TO 10-May-26', isCurrent: false, website: 'https://codeblazatechnology.in' },
-    { role: 'Fullstack Developer Intern', company: 'Qmex', location: 'Coimbatore', date: '01-Aug-26 TO 31-Aug-26', isCurrent: false },
-    { role: 'CEO', company: 'Code Blaza Technology', location: 'Namakkal', date: '10-Mar-25 – Present', isCurrent: true, website: 'https://codeblazatechnology.in' },
+    
+    { role: 'Frontend Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '10/03/25 – 10/07/25', isCurrent: false, website: 'https://codeblazatechnology.in' },
+    { role: 'Web Developer Intern', company: 'Optimus Technologies Pvt Ltd', location: 'Salem, Tamil Nadu', date: '11/07/25 – 09/08/25', isCurrent: false },
+    { role: 'React Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '10/08/25 – 10/08/26', isCurrent: false, website: 'https://codeblazatechnology.in' },
+    { role: 'Full Stack Developer Intern', company: 'Qmex Solutions', location: 'Coimbatore, Tamil Nadu', date: '01/08/26 – 31/08/26', isCurrent: false },
+    { role: 'Full Stack Developer', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '01/09/26 – Present', isCurrent: true, website: 'https://codeblazatechnology.in' },
 ];
 
 const containerVariants = {
@@ -155,7 +156,13 @@ export function About() {
                                                 </span>
                                             </div>
                                             <p className="mt-1 text-sm font-medium text-accent">{edu.school}</p>
-                                            <p className="mt-1 text-xs text-faint">{edu.score}</p>
+                                            <p className="mt-1 flex items-center justify-between text-xs text-faint">
+                                                <span>{edu.score}</span>
+                                                <span className="inline-flex items-center gap-1">
+                                                    <MapPin className="h-3 w-3" />
+                                                    {edu.location}
+                                                </span>
+                                            </p>
                                         </motion.div>
                                     ))}
                                 </motion.div>
