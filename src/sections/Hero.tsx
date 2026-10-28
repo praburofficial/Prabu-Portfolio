@@ -24,7 +24,7 @@ const techStack = [
 ];
 
 const stats = [
-    { value: 10, suffix: '+', label: 'Projects' },
+    { value: 20, suffix: '+', label: 'Projects' },
     { value: 26, suffix: '', label: 'Certificates' },
     { value: 3, suffix: '', label: 'Internships' },
 ];
