@@ -107,11 +107,11 @@ export function Journey() {
                 />
 
                 <div ref={railRef} className="relative">
-                    {/* Vertical rail line only — clean and centered, no diagonal/cross lines */}
-                    <div className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-slate-200/70">
+                    {/* Horizontal rail line — animated smoothly left-to-right on scroll */}
+                    <div className="pointer-events-none mb-10 h-0.5 w-full overflow-hidden rounded-full bg-slate-200/80 sm:mb-14">
                         <motion.div
-                            style={{ scaleY: railScale }}
-                            className="h-full w-full origin-top bg-gradient-to-b from-primary via-violet to-emerald-500 shadow-[0_0_8px_rgba(37,99,235,0.4)]"
+                            style={{ scaleX: railScale }}
+                            className="h-full w-full origin-left bg-gradient-to-r from-primary via-violet to-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.35)]"
                         />
                     </div>
 
@@ -132,6 +132,19 @@ export function Journey() {
                                     }}
                                     className="group relative flex flex-col items-center gap-4 sm:gap-5"
                                 >
+                                    {/* ─── Horizontal connector line through each row behind nodes ─── */}
+                                    <div className="pointer-events-none absolute -left-2 -right-2 top-[3.75rem] -translate-y-1/2 sm:-left-4 sm:top-[4.5rem] md:top-[5rem] lg:top-[5.25rem] xl:-left-5 xl:-right-5">
+                                        <div className="h-[2px] w-full bg-slate-200/70">
+                                            <motion.div
+                                                initial={{ scaleX: 0 }}
+                                                whileInView={{ scaleX: 1 }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 0.5, delay: (index % 5) * 0.06 }}
+                                                className="h-full w-full origin-left bg-gradient-to-r from-primary/80 via-violet/70 to-emerald-500/80"
+                                            />
+                                        </div>
+                                    </div>
+
                                     {/* ─── Photo node ─── */}
                                     <div
                                         
