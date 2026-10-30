@@ -28,6 +28,8 @@ const badges = [
     { name: 'Node.js', color: 'hover:border-accent/40 hover:bg-accent-tint hover:text-accent', drift: 'drift-1' },
     { name: 'Firebase', color: 'hover:border-primary/40 hover:bg-primary-tint hover:text-primary', drift: 'drift-2' },
     { name: 'REST API', color: 'hover:border-secondary/40 hover:bg-secondary-tint hover:text-secondary', drift: 'drift-3' },
+    { name: 'VS Code', color: 'hover:border-primary/40 hover:bg-primary-tint hover:text-primary', drift: 'drift-1' },
+    { name: 'Antigravity', color: 'hover:border-accent/40 hover:bg-accent-tint hover:text-accent', drift: 'drift-2' },
 ];
 
 /* ── Presentation-only grouping. Every label below is an existing skill/badge name. ── */
@@ -65,7 +67,7 @@ const toolkit = [
     { title: 'Backend', icon: Server, tint: '#8b5cf6', items: ['Python', 'FastAPI', 'Node.js', 'REST API', 'API Integration'] },
     { title: 'Database', icon: Database, tint: '#34d399', items: ['PostgreSQL', 'Firebase'] },
     { title: 'Design', icon: Palette, tint: '#f472b6', items: ['UI/UX Design', 'Wireframing', 'Prototyping'] },
-    { title: 'Tools & Version Control', icon: Wrench, tint: '#fbbf24', items: ['Git / GitHub', 'Postman', 'VS Code'] },
+    { title: 'Tools & Version Control', icon: Wrench, tint: '#fbbf24', items: ['Git / GitHub', 'Postman', 'VS Code', 'Antigravity'] },
 ];
 
 const badgeStyle = (name: string) => badges.find((b) => b.name === name)?.color ?? '';

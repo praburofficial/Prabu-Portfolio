@@ -26,49 +26,63 @@ const events: JourneyEvent[] = [
         title: `Memory ${i + 1}`,
         organization: 'Journey Captured',
         description: 'Reflecting on the continuous milestones and unforgettable moments gathered along my path.',
-        image: `/${i + 1}.webp`,
+        image: `/Journey/${i + 1}.webp`,
     })),
     {
         year: '2025',
         title: "1st Prize ALGONEXUS'25",
         organization: 'Student Achievement',
         description: 'Awarded 1st Prize for Short Film at ALGONEXUS 2025 symposium, Jayalakshmi Institute of Technology.',
-        image: '/journey-achievement-poster.jpg',
+        image: '/Journey/24.jpg',
     },
     {
         year: '2026',
         title: 'College ERP Presentation',
         organization: 'Gnanamani Institutions',
         description: 'Presenting Development of a Secure and Scalable College ERP with OCR Integration.',
-        image: '/journey-erp-presentation.jpg',
+        image: '/Journey/25.jpg',
     },
     {
         year: '2026',
         title: 'Project Team Leaders',
         organization: 'Gnanamani CSE',
         description: 'Final Year ERP Project Team standing together after successful demonstration.',
-        image: '/journey-team-formals.jpg',
+        image: '/Journey/26.jpg',
     },
     {
         year: '2026',
         title: 'Faculty & HOD Recognition',
         organization: 'Academic Excellence',
         description: 'Receiving recognition and award honors with college HOD and faculty members.',
-        image: '/journey-faculty-award.jpg',
+        image: '/Journey/27.jpg',
     },
     {
         year: '2026',
         title: 'Developer Studio Team',
         organization: 'Tech & Creative Collaboration',
         description: 'Group photo with the development and creative studio team members.',
-        image: '/journey-team-group.jpg',
+        image: '/Journey/28.jpg',
+    },
+    {
+        year: '2026',
+        title: 'Innovation & Team Synergy',
+        organization: 'Journey Captured',
+        description: 'Memorable milestone capturing collaboration and technological dedication.',
+        image: '/Journey/29.jpeg',
     },
     {
         year: '2026',
         title: 'Code Blaza Technology',
         organization: 'Journey at CBT',
         description: 'Capturing moments and milestones at Code Blaza Technology.',
-        image: '/cbt.jpeg',
+        image: '/Journey/30.jpeg',
+    },
+    {
+        year: '2026',
+        title: 'Professional Milestones',
+        organization: 'Journey Captured',
+        description: 'Continuing to build, create, and achieve higher benchmarks along the way.',
+        image: '/Journey/31.jpeg',
         isActive: true,
     },
 ];
@@ -93,11 +107,11 @@ export function Journey() {
                 />
 
                 <div ref={railRef} className="relative">
-                    {/* Vertical rail that draws itself in as you scroll (mobile) */}
-                    <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-border sm:hidden">
+                    {/* Vertical rail line only — clean and centered, no diagonal/cross lines */}
+                    <div className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-slate-200/70">
                         <motion.div
                             style={{ scaleY: railScale }}
-                            className="h-full w-full origin-top bg-gradient-to-b from-primary via-violet to-transparent"
+                            className="h-full w-full origin-top bg-gradient-to-b from-primary via-violet to-emerald-500 shadow-[0_0_8px_rgba(37,99,235,0.4)]"
                         />
                     </div>
 
@@ -110,16 +124,23 @@ export function Journey() {
                                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                     viewport={{ once: true, margin: '-40px' }}
                                     transition={{
-                                        duration: 0.6,
+                                        duration: 0.55,
                                         type: 'spring',
                                         stiffness: 140,
                                         damping: 18,
-                                        delay: (index % 5) * 0.06,
+                                        delay: index * 0.065,
                                     }}
                                     className="group relative flex flex-col items-center gap-4 sm:gap-5"
                                 >
                                     {/* ─── Photo node ─── */}
-                                    <div className="relative aspect-square w-[7.5rem] shrink-0 sm:w-36 md:w-40 lg:w-[10.5rem]">
+                                    <div
+                                        
+                                        className="relative aspect-square w-[7.5rem] shrink-0 sm:w-36 md:w-40 lg:w-[10.5rem]"
+                                    >
+                                        {/* Step number badge (Frame 1 to 31) */}
+                                        <span className="absolute -top-1.5 -right-1.5 z-20 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[0.625rem] font-bold text-primary shadow-e1 ring-1 ring-primary/20 transition-transform duration-300 group-hover:scale-110">
+                                            {index + 1}
+                                        </span>
                                         {/* Halo */}
                                         <div
                                             className="pointer-events-none absolute -inset-2 rounded-full opacity-0 blur-xl transition-opacity duration-700 group-hover:opacity-100"
@@ -151,12 +172,6 @@ export function Journey() {
                                                 decoding="async"
                                                 className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.14]"
                                             />
-
-                                            {/* Caption reveal */}
-                                            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-slate-900/85 via-slate-900/60 to-transparent px-3 pb-3 pt-6 text-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0">
-                                                <p className="truncate font-display text-[0.75rem] font-bold text-white">{event.title}</p>
-                                                <p className="truncate text-[0.625rem] text-white/70">{event.organization}</p>
-                                            </div>
                                         </div>
                                     </div>
 

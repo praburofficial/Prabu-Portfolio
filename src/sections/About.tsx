@@ -18,7 +18,7 @@ const experience = [
     { role: 'Web Developer Intern', company: 'Optimus Technologies Pvt Ltd', location: 'Salem, Tamil Nadu', date: '11/07/25 – 09/08/25', isCurrent: false },
     { role: 'React Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '10/08/25 – 10/08/26', isCurrent: false, website: 'https://codeblazatechnology.in' },
     { role: 'Full Stack Developer Intern', company: 'Qmex Solutions', location: 'Coimbatore, Tamil Nadu', date: '01/08/26 – 31/08/26', isCurrent: false },
-    { role: 'Full Stack Developer', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '01/09/26 – Present', isCurrent: true, website: 'https://codeblazatechnology.in' },
+    { role: 'Chief Executive Officer (CEO) & Full Stack Developer', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '01/09/26 – Present', isCurrent: true, website: 'https://codeblazatechnology.in' },
 ];
 
 const containerVariants = {
@@ -68,7 +68,7 @@ export function About() {
                                     <div className="absolute inset-[3px] rounded-full bg-background" />
                                     <div className="absolute inset-[6px] overflow-hidden rounded-full">
                                         <img
-                                            src="./Prabu.jpeg"
+                                            src="/Prabu.jpeg"
                                             alt="Prabu R Profile"
                                             loading="lazy"
                                             decoding="async"
@@ -82,7 +82,7 @@ export function About() {
                                     <h3 className="font-display text-lg font-bold shimmer-text sm:text-xl lg:text-2xl">The Journey</h3>
 
                                     <p className="mt-3 text-[0.875rem] leading-relaxed text-muted line-clamp-5">
-                                        As a Computer Science and Engineering student at Gnanamani College of Technology, I'm deeply passionate about the intersection of design, technology, and user experience. With a solid foundation in component-based UI architecture, responsive web design, and a deep love for Tailwind CSS and React.js, I continuously strive to bring static designs to life — building products that are not just functional, but visually stunning and highly interactive.
+                                        As Chief Executive Officer (CEO) at Code Blaza Technology and a Computer Science Engineering professional, I'm deeply passionate about the intersection of scalable software architecture, modern design, and exceptional user experience. With expertise in full stack development, component-driven UI architecture, and robust FastAPI backends, I lead and build digital products that are high-performing, accessible, and commercially impactful.
                                     </p>
 
                                     <div className="mt-4 flex flex-nowrap items-center justify-center gap-1.5 overflow-hidden sm:justify-start">

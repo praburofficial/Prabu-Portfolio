@@ -14,7 +14,7 @@ const certificates = [
         grade: 'A+ Grade',
         gradeColor: '#FFD700',
         date: '2022',
-        image: '/csc.webp',
+        image: '/Course Certificate/1.webp',
     },
     {
         title: 'Bharat Blockchain Yatra - Web3 & Blockchain Explorer',
@@ -22,7 +22,7 @@ const certificates = [
         grade: 'Participated',
         gradeColor: '#00d4ff',
         date: '2023',
-        image: '/blockchain-explorer.png',
+        image: '/Course Certificate/2.png',
     },
     {
         title: 'Data Science Foundation',
@@ -30,7 +30,7 @@ const certificates = [
         grade: 'A Grade',
         gradeColor: '#00d4ff',
         date: '2024',
-        image: '/ds.webp',
+        image: '/Course Certificate/3.webp',
     },
     {
         title: 'UI/UX Design',
@@ -38,7 +38,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2024',
-        image: '/ui.webp',
+        image: '/Course Certificate/4.webp',
     },
     {
         title: 'Python Programming',
@@ -46,7 +46,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2024',
-        image: '/python.webp',
+        image: '/Course Certificate/5.webp',
     },
     {
         title: 'C++ Programming',
@@ -54,7 +54,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2024',
-        image: '/c++.webp',
+        image: '/Course Certificate/6.webp',
     },
     {
         title: 'Java Programming',
@@ -62,7 +62,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2024',
-        image: '/java.webp',
+        image: '/Course Certificate/7.webp',
     },
     {
         title: 'Innovation in AI App Development',
@@ -70,7 +70,7 @@ const certificates = [
         grade: 'Workshop',
         gradeColor: '#00d4ff',
         date: '2024',
-        image: '/innovation-in-ai-app.png',
+        image: '/Course Certificate/8.png',
     },
     {
         title: 'One Day Web Development Workshop',
@@ -78,7 +78,7 @@ const certificates = [
         grade: 'Workshop',
         gradeColor: '#00d4ff',
         date: '2025',
-        image: '/web-dev-workshop-vrsoft.png',
+        image: '/Course Certificate/9.png',
     },
     {
         title: 'Html & css Bootcamp',
@@ -86,7 +86,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/boot.webp',
+        image: '/Course Certificate/10.webp',
     },
     {
         title: 'Web development Internship',
@@ -94,7 +94,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/optimus.png',
+        image: '/Course Certificate/11.png',
     },
     {
         title: 'Placement Preparation Webinar',
@@ -102,7 +102,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/placement.webp',
+        image: '/Course Certificate/12.webp',
     },
     {
         title: 'Incubation Ecosystem Webinar',
@@ -110,7 +110,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/incubation.webp',
+        image: '/Course Certificate/13.webp',
     },
     {
         title: 'HTML',
@@ -118,7 +118,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/html.webp',
+        image: '/Course Certificate/14.webp',
     },
     {
         title: 'CSS',
@@ -126,7 +126,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/css.webp',
+        image: '/Course Certificate/15.webp',
     },
     {
         title: 'JavaScript',
@@ -134,7 +134,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/js.webp',
+        image: '/Course Certificate/16.webp',
     },
     {
         title: 'AI for Software Engineers',
@@ -142,7 +142,7 @@ const certificates = [
         grade: 'National Level Webinar',
         gradeColor: '#f59e0b',
         date: '2025',
-        image: '/ai-for-software-engineers.png',
+        image: '/Course Certificate/17.png',
     },
     {
         title: 'HackerRank Problem Solving in Python',
@@ -150,7 +150,7 @@ const certificates = [
         grade: 'Verified',
         gradeColor: '#7c3aed',
         date: '2025',
-        image: '/hacker.webp',
+        image: '/Course Certificate/18.webp',
     },
     {
         title: 'Learnathon 2025',
@@ -158,7 +158,7 @@ const certificates = [
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/learnathon-2025.jpg',
+        image: '/Course Certificate/19.jpg',
     },
     {
         title: 'Python for Data Science',
@@ -166,7 +166,7 @@ const certificates = [
         grade: '55% Score',
         gradeColor: '#00d4ff',
         date: '2026',
-        image: '/nptel-python-data-science.jpg',
+        image: '/Course Certificate/20.jpg',
     }
 ];
 
@@ -177,7 +177,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#7c3aed',
         date: '2023',
-        image: '/23.jpeg',
+        image: '/Event Certificate/1.jpeg',
     },
     {
         title: 'Short Film-2nd Prize',
@@ -185,7 +185,7 @@ const eventCertificates = [
         grade: '2nd Prize',
         gradeColor: '#00d4ff',
         date: '2024',
-        image: '/24-1.jpeg',
+        image: '/Event Certificate/2.jpeg',
     },
     {
         title: 'Code Debugging Participation',
@@ -193,15 +193,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#10b981',
         date: '2024',
-        image: '/24-2.jpeg',
-    },
-    {
-        title: 'Code Debugging Participation',
-        issuer: 'Mahendra Engineering College',
-        grade: 'Participated',
-        gradeColor: '#7c3aed',
-        date: '2024',
-        image: '/24-3.jpeg',
+        image: '/Event Certificate/3.jpeg',
     },
     {
         title: 'Short Film - 1st Prize',
@@ -209,7 +201,15 @@ const eventCertificates = [
         grade: '1st Prize',
         gradeColor: '#00d4ff',
         date: '2024',
-        image: '/24-4.jpeg',
+        image: '/Event Certificate/4.jpeg',
+    },
+    {
+        title: 'Code Debugging Participation',
+        issuer: 'Mahendra Engineering College',
+        grade: 'Participated',
+        gradeColor: '#7c3aed',
+        date: '2024',
+        image: '/Event Certificate/5.jpeg',
     },
     {
         title: 'Bug Hunting Participation',
@@ -217,7 +217,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#10b981',
         date: '2024',
-        image: '/24-5.jpeg',
+        image: '/Event Certificate/6.jpeg',
     },
     {
         title: 'Fun-a-thon 2nd Prize',
@@ -225,7 +225,7 @@ const eventCertificates = [
         grade: '2nd Prize',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/25-1.jpeg',
+        image: '/Event Certificate/7.jpeg',
     },
     {
         title: 'Idea Insights',
@@ -233,7 +233,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#7c3aed',
         date: '2025',
-        image: '/25-2.jpeg',
+        image: '/Event Certificate/8.jpeg',
     },
     {
         title: 'Paper Presentation Participation',
@@ -241,7 +241,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#00d4ff',
         date: '2025',
-        image: '/25-3.jpeg',
+        image: '/Event Certificate/9.jpeg',
     },
     {
         title: 'Techno Clash Participation',
@@ -249,7 +249,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/25-4.jpeg',
+        image: '/Event Certificate/10.jpeg',
     },
     {
         title: 'Tressure Hunt 1st Prize',
@@ -257,7 +257,7 @@ const eventCertificates = [
         grade: '1st Prize',
         gradeColor: '#7c3aed',
         date: '2025',
-        image: '/25-5.jpeg',
+        image: '/Event Certificate/11.jpeg',
     },
     {
         title: 'Neurothon Participation',
@@ -265,7 +265,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#00d4ff',
         date: '2026',
-        image: '/26.jpeg',
+        image: '/Event Certificate/12.jpeg',
     },
     {
         title: 'National Conference Paper Presentation',
@@ -273,7 +273,7 @@ const eventCertificates = [
         grade: 'Participated',
         gradeColor: '#7c3aed',
         date: '2026',
-        image: '/confrence.jpeg',
+        image: '/Event Certificate/13.jpeg',
     }
 ];
 

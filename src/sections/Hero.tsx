@@ -1,27 +1,13 @@
 import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Button } from '../components/Button';
-import { Github, Linkedin, ArrowUpRight, FileText, ChevronDown, Sparkles } from 'lucide-react';
+import { Github, Linkedin, ArrowUpRight, FileText, ChevronDown } from 'lucide-react';
 import { CircuitComputerIcon } from '../components/CircuitComputerIcon';
 import { ResumeModal } from '../components/ResumeModal';
 import { TypeAnimation } from 'react-type-animation';
 import CountUp from 'react-countup';
 
-/* Stack chips — drawn from the technical skills listed on the résumé. */
-const techStack = [
-    'React.js',
-    'JavaScript (ES6+)',
-    'Tailwind CSS',
-    'HTML5',
-    'CSS3',
-    'Python',
-    'FastAPI',
-    'PostgreSQL',
-    'Git',
-    'GitHub',
-    'Postman',
-    'VS Code',
-];
+
 
 const stats = [
     { value: 20, suffix: '+', label: 'Projects' },
@@ -94,6 +80,8 @@ export function Hero() {
                         <span className="font-display text-lg font-semibold tracking-[-0.02em] text-primary sm:text-xl md:text-2xl">
                             <TypeAnimation
                                 sequence={[
+                                    'CEO at Code Blaza Technology',
+                                    2200,
                                     'Full Stack Developer',
                                     2000,
                                     'React.js & FastAPI Developer',
@@ -116,10 +104,11 @@ export function Hero() {
                         variants={rise}
                         className="mt-6 max-w-[58ch] text-[0.9375rem] leading-relaxed text-muted sm:mt-7 sm:text-lg"
                     >
-                        Detail-oriented Computer Science Engineering student with strong expertise in
-                        Full Stack Development — React.js and Tailwind CSS on the frontend, Python and
-                        FastAPI on the backend. Passionate about combining clean code with intuitive
-                        UI/UX design to solve real-world problems.
+                        Chief Executive Officer (CEO) at Code Blaza Technology and results-driven
+                        Full Stack Engineer with proven expertise in building scalable web architectures —
+                        React.js and Tailwind CSS on the frontend, Python and FastAPI on the backend.
+                        Passionate about combining robust engineering with intuitive UI/UX design to build
+                        high-impact digital products and solve real-world problems.
                     </motion.p>
 
                     {/* Actions */}
@@ -185,27 +174,7 @@ export function Hero() {
                         ))}
                     </motion.dl>
 
-                    {/* Tech chips */}
-                    <motion.div custom={6} variants={rise} className="mt-8">
-                        <div className="mb-3 flex items-center gap-2">
-                            <Sparkles className="h-3.5 w-3.5 text-primary" />
-                            <span className="eyebrow">Working with</span>
-                        </div>
-                        <ul className="flex flex-wrap gap-2">
-                            {techStack.map((tech, i) => (
-                                <motion.li
-                                    key={tech}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 1.05 + i * 0.045, duration: 0.4, ease }}
-                                    whileHover={{ y: -3 }}
-                                    className="cursor-default rounded-pill border border-border bg-white px-3 py-1.5 text-[0.75rem] font-medium text-muted shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors duration-300 hover:border-primary/40 hover:bg-primary-tint hover:text-primary sm:px-3.5 sm:text-[0.78125rem]"
-                                >
-                                    {tech}
-                                </motion.li>
-                            ))}
-                        </ul>
-                    </motion.div>
+
                 </motion.div>
 
                 {/* ══════════ Right — the portrait ══════════ */}
@@ -269,7 +238,7 @@ export function Hero() {
                         <div className="absolute inset-[6px] z-10 overflow-hidden rounded-full border border-border bg-white p-2 shadow-e2">
                             <div className="relative h-full w-full overflow-hidden rounded-full">
                                 <img
-                                    src="./Prabu.jpeg"
+                                    src="/Prabu.jpeg"
                                     alt="Portrait of Prabu R"
                                     width={640}
                                     height={640}
@@ -294,7 +263,7 @@ export function Hero() {
                         <div className="absolute -bottom-6 left-1/2 z-20 flex w-[min(17rem,94%)] -translate-x-1/2 items-center justify-between gap-3 rounded-[16px] border border-border bg-white/90 px-4 py-3 shadow-e2 backdrop-blur-md">
                             <div className="min-w-0">
                                 <p className="truncate font-display text-sm font-bold text-ink">Prabu R</p>
-                                <p className="truncate text-[0.6875rem] text-faint">B.E - CSE ( 2022-2026 )</p>
+                                <p className="truncate text-[0.6875rem] text-faint">CEO · Code Blaza Technology</p>
                             </div>
                             <span className="shrink-0 rounded-pill bg-accent-tint px-2.5 py-1 text-[0.625rem] font-semibold uppercase tracking-wider text-accent ring-1 ring-accent/20">
                                 Open

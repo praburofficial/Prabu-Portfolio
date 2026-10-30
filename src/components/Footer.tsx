@@ -36,7 +36,7 @@ export function Footer() {
     return (
         <footer className="relative z-10 mt-8 overflow-hidden border-t border-border bg-surface/60">
             {/* Top hairline glow */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#10b981]/45 to-transparent" />
             <div
                 className="pointer-events-none absolute inset-x-0 top-0 h-64"
                 style={{ background: 'radial-gradient(ellipse 50% 100% at 50% 0%, rgba(16,185,129,0.06), transparent 70%)' }}

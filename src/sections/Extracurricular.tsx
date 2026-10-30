@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { GlassCard } from '../components/GlassCard';
 import Tilt from 'react-parallax-tilt';
-import { Film, Youtube, Play, ExternalLink, X, Cpu, Code2, Sparkles, Video, GraduationCap } from 'lucide-react';
+import { Film, Youtube, Play, ExternalLink, X, Cpu, Code2, Sparkles, Video, GraduationCap, Briefcase } from 'lucide-react';
 
 interface ShortFilm {
     id: string;
@@ -60,7 +60,7 @@ const youtubeAdminRoles = [
         badge: 'Media & Film Channel',
         gradient: 'from-red-500/20 to-rose-500/20',
         borderColor: '#ef4444',
-        logo: './3d-productions-logo.jpg',
+        logo: '/Logo/3d-productions-logo.jpg',
     },
     {
         title: 'Gnan CSE Hub-Gnanamani College of Technology',
@@ -71,7 +71,7 @@ const youtubeAdminRoles = [
         badge: 'Institutional Channel',
         gradient: 'from-blue-500/20 to-cyan-500/20',
         borderColor: '#00d4ff',
-        logo: './gnan-cse-hub-logo.png',
+        logo: '/Logo/gnan-cse-hub-logo.png',
     },
     {
         title: 'Thamizhoviyaa Home Goodies',
@@ -82,7 +82,7 @@ const youtubeAdminRoles = [
         badge: 'Brand Channel',
         gradient: 'from-emerald-500/20 to-teal-500/20',
         borderColor: '#10b981',
-        logo: './thamizhoviyaa-logo.jpg',
+        logo: '/Logo/thamizhoviyaa-logo.jpg',
     },
     {
         title: 'Boxart Studio',
@@ -93,11 +93,19 @@ const youtubeAdminRoles = [
         badge: 'Craft & Studio Creator',
         gradient: 'from-purple-500/20 to-pink-500/20',
         borderColor: '#7c3aed',
-        logo: './boxart-studio-logo.jpg',
+        logo: '/Logo/boxart-studio-logo.jpg',
     },
 ];
 
 const leadershipRoles = [
+    {
+        title: 'Chief Executive Officer (CEO)',
+        organization: 'Code Blaza Technology',
+        period: '2024 - Present',
+        description: 'Directing overall company vision, client technical architecture, scalable web solutions, and leading development teams delivering modern enterprise products.',
+        icon: Briefcase,
+        color: '#2563eb',
+    },
     {
         title: 'Final Year Project Team Head',
         organization: 'Gnanamani College of Technology',
@@ -402,7 +410,7 @@ export function Extracurricular() {
                         </div>
                     </motion.div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         {leadershipRoles.map((lead, index) => {
                             const IconComponent = lead.icon;
                             return (
@@ -411,35 +419,34 @@ export function Extracurricular() {
                                     initial={{ opacity: 0, y: 40 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: index * 0.15 }}
+                                    transition={{ duration: 0.5, delay: index * 0.12 }}
+                                    className="h-full"
                                 >
                                     <GlassCard
                                         glow
-                                        className="h-full p-6 flex gap-4 items-start group hover:-translate-y-1.5 transition-all duration-500 border border-border bg-white shadow-e1 hover:shadow-e2 hover:border-primary/40"
+                                        className="h-full p-5 flex flex-col group hover:-translate-y-1.5 transition-all duration-500 border border-border bg-white shadow-e1 hover:shadow-e2 hover:border-primary/40"
                                     >
-                                        <div
-                                            className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-sm"
-                                            style={{ color: lead.color, boxShadow: `0 0 15px ${lead.color}20` }}
-                                        >
-                                            <IconComponent className="w-6 h-6" />
+                                        <div className="flex items-center justify-between gap-2 mb-3">
+                                            <div
+                                                className="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-sm"
+                                                style={{ color: lead.color, boxShadow: `0 0 15px ${lead.color}20` }}
+                                            >
+                                                <IconComponent className="w-5 h-5" />
+                                            </div>
+                                            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-primary-tint text-primary border border-primary/20">
+                                                {lead.period}
+                                            </span>
                                         </div>
 
-                                        <div className="flex-1">
-                                            <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                                                <h4 className="text-base font-bold text-slate-900 font-['Outfit'] group-hover:text-primary transition-colors">
-                                                    {lead.title}
-                                                </h4>
-                                                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-primary-tint text-primary border border-primary/20">
-                                                    {lead.period}
-                                                </span>
-                                            </div>
-                                            <p className="text-xs font-semibold text-violet mb-2">
-                                                {lead.organization}
-                                            </p>
-                                            <p className="text-xs text-slate-600 leading-relaxed">
-                                                {lead.description}
-                                            </p>
-                                        </div>
+                                        <h4 className="text-sm font-bold text-slate-900 font-['Outfit'] group-hover:text-primary transition-colors leading-snug">
+                                            {lead.title}
+                                        </h4>
+                                        <p className="text-xs font-semibold text-violet mt-1 mb-2">
+                                            {lead.organization}
+                                        </p>
+                                        <p className="text-xs text-slate-600 leading-relaxed mt-auto">
+                                            {lead.description}
+                                        </p>
                                     </GlassCard>
                                 </motion.div>
                             );

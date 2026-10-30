@@ -93,81 +93,20 @@ export function Header() {
             />
 
             <div
-                className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
+                className={`relative transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
                     ? 'border-b border-border bg-white/75 backdrop-blur-xl backdrop-saturate-150 shadow-[0_4px_24px_-16px_rgba(15,23,42,0.35)]'
                     : 'border-b border-transparent bg-transparent'
                     }`}
             >
+                {/* Header end border: theme green line lightly visible, same like footer */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#10b981]/45 to-transparent" />
+
                 <div className="shell flex h-16 items-center justify-between gap-4 sm:h-20 sm:gap-6">
-                    {/* ─── Wordmark ─── */}
-                    <a
-                        href="/#home"
-                        onClick={(e) => handleNavClick(e, '/#home')}
-                        className="group flex shrink-0 items-center gap-2.5 sm:gap-3"
-                        aria-label="Prabu — back to top"
-                    >
-                        <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-[11px] bg-surface-2 shadow-[0_6px_18px_-8px_rgba(16,185,129,0.55)] ring-1 ring-slate-900/[0.07] sm:h-10 sm:w-10 sm:rounded-[13px]">
-                            <img
-                                src="/profile.jpg"
-                                alt=""
-                                width={80}
-                                height={80}
-                                decoding="async"
-                                className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
-                            />
-                        </span>
-                        <span className="hidden font-display text-lg font-bold tracking-[-0.02em] text-ink sm:block">
-                            Prabu R<span className="text-primary">.</span>
-                        </span>
-                    </a>
-
-                    {/* ─── Desktop pill nav ─── */}
-                    <nav
-                        aria-label="Primary"
-                        className="hidden items-center gap-0.5 rounded-pill border border-border bg-white/70 p-1.5 shadow-e1 backdrop-blur-xl lg:flex xl:gap-1"
-                    >
-                        {navLinks.map((link) => {
-                            const isActive = isLinkActive(link);
-                            const content = (
-                                <>
-                                    {isActive && (
-                                        <motion.span
-                                            layoutId="nav-pill"
-                                            transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                                            className="absolute inset-0 rounded-pill bg-surface-2 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.05)]"
-                                        />
-                                    )}
-                                    <span className="relative z-10">{link.name}</span>
-                                </>
-                            );
-
-                            const cls = `relative rounded-pill px-3 py-2 text-[0.8125rem] font-medium transition-colors duration-300 xl:px-3.5 ${isActive ? 'text-primary' : 'text-muted hover:text-ink'
-                                }`;
-
-                            return link.isHash ? (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    onClick={(e) => handleNavClick(e, link.href)}
-                                    aria-current={isActive ? 'page' : undefined}
-                                    className={cls}
-                                >
-                                    {content}
-                                </a>
-                            ) : (
-                                <Link key={link.name} to={link.href} aria-current={isActive ? 'page' : undefined} className={cls}>
-                                    {content}
-                                </Link>
-                            );
-                        })}
-                    </nav>
-
-                    <div className="flex items-center gap-2 sm:gap-3">
-
-
-                        {/* ─── Mobile trigger ─── */}
+                    {/* ─── Mobile & Tab view (< lg): Left = Hamburger, Center = PRABU R, Right = Logo ─── */}
+                    <div className="flex w-full items-center justify-between lg:hidden">
+                        {/* Left: Three line nav bar */}
                         <button
-                            className="grid h-11 w-11 place-items-center rounded-[13px] border border-border bg-white text-ink shadow-e1 transition-colors hover:bg-surface lg:hidden"
+                            className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-[12px] border border-border bg-white text-ink shadow-e1 transition-colors hover:bg-surface"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-expanded={mobileMenuOpen}
                             aria-controls="mobile-nav"
@@ -186,6 +125,123 @@ export function Header() {
                                 </motion.span>
                             </AnimatePresence>
                         </button>
+
+                        {/* Center: PRABU R */}
+                        <a
+                            href="/#home"
+                            onClick={(e) => handleNavClick(e, '/#home')}
+                            className="font-display text-lg sm:text-xl font-extrabold tracking-[-0.02em] text-ink"
+                            aria-label="PRABU R"
+                        >
+                            PRABU R<span className="text-primary">.</span>
+                        </a>
+
+                        {/* Right: Logo */}
+                        <a
+                            href="/#home"
+                            onClick={(e) => handleNavClick(e, '/#home')}
+                            className="group relative grid h-10 w-10 sm:h-11 sm:w-11 place-items-center overflow-hidden rounded-[12px] bg-surface-2 shadow-[0_4px_14px_-6px_rgba(16,185,129,0.5)] ring-1 ring-slate-900/[0.07]"
+                            aria-label="Prabu — back to top"
+                        >
+                            <img
+                                src="/profile.jpg"
+                                alt="Profile"
+                                width={80}
+                                height={80}
+                                className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                            />
+                        </a>
+                    </div>
+
+                    {/* ─── Desktop view (>= lg) ─── */}
+                    <div className="hidden w-full items-center justify-between lg:flex">
+                        {/* Wordmark */}
+                        <a
+                            href="/#home"
+                            onClick={(e) => handleNavClick(e, '/#home')}
+                            className="group flex shrink-0 items-center gap-2.5 sm:gap-3"
+                            aria-label="Prabu — back to top"
+                        >
+                            <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-[13px] bg-surface-2 shadow-[0_6px_18px_-8px_rgba(16,185,129,0.55)] ring-1 ring-slate-900/[0.07]">
+                                <img
+                                    src="/profile.jpg"
+                                    alt=""
+                                    width={80}
+                                    height={80}
+                                    decoding="async"
+                                    className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                                />
+                            </span>
+                            <span className="font-display text-lg font-bold tracking-[-0.02em] text-ink">
+                                Prabu R<span className="text-primary">.</span>
+                            </span>
+                        </a>
+
+                        {/* Desktop Pill Nav with rotating loop border line left to right */}
+                        <div className="relative rounded-pill p-[1.5px] overflow-hidden">
+                            {/* Rotating loop border line */}
+                            <motion.div
+                                className="absolute inset-[-150%] gpu pointer-events-none"
+                                style={{
+                                    background:
+                                        'conic-gradient(from 0deg, transparent 0deg, transparent 65deg, #10b981 90deg, #00d4ff 115deg, transparent 140deg, transparent 360deg)',
+                                }}
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+                            />
+                            <nav
+                                aria-label="Primary"
+                                className="relative z-10 flex items-center gap-0.5 rounded-pill border border-border/80 bg-white/90 p-1.5 shadow-e1 backdrop-blur-xl xl:gap-1"
+                            >
+                                {navLinks.map((link) => {
+                                    const isActive = isLinkActive(link);
+                                    const content = (
+                                        <>
+                                            {isActive && (
+                                                <motion.span
+                                                    layoutId="nav-pill"
+                                                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                                                    className="absolute inset-0 rounded-pill bg-surface-2 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.05)]"
+                                                />
+                                            )}
+                                            <span className="relative z-10">{link.name}</span>
+                                        </>
+                                    );
+
+                                    const cls = `relative rounded-pill px-3 py-2 text-[0.8125rem] font-medium transition-colors duration-300 xl:px-3.5 ${
+                                        isActive ? 'text-primary' : 'text-muted hover:text-ink'
+                                    }`;
+
+                                    return link.isHash ? (
+                                        <a
+                                            key={link.name}
+                                            href={link.href}
+                                            onClick={(e) => handleNavClick(e, link.href)}
+                                            aria-current={isActive ? 'page' : undefined}
+                                            className={cls}
+                                        >
+                                            {content}
+                                        </a>
+                                    ) : (
+                                        <Link key={link.name} to={link.href} aria-current={isActive ? 'page' : undefined} className={cls}>
+                                            {content}
+                                        </Link>
+                                    );
+                                })}
+                            </nav>
+                        </div>
+
+                        {/* Right: Quick action for visual balance */}
+                        <div className="flex shrink-0 items-center justify-end min-w-[120px]">
+                            <a
+                                href="/#contact"
+                                onClick={(e) => handleNavClick(e, '/#contact')}
+                                className="inline-flex items-center gap-1.5 rounded-pill border border-border bg-white px-3.5 py-1.5 text-xs font-semibold text-muted shadow-sm transition-all duration-300 hover:border-primary/40 hover:text-primary hover:shadow-e1"
+                            >
+                                <span>Let's Talk</span>
+                                <ArrowUpRight className="h-3.5 w-3.5" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
