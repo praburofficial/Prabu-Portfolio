@@ -101,7 +101,7 @@ const leadershipRoles = [
     {
         title: 'Chief Executive Officer (CEO)',
         organization: 'Code Blaza Technology',
-        period: '2024 - Present',
+        period: '2025 - Present',
         description: 'Directing overall company vision, client technical architecture, scalable web solutions, and leading development teams delivering modern enterprise products.',
         icon: Briefcase,
         color: '#2563eb',
@@ -125,7 +125,7 @@ const leadershipRoles = [
     {
         title: 'Softcell-Head of Frontend Developers',
         organization: 'Gnanamani College of Technology',
-        period: '2024-Present',
+        period: '2025-2026',
         description: 'Leading student web and app developer projects, organizing technical sessions, code reviews, and full-stack software initiatives.',
         icon: Code2,
         color: '#7c3aed',
