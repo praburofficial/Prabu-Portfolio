@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { AIChatModal } from './AIChatModal';
+import { ReckoLogo } from './ReckoLogo';
 
 export function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -20,7 +21,7 @@ export function FloatingWhatsApp() {
         <div className="group relative">
           {/* Tooltip on hover */}
           <span className="pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-pill border border-sky-400/30 bg-slate-900/95 px-3 py-1 text-xs font-semibold text-white shadow-lg backdrop-blur-md opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-x-1">
-            🤖 Ask Recko AI
+            ✨ Ask Recko AI
           </span>
 
           <button
@@ -33,13 +34,7 @@ export function FloatingWhatsApp() {
             <span className="absolute -inset-1 rounded-full bg-gradient-to-tr from-sky-400 to-purple-500 opacity-60 blur-md animate-pulse" />
 
             <span className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#020817]">
-              <img
-                src="/recko-robot.png"
-                alt="Recko AI Humanoid Robot"
-                width={64}
-                height={64}
-                className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
-              />
+              <ReckoLogo size={64} className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-110" />
               <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center">
                 <Sparkles className="h-3 w-3 text-sky-300 drop-shadow-[0_0_4px_rgba(56,189,248,0.9)] animate-pulse" />
               </span>
