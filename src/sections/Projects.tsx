@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '../components/GlassCard';
 import { SectionHeading } from '../components/SectionHeading';
 import Tilt from 'react-parallax-tilt';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, ChevronDown } from 'lucide-react';
 import { toneStyle } from '../lib/palette';
 
 const projects = [
@@ -197,7 +198,11 @@ const projects = [
     },
 ];
 
+const INITIAL_PROJECTS = 6; // 2 rows in 3-column desktop grid
+
 export function Projects() {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const visibleProjects = isExpanded ? projects : projects.slice(0, INITIAL_PROJECTS);
 
     return (
         <section id="projects" className="section-y relative z-10 overflow-hidden">
@@ -213,7 +218,7 @@ export function Projects() {
                 {/* ─── Project grid ─── */}
                 <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                     <AnimatePresence mode="popLayout">
-                        {projects.map((project, index) => {
+                        {visibleProjects.map((project, index) => {
                             const hasLinks = Boolean(project.links.github || project.links.live);
                             const t = toneStyle(project.color);
 
@@ -344,6 +349,35 @@ export function Projects() {
                         })}
                     </AnimatePresence>
                 </div>
+
+                {/* ─── Expand / Collapse toggle button ─── */}
+                {projects.length > INITIAL_PROJECTS && (
+                    <div className="mt-10 flex justify-center sm:mt-12">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (isExpanded) {
+                                    const el = document.getElementById('projects');
+                                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                }
+                                setIsExpanded((prev) => !prev);
+                            }}
+                            className="group relative inline-flex items-center gap-2.5 rounded-pill border border-border bg-white px-7 py-3 font-display text-[0.875rem] font-semibold text-ink shadow-e1 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-e2 active:translate-y-0"
+                        >
+                            <span>{isExpanded ? 'Show Less' : 'View More Projects'}</span>
+                            <ChevronDown
+                                className={`h-4 w-4 transition-transform duration-300 ${
+                                    isExpanded ? 'rotate-180 text-primary' : 'text-muted group-hover:text-primary'
+                                }`}
+                            />
+                            {!isExpanded && (
+                                <span className="rounded-pill bg-primary/10 px-2 py-0.5 text-[0.75rem] font-bold text-primary">
+                                    +{projects.length - INITIAL_PROJECTS}
+                                </span>
+                            )}
+                        </button>
+                    </div>
+                )}
             </div>
         </section>
     );

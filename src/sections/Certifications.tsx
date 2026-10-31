@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GlassCard } from '../components/GlassCard';
 import { SectionHeading } from '../components/SectionHeading';
-import { Award, Trophy, Github, Linkedin, Maximize2, X, Download } from 'lucide-react';
+import { Award, Trophy, Github, Linkedin, Maximize2, X, Download, ChevronDown } from 'lucide-react';
 import { toneStyle } from '../lib/palette';
 
 /* Re-ordered certificates as requested */
@@ -280,9 +280,12 @@ const eventCertificates = [
 const tabs = ['Course Certifications', 'Event Certifications'] as const;
 type Tab = (typeof tabs)[number];
 
+const INITIAL_CERTS = 8; // 2 rows in 4-column desktop grid
+
 export function Certifications() {
     const [activeTab, setActiveTab] = useState<Tab>('Course Certifications');
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     // Lock background scroll when the image modal is open
     useEffect(() => {
@@ -306,7 +309,8 @@ export function Certifications() {
         return () => window.removeEventListener('keydown', onKey);
     }, [selectedImage]);
 
-    const list = activeTab === 'Course Certifications' ? certificates : eventCertificates;
+    const fullList = activeTab === 'Course Certifications' ? certificates : eventCertificates;
+    const list = isExpanded ? fullList : fullList.slice(0, INITIAL_CERTS);
 
     const counts = useMemo(
         () => ({
@@ -348,7 +352,7 @@ export function Certifications() {
                                     key={tab}
                                     role="tab"
                                     aria-selected={isActive}
-                                    onClick={() => setActiveTab(tab)}
+                                    onClick={() => { setActiveTab(tab); setIsExpanded(false); }}
                                     className={`relative w-full rounded-pill px-4 py-2.5 text-[0.8125rem] font-semibold transition-colors duration-300 sm:w-auto sm:px-6 ${isActive ? 'text-white' : 'text-muted hover:text-ink'
                                         }`}
                                 >
@@ -453,6 +457,39 @@ export function Certifications() {
                     </AnimatePresence>
                 </motion.div>
 
+                
+                {/* ─── Expand / Collapse toggle button ─── */}
+                {fullList.length > INITIAL_CERTS && (
+                    <div className="mt-10 flex justify-center sm:mt-12">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                if (isExpanded) {
+                                    const el = document.getElementById('certifications');
+                                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                }
+                                setIsExpanded((prev) => !prev);
+                            }}
+                            className="group relative inline-flex items-center gap-2.5 rounded-pill border border-border bg-white px-7 py-3 font-display text-[0.875rem] font-semibold text-ink shadow-e1 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-e2 active:translate-y-0"
+                        >
+                            <span>
+                                {isExpanded
+                                    ? 'Show Less'
+                                    : `View More ${activeTab === 'Course Certifications' ? 'Courses' : 'Certificates'}`}
+                            </span>
+                            <ChevronDown
+                                className={`h-4 w-4 transition-transform duration-300 ${
+                                    isExpanded ? 'rotate-180 text-primary' : 'text-muted group-hover:text-primary'
+                                }`}
+                            />
+                            {!isExpanded && (
+                                <span className="rounded-pill bg-primary/10 px-2 py-0.5 text-[0.75rem] font-bold text-primary">
+                                    +{fullList.length - INITIAL_CERTS}
+                                </span>
+                            )}
+                        </button>
+                    </div>
+                )}
                 {/* ─── Social links ─── */}
                 <motion.div
                     className="mt-14 flex justify-center gap-3 sm:mt-16"

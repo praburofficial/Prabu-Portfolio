@@ -10,8 +10,8 @@ interface ResumeModalProps {
 
 /* The résumé is a two-page document; both pages live in /public. */
 const pages = [
-    { src: '/resume.png', label: 'Page 1' },
-    { src: '/resume1.png', label: 'Page 2' },
+    { src: '/resume.jpg', label: 'Page 1' },
+    { src: '/resume1.jpg', label: 'Page 2' },
 ];
 
 export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
@@ -163,7 +163,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
 
                         {/* ─── Footer actions ─── */}
                         <div className="relative z-10 flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-border bg-surface/70 px-5 py-4 sm:px-7">
-                            <p className="text-xs text-faint">Two-page resume · updated May 2026</p>
+                            <p className="text-xs text-faint">Two-page resume · updated September 2026</p>
                             <div className="flex flex-wrap gap-2">
                                 {pages.map((page) => (
                                     <a

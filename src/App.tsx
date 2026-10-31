@@ -1,11 +1,12 @@
-import React, { useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Header } from './components/Header';
 import { ParticleBackground } from './components/ParticleBackground';
 import { Loading } from './components/Loading';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { WelcomeScreen } from './components/WelcomeScreen';
 
 // Lazy load sections and components
 const Hero = lazy(() => import('./sections/Hero').then(m => ({ default: m.Hero })));
@@ -113,41 +114,69 @@ function CopyrightsPage() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Show welcome splash screen while refreshing / initial load
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLoading]);
+
   return (
-    <BrowserRouter>
-      <SmoothScroll>
-        <div className="relative min-h-screen bg-background text-ink antialiased">
-          {/* Global Background Layer */}
-          <ParticleBackground />
+    <>
+      <AnimatePresence>
+        {isLoading && <WelcomeScreen key="welcome-screen" />}
+      </AnimatePresence>
 
-          {/* Skip link — keyboard users land here first */}
-          <a
-            href="#home"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-btn focus:bg-primary focus:px-4 focus:py-2.5 focus:font-semibold focus:text-white focus:shadow-e2"
-          >
-            Skip to content
-          </a>
+      <BrowserRouter>
+        <SmoothScroll>
+          <div className="relative min-h-screen bg-background text-ink antialiased">
+            {/* Global Background Layer */}
+            <ParticleBackground />
 
-          {/* Static Header Nav */}
-          <Header />
+            {/* Skip link — keyboard users land here first */}
+            <a
+              href="#home"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:rounded-btn focus:bg-primary focus:px-4 focus:py-2.5 focus:font-semibold focus:text-white focus:shadow-e2"
+            >
+              Skip to content
+            </a>
 
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/journey" element={<JourneyPage />} />
-            <Route path="/certifications" element={<CertificationsPage />} />
-            <Route path="/extracurricular" element={<ExtracurricularPage />} />
-            <Route path="/copyrights" element={<CopyrightsPage />} />
-          </Routes>
+            {/* Static Header Nav */}
+            <Header />
 
-          <Suspense fallback={null}>
-            <Footer />
-          </Suspense>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/journey" element={<JourneyPage />} />
+              <Route path="/certifications" element={<CertificationsPage />} />
+              <Route path="/extracurricular" element={<ExtracurricularPage />} />
+              <Route path="/copyrights" element={<CopyrightsPage />} />
+            </Routes>
 
-          {/* Floating WhatsApp Button */}
-          <FloatingWhatsApp />
-        </div>
-      </SmoothScroll>
-    </BrowserRouter>
+            <Suspense fallback={null}>
+              <Footer />
+            </Suspense>
+
+            {/* Floating WhatsApp Button */}
+            <FloatingWhatsApp />
+          </div>
+        </SmoothScroll>
+      </BrowserRouter>
+    </>
   );
 }
 

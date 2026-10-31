@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/profile.jpg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#01040a" />
   <meta name="color-scheme" content="light" />
   <meta name="description"
     content="Prabu R — Full Stack Developer and UI/UX Designer building responsive, scalable products with React.js, Tailwind CSS, Python and FastAPI." />
@@ -19,7 +19,16 @@
 </head>
 
 <body class="bg-white text-slate-900 antialiased">
-  <div id="root"></div>
+  <div id="root">
+    <!-- Instant static splash during browser refresh / load before React executes -->
+    <div style="position:fixed;inset:0;background:#01040a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;font-family:'Outfit',sans-serif;color:#fff;overflow:hidden;">
+      <div style="position:relative;margin-bottom:24px;width:112px;height:112px;padding:2.5px;border-radius:26px;background:linear-gradient(135deg,#38bdf8,#2563eb);box-shadow:0 0 35px rgba(14,165,233,0.5);">
+        <img src="/profile.jpg" alt="Prabu R" style="width:100%;height:100%;object-fit:cover;border-radius:24px;display:block;" />
+      </div>
+      <h1 style="font-size:36px;font-weight:800;letter-spacing:-0.02em;margin:0 0 8px 0;">Welcome</h1>
+      <p style="font-size:13px;font-family:monospace;letter-spacing:0.25em;color:#38bdf8;text-transform:uppercase;margin:0;">PRABU R · PORTFOLIO</p>
+    </div>
+  </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
