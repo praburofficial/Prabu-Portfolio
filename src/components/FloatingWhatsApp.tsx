@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { Sparkles } from 'lucide-react';
+import { AIChatModal } from './AIChatModal';
+
 export function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -7,15 +11,56 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function FloatingWhatsApp() {
+  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
+
   return (
-    <a
-      href="https://wa.me/919524815890"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.4)] transition-transform duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_28px_rgba(37,211,102,0.6)] sm:bottom-8 sm:right-8 lg:h-16 lg:w-16"
-    >
-      <WhatsAppIcon className="h-8 w-8 lg:h-10 lg:w-10" />
-    </a>
+    <>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-3.5 sm:bottom-8 sm:right-8">
+        {/* ─── Recko AI Assistant Floating Button (Right above WhatsApp) ─── */}
+        <div className="group relative">
+          {/* Tooltip on hover */}
+          <span className="pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-pill border border-sky-400/30 bg-slate-900/95 px-3 py-1 text-xs font-semibold text-white shadow-lg backdrop-blur-md opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-x-1">
+            🤖 Ask Recko AI
+          </span>
+
+          <button
+            type="button"
+            onClick={() => setIsAIChatOpen(true)}
+            aria-label="Ask Recko AI Assistant"
+            className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full p-[2px] bg-gradient-to-tr from-sky-400 via-primary to-purple-600 shadow-[0_8px_24px_rgba(14,165,233,0.55)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_28px_rgba(14,165,233,0.75)] active:scale-95 sm:h-14 sm:w-14 lg:h-16 lg:w-16"
+          >
+            {/* Animated outer aura */}
+            <span className="absolute -inset-1 rounded-full bg-gradient-to-tr from-sky-400 to-purple-500 opacity-60 blur-md animate-pulse" />
+
+            <span className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-[#020817]">
+              <img
+                src="/recko-robot.png"
+                alt="Recko AI Humanoid Robot"
+                width={64}
+                height={64}
+                className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
+              />
+              <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center">
+                <Sparkles className="h-3 w-3 text-sky-300 drop-shadow-[0_0_4px_rgba(56,189,248,0.9)] animate-pulse" />
+              </span>
+            </span>
+          </button>
+        </div>
+
+        {/* ─── WhatsApp Floating Button ─── */}
+        <a
+          href="https://wa.me/919524815890"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.4)] transition-transform duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_28px_rgba(37,211,102,0.6)] sm:h-14 sm:w-14 lg:h-16 lg:w-16"
+        >
+          <WhatsAppIcon className="h-8 w-8 lg:h-10 lg:w-10" />
+        </a>
+      </div>
+
+      {/* ─── AI Chat Drawer Modal ─── */}
+      <AIChatModal isOpen={isAIChatOpen} onClose={() => setIsAIChatOpen(false)} />
+    </>
   );
 }
