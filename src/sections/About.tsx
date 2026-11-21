@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { motion, type Variants } from 'framer-motion';
 import { GlassCard } from '../components/GlassCard';
 import { SectionHeading } from '../components/SectionHeading';
 import { Reveal } from '../components/Reveal';
@@ -13,7 +14,6 @@ const education = [
 
 /* Ordered oldest first, by start date. */
 const experience = [
-    
     { role: 'Frontend Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '10/03/25 – 10/07/25', isCurrent: false, website: 'https://codeblazatechnology.in' },
     { role: 'Web Developer Intern', company: 'Optimus Technologies Pvt Ltd', location: 'Salem, Tamil Nadu', date: '11/07/25 – 09/08/25', isCurrent: false },
     { role: 'React Developer Intern', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '10/08/25 – 10/08/26', isCurrent: false, website: 'https://codeblazatechnology.in' },
@@ -21,24 +21,120 @@ const experience = [
     { role: 'Chief Executive Officer (CEO) & Full Stack Developer', company: 'Code Blaza Technology', location: 'Namakkal, Tamil Nadu', date: '01/09/26 – Present', isCurrent: true, website: 'https://codeblazatechnology.in' },
 ];
 
-const containerVariants = {
-    hidden: { opacity: 0 },
+/* ── Education: One-by-one sequential entrance & reverse closing on scroll above ── */
+const educationContainerVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        transition: {
+            staggerChildren: 0.08,
+            staggerDirection: -1, // reverse one-by-one exit
+        },
+    },
     visible: {
         opacity: 1,
-        transition: { staggerChildren: 0.1 }
-    }
+        transition: {
+            staggerChildren: 0.18,
+            delayChildren: 0.15,
+        },
+    },
 };
 
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+const educationItemVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        x: -28,
+        y: 16,
+        scale: 0.94,
+        transition: {
+            duration: 0.35,
+            ease: [0.32, 0, 0.67, 0] as const,
+        },
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.55,
+            ease: [0.16, 1, 0.3, 1] as const,
+        },
+    },
+};
+
+/* ── Experience: One-by-one sequential entrance & reverse closing on scroll above ── */
+const experienceContainerVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        transition: {
+            staggerChildren: 0.08,
+            staggerDirection: -1, // reverse one-by-one exit
+        },
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.16,
+            delayChildren: 0.15,
+        },
+    },
+};
+
+const experienceItemVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        x: 32,
+        y: 16,
+        scale: 0.94,
+        transition: {
+            duration: 0.35,
+            ease: [0.32, 0, 0.67, 0] as const,
+        },
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.55,
+            ease: [0.16, 1, 0.3, 1] as const,
+        },
+    },
 };
 
 export function About() {
-    const [timelineRef, timelineInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+    // Observer triggers true when in view, false when scrolling above or below
+    const [aboutRef, inView] = useInView({
+        threshold: 0.25,
+        triggerOnce: false,
+    });
+
+    const hasLockedRef = useRef(false);
+
+    // Stop page scroll on initial entrance until everything loads smoothly (approx 1.25s)
+    useEffect(() => {
+        if (inView && !hasLockedRef.current) {
+            hasLockedRef.current = true;
+            const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+            lenis?.stop();
+            document.body.style.overflow = 'hidden';
+
+            const unlockTimer = setTimeout(() => {
+                lenis?.start();
+                document.body.style.overflow = '';
+            }, 1250);
+
+            return () => {
+                clearTimeout(unlockTimer);
+                lenis?.start();
+                document.body.style.overflow = '';
+            };
+        }
+    }, [inView]);
 
     return (
-        <section id="about" className="section-y relative z-10 overflow-hidden">
+        <section ref={aboutRef} id="about" className="section-y relative z-10 overflow-hidden">
             <div className="shell">
                 <SectionHeading
                     eyebrow="About"
@@ -111,7 +207,7 @@ export function About() {
                             </div>
 
                             {/* ─── Education timeline ─── */}
-                            <div ref={timelineRef} className="mt-5 border-t border-border pt-5 sm:mt-6 sm:pt-6">
+                            <div className="mt-5 border-t border-border pt-5 sm:mt-6 sm:pt-6">
                                 <div className="mb-6 flex items-center gap-3 sm:mb-7">
                                     <span className="grid h-9 w-9 place-items-center rounded-[11px] bg-accent-tint ring-1 ring-accent/20">
                                         <GraduationCap className="h-[18px] w-[18px] text-accent" />
@@ -121,22 +217,22 @@ export function About() {
 
                                 <motion.div
                                     className="relative space-y-7 pl-6"
-                                    variants={containerVariants}
+                                    variants={educationContainerVariants}
                                     initial="hidden"
-                                    animate={timelineInView ? 'visible' : 'hidden'}
+                                    animate={inView ? 'visible' : 'hidden'}
                                 >
                                     {/* Animated rail */}
                                     <div
                                         className="absolute left-[5px] top-1.5 bottom-1.5 w-px origin-top"
                                         style={{
                                             background: 'linear-gradient(180deg, var(--color-accent), rgba(5,150,105,0.12))',
-                                            transform: timelineInView ? 'scaleY(1)' : 'scaleY(0)',
+                                            transform: inView ? 'scaleY(1)' : 'scaleY(0)',
                                             transition: 'transform 1.1s cubic-bezier(0.16,1,0.3,1)',
                                         }}
                                     />
 
                                     {education.map((edu, i) => (
-                                        <motion.div key={i} variants={itemVariants} className="relative">
+                                        <motion.div key={i} variants={educationItemVariants} className="relative">
                                             {/* Node */}
                                             <span
                                                 className={`absolute -left-6 top-1.5 grid h-[11px] w-[11px] place-items-center rounded-full ring-4 ring-white ${edu.isCurrent
@@ -184,15 +280,14 @@ export function About() {
 
                             <motion.div
                                 className="space-y-3"
-                                variants={containerVariants}
+                                variants={experienceContainerVariants}
                                 initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
+                                animate={inView ? 'visible' : 'hidden'}
                             >
                                 {experience.map((exp, i) => (
                                     <motion.div
                                         key={i}
-                                        variants={itemVariants}
+                                        variants={experienceItemVariants}
                                         className="group/exp relative overflow-hidden rounded-[15px] border border-border bg-white p-4 pl-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary/30 hover:shadow-e2"
                                     >
                                         <span className="absolute inset-y-0 left-0 w-[3px] bg-gradient-to-b from-secondary to-violet opacity-50 transition-opacity duration-300 group-hover/exp:opacity-100" />

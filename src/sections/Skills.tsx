@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, useMotionValue, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useMotionValue, useTransform, type MotionValue, type Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { SectionHeading } from '../components/SectionHeading';
 import { GlassCard } from '../components/GlassCard';
-import { Code2, Palette, Database, Wrench, Server, Braces, Layers, Cloud, Volume2, VolumeX, Gauge } from 'lucide-react';
+import { Code2, Palette, Database, Wrench, Server, Braces, Layers, Cloud, Volume2, VolumeX } from 'lucide-react';
 import { tone, toneStyle } from '../lib/palette';
 
 const skills = [
@@ -53,6 +53,62 @@ const stackSkillLevels: Record<string, number> = {
     'HTML5 / CSS3': 90,
     'UI/UX Design': 85,
     'PostgreSQL': 75,
+};
+
+/* ── 3D Dice roll entrance for Full Stack Development cards ── */
+const diceCardVariants: Variants = {
+    hidden: (i: number) => ({
+        opacity: 0,
+        scale: 0.45,
+        rotateX: -75,
+        rotateY: i % 2 === 0 ? 55 : -55,
+        rotateZ: i % 2 === 0 ? -25 : 25,
+        y: 90,
+        z: -250,
+        filter: 'blur(6px)',
+    }),
+    visible: (i: number) => ({
+        opacity: 1,
+        scale: 1,
+        rotateX: 0,
+        rotateY: 0,
+        rotateZ: 0,
+        y: 0,
+        z: 0,
+        filter: 'blur(0px)',
+        transition: {
+            type: 'spring' as const,
+            stiffness: 95,
+            damping: 14,
+            mass: 0.9,
+            delay: i * 0.16,
+        },
+    }),
+};
+
+/* ── 3D Popup entrance from deep background into front position for Toolkit cards ── */
+const toolkitPopupVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        scale: 0.16,
+        z: -420,
+        y: 50,
+        filter: 'blur(8px)',
+    },
+    visible: (i: number) => ({
+        opacity: 1,
+        scale: 1,
+        z: 0,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: {
+            type: 'spring' as const,
+            stiffness: 220,
+            damping: 17,
+            mass: 0.75,
+            delay: (i % 4) * 0.09,
+        },
+    }),
 };
 
 /* The full-stack split, top-of-section: Frontend, Backend, Database, Deployment */
@@ -306,7 +362,6 @@ export function Skills() {
 
     const [isMuted, setIsMuted] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [needsTap, setNeedsTap] = useState(false);
 
     const rpmMotion = useMotionValue(0);
 
@@ -345,14 +400,29 @@ export function Skills() {
         }
     }, []);
 
-    // Initialize audio element
+    // Initialize audio element and pre-unlock on user interaction
     useEffect(() => {
         const audio = new Audio(AUDIO_FILE_SRC);
         audio.loop = true;
         audio.preload = 'auto';
         audioRef.current = audio;
 
+        // Pre-unlock audio context on user interaction anywhere on the page
+        const unlockAudio = () => {
+            ensureAudioContext();
+            if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
+                audioCtxRef.current.resume().catch(() => {});
+            }
+        };
+
+        window.addEventListener('pointerdown', unlockAudio, { once: true, passive: true });
+        window.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+        window.addEventListener('scroll', unlockAudio, { once: true, passive: true });
+
         return () => {
+            window.removeEventListener('pointerdown', unlockAudio);
+            window.removeEventListener('touchstart', unlockAudio);
+            window.removeEventListener('scroll', unlockAudio);
             audio.pause();
             audio.src = '';
             if (animFrameRef.current) {
@@ -362,9 +432,10 @@ export function Skills() {
                 audioCtxRef.current.close().catch(() => { });
             }
         };
-    }, []);
+    }, [ensureAudioContext]);
 
     // Playback control synced to proficiency section visibility
+    // Sound is ON by default in this section; stops immediately when moving next or above
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio) return;
@@ -376,16 +447,25 @@ export function Skills() {
                 playPromise
                     .then(() => {
                         setIsPlaying(true);
-                        setNeedsTap(false);
                         if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
                             audioCtxRef.current.resume().catch(() => { });
                         }
                     })
                     .catch((err) => {
-                        // Browser autoplay deferred until interaction
-                        console.log('Autoplay deferred until user tap:', err);
-                        setIsPlaying(false);
-                        setNeedsTap(true);
+                        console.log('Autoplay deferred, listening for next gesture:', err);
+                        // If browser deferred autoplay, start on very next user touch/pointer interaction automatically
+                        const resumeOnGesture = () => {
+                            if (audioRef.current && !isMuted) {
+                                ensureAudioContext();
+                                audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+                            }
+                            window.removeEventListener('pointerdown', resumeOnGesture);
+                            window.removeEventListener('touchstart', resumeOnGesture);
+                            window.removeEventListener('wheel', resumeOnGesture);
+                        };
+                        window.addEventListener('pointerdown', resumeOnGesture, { once: true, passive: true });
+                        window.addEventListener('touchstart', resumeOnGesture, { once: true, passive: true });
+                        window.addEventListener('wheel', resumeOnGesture, { once: true, passive: true });
                     });
             }
         } else {
@@ -503,17 +583,6 @@ export function Skills() {
         }
     };
 
-    const handleUserTap = () => {
-        ensureAudioContext();
-        setIsMuted(false);
-        if (audioRef.current) {
-            audioRef.current.play().then(() => {
-                setIsPlaying(true);
-                setNeedsTap(false);
-            }).catch(() => { });
-        }
-    };
-
     return (
         <section id="skills" className="section-y relative z-10 overflow-hidden">
             {/* Faint precision grid behind the section */}
@@ -528,17 +597,19 @@ export function Skills() {
                     className="mb-12 sm:mb-16"
                 />
 
-                {/* ─── Frontend / Backend / Database / Deployment split ─── */}
-                <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {/* ─── Frontend / Backend / Database / Deployment split (3D Dice Roll Animation) ─── */}
+                <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 [perspective:1400px]">
                     {stackSplit.map((half, i) => {
                         const t = toneStyle(half.tint);
                         return (
                             <motion.div
                                 key={half.title}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: '-60px' }}
-                                transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                custom={i}
+                                variants={diceCardVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: false, amount: 0.2 }}
+                                className="h-full [transform-style:preserve-3d]"
                             >
                                 <GlassCard glow className="group h-full p-6 transition-transform duration-500 hover:-translate-y-1 sm:p-8">
                                     <div
@@ -589,9 +660,6 @@ export function Skills() {
                 <div
                     ref={proficiencyRef}
                     className="mt-16 sm:mt-20 scroll-mt-24"
-                    onClick={() => {
-                        if (needsTap) handleUserTap();
-                    }}
                 >
                     <motion.div
                         initial={{ opacity: 0, y: 18 }}
@@ -609,52 +677,38 @@ export function Skills() {
                             </span>
                         </div>
 
-                        {/* Engine Sound Control Pill */}
+                        {/* Engine Sound Control Pill: ON by default; click here to turn off */}
                         <div className="flex items-center gap-2">
-                            {needsTap ? (
-                                <button
-                                    type="button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleUserTap();
-                                    }}
-                                    className="inline-flex cursor-pointer items-center gap-2 rounded-pill border border-primary/50 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary shadow-[0_0_15px_rgba(34,211,238,0.25)] transition-all hover:scale-105 hover:bg-primary/20"
-                                >
-                                    <Gauge className="h-3.5 w-3.5 animate-spin [animation-duration:3s]" />
-                                    <span>Tap to Rev Engine Audio 🔊</span>
-                                </button>
-                            ) : isPlaying ? (
-                                <button
-                                    type="button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleSound();
-                                    }}
-                                    className="inline-flex cursor-pointer items-center gap-2 rounded-pill border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all hover:bg-emerald-500/20"
-                                    title="Click to mute race sound"
-                                >
-                                    <span className="flex h-3 items-end gap-0.5">
-                                        <span className="h-full w-0.5 animate-pulse rounded-full bg-emerald-400" />
-                                        <span className="h-2/3 w-0.5 animate-pulse rounded-full bg-emerald-400 [animation-delay:150ms]" />
-                                        <span className="h-4/5 w-0.5 animate-pulse rounded-full bg-emerald-400 [animation-delay:300ms]" />
-                                    </span>
-                                    <Volume2 className="h-3.5 w-3.5" />
-                                    <span>Race Sound Revving</span>
-                                </button>
-                            ) : (
-                                <button
-                                    type="button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleSound();
-                                    }}
-                                    className="inline-flex cursor-pointer items-center gap-2 rounded-pill border border-border bg-surface px-3 py-1 text-xs font-medium text-muted transition-all hover:border-border-strong hover:text-ink"
-                                    title="Click to unmute race sound"
-                                >
-                                    <VolumeX className="h-3.5 w-3.5 text-muted" />
-                                    <span>Sound Muted</span>
-                                </button>
-                            )}
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleSound();
+                                }}
+                                className={`inline-flex cursor-pointer items-center gap-2 rounded-pill px-3.5 py-1 text-xs font-semibold transition-all duration-300 ${
+                                    isPlaying && !isMuted
+                                        ? 'border border-emerald-500/40 bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:bg-emerald-500/20'
+                                        : 'border border-border bg-surface text-muted hover:border-border-strong hover:text-ink'
+                                }`}
+                                title={!isMuted ? 'Click to turn off racing sound' : 'Click to turn on racing sound'}
+                            >
+                                {isPlaying && !isMuted ? (
+                                    <>
+                                        <span className="flex h-3 items-end gap-0.5">
+                                            <span className="h-full w-0.5 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400" />
+                                            <span className="h-2/3 w-0.5 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400 [animation-delay:150ms]" />
+                                            <span className="h-4/5 w-0.5 animate-pulse rounded-full bg-emerald-500 dark:bg-emerald-400 [animation-delay:300ms]" />
+                                        </span>
+                                        <Volume2 className="h-3.5 w-3.5" />
+                                        <span>Racing Sound: ON <span className="font-normal opacity-75">(Click to turn off)</span></span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <VolumeX className="h-3.5 w-3.5 text-muted" />
+                                        <span>Racing Sound: OFF <span className="font-normal opacity-75">(Click to turn on)</span></span>
+                                    </>
+                                )}
+                            </button>
                         </div>
                     </motion.div>
 
@@ -683,16 +737,18 @@ export function Skills() {
                         <span className="h-px flex-1 bg-gradient-to-r from-border-strong to-transparent" />
                     </motion.div>
 
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 [perspective:1200px]">
                         {toolkit.map((group, i) => {
                             const t = toneStyle(group.tint);
                             return (
                                 <motion.div
                                     key={group.title}
-                                    initial={{ opacity: 0, y: 22 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.55, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                                    custom={i}
+                                    variants={toolkitPopupVariants}
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: false, amount: 0.15 }}
+                                    className="h-full [transform-style:preserve-3d]"
                                 >
                                     <GlassCard
                                         glow

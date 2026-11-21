@@ -3,13 +3,37 @@ import { GlassCard } from '../components/GlassCard';
 import { SectionHeading } from '../components/SectionHeading';
 import { Reveal } from '../components/Reveal';
 import { Mail, Phone, MapPin, Github, Linkedin, ArrowUpRight } from 'lucide-react';
+import { WhatsAppIcon } from '../components/FloatingWhatsApp';
 import { toneStyle } from '../lib/palette';
 
 export function Contact() {
     const contactItems = [
-        { icon: Mail, label: 'Email', value: 'prabur2k5@gmail.com', href: 'mailto:prabur2k5@gmail.com', color: '#00d4ff' },
-        { icon: Phone, label: 'Phone', value: '+91 95248 15890', href: 'tel:+919524815890', color: '#00FF9F' },
-        { icon: MapPin, label: 'Location', value: 'Namakkal, Tamil Nadu', href: '', color: '#7c3aed' },
+        {
+            icon: Mail,
+            label: 'Email',
+            color: '#00d4ff',
+            links: [
+                { text: 'prabur2k5@gmail.com', href: 'mailto:prabur2k5@gmail.com', badge: 'Primary' },
+                { text: 'prabur2k5@outlook.com', href: 'mailto:prabur2k5@outlook.com', badge: 'Outlook' },
+            ],
+        },
+        {
+            icon: Phone,
+            label: 'Phone & WhatsApp',
+            color: '#00FF9F',
+            links: [
+                { text: '+91 95248 15890', href: 'tel:+919524815890', badge: 'Call' },
+                { text: '+91 95248 15890', href: 'https://wa.me/919524815890', badge: 'WhatsApp', isWhatsApp: true },
+            ],
+        },
+        {
+            icon: MapPin,
+            label: 'Address',
+            color: '#7c3aed',
+            links: [
+                { text: 'Kalangani, Namakkal, Tamil Nadu', href: '', badge: 'Location' },
+            ],
+        },
     ];
 
     return (
@@ -33,38 +57,59 @@ export function Contact() {
                 <div className="grid gap-4 sm:grid-cols-3">
                     {contactItems.map((item, index) => {
                         const t = toneStyle(item.color);
-                        const inner = (
-                            <>
-                                <span
-                                    className="grid h-12 w-12 place-items-center rounded-[15px] transition-transform duration-500 group-hover:scale-110 sm:h-14 sm:w-14 sm:rounded-[17px]"
-                                    style={{ background: t.bg, boxShadow: `inset 0 0 0 1px ${t.ring}` }}
-                                >
-                                    <item.icon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: t.fg }} />
-                                </span>
-
-                                <span className="mt-4 block text-[0.6875rem] uppercase tracking-[0.14em] text-faint sm:mt-5">
-                                    {item.label}
-                                </span>
-                                <span className="mt-1.5 block break-words font-medium text-ink transition-colors duration-300 group-hover:text-primary">
-                                    {item.value}
-                                </span>
-
-                                {item.href && (
-                                    <ArrowUpRight className="absolute right-5 top-5 h-4 w-4 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
-                                )}
-                            </>
-                        );
 
                         return (
                             <Reveal key={item.label} delay={index * 0.08}>
-                                <GlassCard glow className="group h-full hover:-translate-y-1">
-                                    {item.href ? (
-                                        <a href={item.href} className="flex h-full flex-col p-5 sm:p-6">
-                                            {inner}
-                                        </a>
-                                    ) : (
-                                        <div className="flex h-full flex-col p-5 sm:p-6">{inner}</div>
-                                    )}
+                                <GlassCard glow className="group h-full p-5 sm:p-6 hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="flex h-full flex-col">
+                                        <div className="flex items-center justify-between">
+                                            <span
+                                                className="grid h-12 w-12 place-items-center rounded-[15px] transition-transform duration-500 group-hover:scale-110 sm:h-14 sm:w-14 sm:rounded-[17px]"
+                                                style={{ background: t.bg, boxShadow: `inset 0 0 0 1px ${t.ring}` }}
+                                            >
+                                                <item.icon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: t.fg }} />
+                                            </span>
+                                            <span className="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-faint">
+                                                {item.label}
+                                            </span>
+                                        </div>
+
+                                        <div className="mt-5 flex flex-1 flex-col justify-center gap-2.5">
+                                            {item.links.map((link, lIdx) => (
+                                                link.href ? (
+                                                    <a
+                                                        key={lIdx}
+                                                        href={link.href}
+                                                        target={link.href.startsWith('http') ? '_blank' : undefined}
+                                                        rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                                        className="group/link flex items-center justify-between gap-2 rounded-lg border border-border/60 bg-surface/40 p-2.5 transition-all duration-200 hover:border-primary/40 hover:bg-white hover:shadow-e1"
+                                                    >
+                                                        <div className="flex flex-col min-w-0">
+                                                            <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-faint">
+                                                                {link.badge}
+                                                            </span>
+                                                            <span className="truncate text-[0.8125rem] font-medium text-ink transition-colors duration-200 group-hover/link:text-primary sm:text-[0.875rem]">
+                                                                {link.text}
+                                                            </span>
+                                                        </div>
+                                                        <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-faint transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-hover/link:text-primary" />
+                                                    </a>
+                                                ) : (
+                                                    <div
+                                                        key={lIdx}
+                                                        className="flex flex-col rounded-lg border border-border/60 bg-surface/40 p-2.5"
+                                                    >
+                                                        <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-faint">
+                                                            {link.badge}
+                                                        </span>
+                                                        <span className="text-[0.8125rem] font-medium text-ink sm:text-[0.875rem]">
+                                                            {link.text}
+                                                        </span>
+                                                    </div>
+                                                )
+                                            ))}
+                                        </div>
+                                    </div>
                                 </GlassCard>
                             </Reveal>
                         );
@@ -92,7 +137,7 @@ export function Contact() {
                             </h3>
 
                             <p className="mt-4 max-w-xl text-[0.9375rem] leading-relaxed text-muted">
-                                Open to full stack roles and freelance work. Drop me a line and I'll get back to you.
+                                Open to full stack roles, freelance projects, and technology consulting. Drop me a line and I'll get back to you promptly.
                             </p>
 
                             <div className="mt-7 flex flex-wrap items-center gap-3 sm:mt-8">
@@ -102,6 +147,17 @@ export function Contact() {
                                 >
                                     <Mail className="h-[18px] w-[18px]" />
                                     Email me
+                                </a>
+
+                                <a
+                                    href="https://wa.me/919524815890"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Message on WhatsApp"
+                                    className="inline-flex h-13 items-center gap-2.5 rounded-btn border border-[#25D366]/40 bg-[#25D366]/10 px-6 font-semibold text-[#128C7E] shadow-e1 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#25D366] hover:bg-[#25D366] hover:text-white hover:shadow-e2 sm:h-14 sm:px-7"
+                                >
+                                    <WhatsAppIcon className="h-5 w-5" />
+                                    WhatsApp
                                 </a>
 
                                 <a

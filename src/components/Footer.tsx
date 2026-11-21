@@ -135,6 +135,12 @@ export function Footer() {
                                 </a>
                             </li>
                             <li>
+                                <a href="mailto:prabur2k5@outlook.com" className="group flex items-center gap-2 break-all text-slate-300 transition-colors hover:text-white">
+                                    <Mail className="h-4 w-4 shrink-0 text-sky-400 transition-transform group-hover:scale-110" />
+                                    prabur2k5@outlook.com
+                                </a>
+                            </li>
+                            <li>
                                 <a href="tel:+919524815890" className="group flex items-center gap-2 text-slate-300 transition-colors hover:text-white">
                                     <Phone className="h-4 w-4 shrink-0 text-sky-400 transition-transform group-hover:scale-110" />
                                     +91 95248 15890
@@ -143,12 +149,12 @@ export function Footer() {
                             <li>
                                 <a href="https://wa.me/919524815890" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-2 text-slate-300 transition-colors hover:text-[#25D366]">
                                     <WhatsAppIcon className="h-4 w-4 shrink-0 text-[#25D366] transition-transform group-hover:scale-110" />
-                                    Message on WhatsApp
+                                    +91 95248 15890 (WhatsApp)
                                 </a>
                             </li>
                             <li className="flex items-center gap-2 text-slate-400">
                                 <MapPin className="h-4 w-4 shrink-0 text-purple-400" />
-                                Namakkal, Tamil Nadu
+                                Kalangani, Namakkal, Tamil Nadu
                             </li>
                         </ul>
 

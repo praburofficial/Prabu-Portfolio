@@ -50,7 +50,7 @@ Here is a quick snapshot:
 - 👑 **Current Role:** CEO & Full Stack Developer at **Code Blaza Technology**
 - 💻 **Tech Stack:** React.js, Tailwind CSS, Python, FastAPI, Node.js, PostgreSQL, Hostinger & Vercel
 - 🚀 **Shipped Projects:** 20+ production web applications and tools
-- 🏆 **Credentials:** 33 professional certifications and symposium awards
+- 🏆 **Credentials:** 97 professional certifications, technical credentials, and symposium awards
 
 How can I help you today? Feel free to ask about his **projects**, **skills**, **work experience**, **education**, or **how to contact him**!`,
             suggestions: [
@@ -75,7 +75,7 @@ How can I help you today? Feel free to ask about his **projects**, **skills**, *
         return {
             answer: `**Prabu R** is an innovative **Full Stack Developer**, **UI/UX Designer**, and entrepreneur serving as the **Chief Executive Officer (CEO) at Code Blaza Technology**.
 
-📍 **Location:** Namakkal, Tamil Nadu, India  
+📍 **Location / Address:** Kalangani, Namakkal, Tamil Nadu, India  
 🎓 **Education:** B.E. in Computer Science & Engineering from Gnanamani College of Technology (CGPA: 7.86)  
 💼 **Specialization:** Component-driven React frontends, robust FastAPI & Python backends, relational PostgreSQL databases, and high-performance cloud deployments.
 
@@ -222,11 +222,14 @@ Prabu configures end-to-end production environments:
         }
 
         return {
-            answer: `🚀 **Featured Projects by Prabu R (20+ Total):**
+            answer: `🚀 **Featured Projects by Prabu R (25+ Total):**
 
+- 🛍️ **EveryKadai:** Smart web-based retail billing, inventory & supplier ERP ready for thermal printing & barcode scanners.
+- 🌶️ **Ard Al Jannat:** Dubai corporate foodstuff & spice export trading web portal with direct farm certification.
+- 👥 **Piolet HRM:** Enterprise human resource & workforce management suite with multi-role dashboards (Admin, Manager, Employee).
+- 🏫 **GCMS Portal:** Centralized grievance and maintenance tracking platform for Gnyanamani Educational Institutions.
 - 🌿 **Orascape:** Landscaping & garden maintenance corporate web portal in Chennai.
 - 🚢 **Sundarban Cargo:** Dubai international freight, shipment booking & cargo portal.
-- 🏪 **EveryKadai POS:** Retail billing ERP with GST calculation and inventory.
 - 📱 **Mobile Shop POS:** Electronics store billing with IMEI tracking.
 - 🍽️ **Food POS:** Restaurant ordering & table billing management system.
 - 💊 **MediShop ERP:** Pharmacy inventory management with expiry tracking.
@@ -236,8 +239,9 @@ Prabu configures end-to-end production environments:
 - 📄 **PDFMaster Pro & DocPix:** Windows desktop document manipulation & conversion utilities.
 - ♟️ **Chess Game & Snake Game:** Interactive web arcade applications with custom game loops.`,
             suggestions: [
+                'Tell me about Piolet HRM',
+                'Tell me about EveryKadai',
                 'Tell me about his ERP projects',
-                'Tell me about his POS systems',
                 'What tech stack does he use?',
             ],
         };
@@ -327,17 +331,25 @@ Prabu configures end-to-end production environments:
         q.includes('credentials')
     ) {
         return {
-            answer: `🏆 **Credentials & Certifications (33 Total):**
+            answer: `🏆 **Credentials & Certifications (97 Total):**
 
-**Key Professional Certifications:**
+**Key Professional & Industry Certifications (84 Courses):**
 - 📜 **Advance Diploma in Python Programming:** CSC Computer Education (**A+ Grade**, 2022)
 - 📜 **Python for Data Science:** NPTEL (IIT Madras, 2026)
+- 📜 **UiPath Academy:** Agentic Automation Developer Associate Training (2025)
+- 📜 **Automation Anywhere:** Certified Essentials Automation Professional (2025)
+- 📜 **MathWorks Training Services:** Deep Learning, Machine Learning & Statistics Onramp (**100% Score**, 2025)
+- 📜 **MongoDB Skills Series:** Building RAG Apps, Vector Search, CRUD Operations & Document Modeling (2025)
+- 📜 **Microsoft Learn:** 16 Cybersecurity & Microsoft 365 Copilot AI Certifications (2025)
+- 📜 **Autodesk:** BIM for AECO Industry & Structural Design (2025)
+- 📜 **Celonis:** AI Foundations Verified Badge (2025)
+- 📜 **Graphisoft Learn:** Certified Archicad BIM User (2025)
+- 📜 **Naan Mudhalvan & Microsoft:** 29 Certifications in Digital Productivity, AI Fluency & Employability
 - 📜 **Data Science Foundation & UI/UX Design:** Great Learning (2024)
 - 📜 **Problem Solving in Python:** HackerRank Verified (2025)
 - 📜 **Bharat Blockchain Yatra:** IDS & Hedera Blockchain Explorer (2023)
-- 📜 **AI for Software Engineers:** Turnip Innovations National Level (2025)
 
-**Top Symposium & Competition Prizes:**
+**Top Symposium & Competition Prizes (13 Awards):**
 - 🥇 **1st Prize - Short Film Direction:** ALGONEXUS'25, Jayalakshmi Institute of Technology
 - 🥇 **1st Prize - Short Film Direction:** Mahendra Engineering College (2024)
 - 🥇 **1st Prize - Treasure Hunt:** Jayalakshmi Institute of Technology (2025)
@@ -399,12 +411,12 @@ His directing has won **multiple 1st and 2nd prizes** in state-level symposium c
         return {
             answer: `📬 **Get in Touch with Prabu R:**
 
-- 📧 **Email:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com)
-- 📞 **Phone / WhatsApp:** [+91 95248 15890](https://wa.me/919524815890)
+- 📧 **Email:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com) | [prabur2k5@outlook.com](mailto:prabur2k5@outlook.com)
+- 📞 **Phone & WhatsApp:** [+91 95248 15890](https://wa.me/919524815890) (Call & WhatsApp)
 - 💼 **LinkedIn:** [linkedin.com/in/prabu-r12092005](https://www.linkedin.com/in/prabu-r12092005)
 - 🐙 **GitHub:** [github.com/praburofficial](https://github.com/praburofficial)
 - 🏢 **Company:** [codeblazatechnology.in](https://codeblazatechnology.in)
-- 📍 **Location:** Namakkal, Tamil Nadu, India
+- 📍 **Location / Address:** Kalangani, Namakkal, Tamil Nadu, India
 
 Prabu is open to **Full Stack Engineering roles**, **freelance contracts**, and **technology consulting**!`,
             suggestions: [
@@ -438,8 +450,8 @@ You can preview and download his resume directly on this site using the **"Resum
 Here is what I can tell you about Prabu R:
 - 👑 **CEO & Full Stack Developer** at Code Blaza Technology with expertise in React, FastAPI, Python, and PostgreSQL.
 - 🚀 **Creator of 20+ applications**, including corporate ERPs, retail POS systems, and rental platforms.
-- 🎓 **B.E. Computer Science Graduate (2026)** with a 7.86 CGPA and 33 certifications & awards.
-- 📬 **Direct Contact:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com) or WhatsApp at [+91 95248 15890](https://wa.me/919524815890).
+- 🎓 **B.E. Computer Science Graduate (2026)** with a 7.86 CGPA and 97 certifications & awards.
+- 📬 **Direct Contact:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com) / [prabur2k5@outlook.com](mailto:prabur2k5@outlook.com) or WhatsApp at [+91 95248 15890](https://wa.me/919524815890).
 
 Would you like to explore any of these specific areas?`,
         suggestions: [

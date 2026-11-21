@@ -4,10 +4,26 @@ import { Github, Linkedin, FileText, ChevronDown, ArrowRight } from 'lucide-reac
 import { ResumeModal } from '../components/ResumeModal';
 import CountUp from 'react-countup';
 
-const stats = [
-    { value: 20, suffix: '+', label: 'Projects' },
-    { value: 33, suffix: '', label: 'Certificates' },
-    { value: 3, suffix: '', label: 'Internships' },
+// Calculate years of experience dynamically starting from March 10, 2025
+const getExperienceYears = () => {
+    const startDate = new Date(2025, 2, 10); // March 10, 2025
+    const now = new Date();
+    const diffYears = (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+    return Math.max(1, parseFloat(diffYears.toFixed(1)));
+};
+
+interface StatItem {
+    value: number;
+    decimals?: number;
+    suffix: string;
+    label: string;
+}
+
+const stats: StatItem[] = [
+    { value: getExperienceYears(), decimals: 1, suffix: '+', label: 'Years Exp' },
+    { value: 25, suffix: '+', label: 'Projects' },
+    { value: 4, suffix: '', label: 'Internships' },
+    { value: 85, suffix: '+', label: 'Certificates' },
 ];
 
 export function Hero() {
@@ -144,13 +160,20 @@ export function Hero() {
                                     />
 
                                     {/* Stats Card Inner Surface */}
-                                    <div className="relative z-10 grid h-full w-full grid-cols-3 divide-x divide-white/12 rounded-[calc(1rem-1.5px)] border border-white/10 bg-[#05142b]/85 px-4 py-5 backdrop-blur-xl sm:rounded-[calc(1.5rem-1.5px)] sm:px-7 sm:py-6">
+                                    <div className="relative z-10 grid h-full w-full grid-cols-4 divide-x divide-white/12 rounded-[calc(1rem-1.5px)] border border-white/10 bg-[#05142b]/85 px-3 py-5 backdrop-blur-xl sm:rounded-[calc(1.5rem-1.5px)] sm:px-6 sm:py-6">
                                         {stats.map((s) => (
-                                            <div key={s.label} className="px-2 text-center first:pl-1 last:pr-1 sm:px-4">
-                                                <dd className="font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                                                    <CountUp end={s.value} duration={2} suffix={s.suffix} enableScrollSpy scrollSpyOnce />
+                                            <div key={s.label} className="px-1 text-center first:pl-0.5 last:pr-0.5 sm:px-3">
+                                                <dd className="font-display text-xl font-bold tracking-tight text-white sm:text-2xl lg:text-3xl">
+                                                    <CountUp
+                                                        end={s.value}
+                                                        duration={2}
+                                                        decimals={s.decimals ?? (Number.isInteger(s.value) ? 0 : 1)}
+                                                        suffix={s.suffix}
+                                                        enableScrollSpy
+                                                        scrollSpyOnce
+                                                    />
                                                 </dd>
-                                                <p className="mt-1 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-slate-300 sm:text-xs">
+                                                <p className="mt-1 text-[0.625rem] font-medium uppercase tracking-wider text-slate-300 sm:text-xs">
                                                     {s.label}
                                                 </p>
                                             </div>

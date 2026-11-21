@@ -30,13 +30,18 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
+      lenis.destroy();
+    };
   }, [location.pathname]);
 
   return <>{children}</>;

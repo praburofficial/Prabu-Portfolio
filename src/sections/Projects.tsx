@@ -8,6 +8,42 @@ import { toneStyle } from '../lib/palette';
 
 const projects = [
     {
+        title: 'EveryKadai - Web-Based Billing & Shop Management',
+        description: 'Modern web-based billing and retail shop management application built for multiple business types, featuring instant counter billing, live inventory tracking, supplier purchases, and thermal printer / barcode scanner support.',
+        image: '/Projects/25.png',
+        tags: ['React.js', 'Tailwind CSS', 'Shop ERP'],
+        links: { live: '', github: '' },
+        color: '#dc2626',
+        category: 'React.js',
+    },
+    {
+        title: 'Ard Al Jannat - Dubai Foodstuff & Spice Trading Portal',
+        description: 'Corporate web portal and digital catalogue for UAE-based Ard Al Jannat Foodstuff Trading LLC, presenting premium spices, direct farm sourcing, laboratory quality certification, and WhatsApp inquiry integration.',
+        image: '/Projects/24.png',
+        tags: ['React.js', 'Tailwind CSS', 'Export Portal'],
+        links: { live: '', github: '' },
+        color: '#d97706',
+        category: 'React.js',
+    },
+    {
+        title: 'Piolet HRM - Enterprise Workforce Management Workspace',
+        description: 'Connected enterprise workspace software developed by Code Blaza Technology featuring role-based dashboards (Admin, Manager, Employee), attendance tracking, work hours, breaks, and task progression pipelines.',
+        image: '/Projects/23.png',
+        tags: ['React.js', 'Tailwind CSS', 'Enterprise SaaS'],
+        links: { live: '', github: '' },
+        color: '#0284c7',
+        category: 'React.js',
+    },
+    {
+        title: 'GCMS - Gnyanamani Complaint & Maintenance System',
+        description: 'Centralized institutional complaint tracking and maintenance management portal for Gnyanamani Educational Institutions, streamlining service requests, resolution lifecycles, and facility tracking.',
+        image: '/Projects/22.png',
+        tags: ['React.js', 'Tailwind CSS', 'Campus Portal'],
+        links: { live: '', github: '' },
+        color: '#2563eb',
+        category: 'React.js',
+    },
+    {
         title: 'Orascape - Landscaping & Garden Care Platform',
         description: 'Corporate web portal for professional garden maintenance and landscaping services in Chennai, featuring project galleries, inquiry workflows, and commercial package listings.',
         image: '/Projects/21.png',
