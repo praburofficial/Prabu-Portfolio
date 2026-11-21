@@ -13,6 +13,7 @@ const Hero = lazy(() => import('./sections/Hero').then(m => ({ default: m.Hero }
 const About = lazy(() => import('./sections/About').then(m => ({ default: m.About })));
 const Skills = lazy(() => import('./sections/Skills').then(m => ({ default: m.Skills })));
 const Projects = lazy(() => import('./sections/Projects').then(m => ({ default: m.Projects })));
+const Services = lazy(() => import('./sections/Services').then(m => ({ default: m.Services })));
 const Journey = lazy(() => import('./sections/Journey').then(m => ({ default: m.Journey })));
 const Certifications = lazy(() => import('./sections/Certifications').then(m => ({ default: m.Certifications })));
 const Extracurricular = lazy(() => import('./sections/Extracurricular').then(m => ({ default: m.Extracurricular })));
@@ -69,6 +70,7 @@ function HomePage() {
         <About />
         <Skills />
         <Projects />
+        <Services />
         <Journey />
         <Certifications />
         <Extracurricular />

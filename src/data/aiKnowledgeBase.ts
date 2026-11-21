@@ -1,6 +1,37 @@
 /**
- * Comprehensive Knowledge Base & AI Intent Engine for Prabu R's Portfolio
+ * MASTER SYSTEM PROMPT — RECKO AI
+ * Version: 2.0
+ * Owner: Prabu R
+ * Role: CEO, Code Blaza Technology | Full Stack Developer
+ * Assistant Name: Recko AI
  */
+
+export const RECKO_MASTER_SYSTEM_PROMPT = `
+# MASTER SYSTEM PROMPT — RECKO AI
+## Personal Portfolio Intelligence Assistant of Prabu R
+
+VERSION: 2.0  
+OWNER: Prabu R  
+ROLE: CEO, Code Blaza Technology | Full Stack Developer  
+ASSISTANT NAME: Recko AI
+
+1. IDENTITY: Official AI-powered personal portfolio assistant of Prabu R.
+2. CORE IDENTITY: Prabu R, CEO at Code Blaza Technology | Full Stack Developer.
+3. PROFESSIONAL EXPERIENCE: Counted dynamically from March 10, 2025. (March 10, 2024 is the inception of Code Blaza Technology).
+4. METRICS: 25+ projects, 4 internships, 85+ certificates.
+5. SERVICES: 1. Software Development, 2. Digital Marketing, 3. EduTech and Technology Training.
+6. PROJECTS: EveryKadai (Retail Billing & POS), Ard Al Jannat (Corporate Website), Piolet HRM (Human Resource Management), GCMS (Institutional Grievance Management), MediShop Pharmacy ERP, StayHive (Accommodation), plus development initiatives (School ERP, Code Blaza HRM, Shri Athav Textile Mills, Aadhav Textile).
+7. EDUCATION: B.E. Computer Science and Engineering from Gnanamani College of Technology (CGPA: 7.86).
+8. CONTACT: prabur2k5@gmail.com, prabur2k5@outlook.com, +91 95248 15890, https://codeblazatechnology.in/, https://prabu-red.vercel.app/.
+`.trim();
+
+// Calculate years of professional experience dynamically starting from March 10, 2025
+export const getDynamicExperience = (): string => {
+    const startDate = new Date(2025, 2, 10); // March 10, 2025
+    const now = new Date();
+    const diffYears = (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+    return `${Math.max(1, parseFloat(diffYears.toFixed(1)))}+ Years`;
+};
 
 export interface AIResponse {
     answer: string;
@@ -8,286 +39,446 @@ export interface AIResponse {
 }
 
 export function queryPortfolioAI(userQuery: string): AIResponse {
-    const q = userQuery.toLowerCase().trim();
+    const raw = userQuery.trim();
+    const q = raw.toLowerCase();
+    const expYears = getDynamicExperience();
 
-    // 1. RECKO IDENTITY & NAME
+    // ─────────────────────────────────────────────────────────────
+    // TAMIL & TANGLISH LANGUAGE HANDLER (Section 15)
+    // ─────────────────────────────────────────────────────────────
+    if (
+        q.includes('வணக்கம்') ||
+        q.includes('vanakkam') ||
+        q.includes('prabu yaar') ||
+        q.includes('yar indha prabu') ||
+        q.includes('epdi irukinga') ||
+        q.includes('tamil') ||
+        q.includes('thamizh') ||
+        q.includes('solunga') ||
+        q.includes('projects enna') ||
+        q.includes('code blaza pathi')
+    ) {
+        if (q.includes('code blaza')) {
+            return {
+                answer: `வணக்கம்! **Code Blaza Technology** என்பது பிரபு R அவர்களால் வழிநடத்தப்படும் ஒரு முன்னணி தொழில்நுட்ப நிறுவனம்.
+
+இங்கு முக்கியமாக:
+1. 💻 **Software Development** (Custom ERP, Billing & POS, Web Applications)
+2. 📈 **Digital Marketing** (SEO, Brand Visibility, Social Growth)
+3. 🎓 **EduTech Courses** (Full Stack Training, Internship Programs)
+
+மேலும் தகவல்களுக்கு அதிகாரப்பூர்வ இணையதளத்தைப் பார்வையிடுங்கள்: [codeblazatechnology.in](https://codeblazatechnology.in/)`,
+                suggestions: ['பிரபு பற்றி சொல்லுங்கள்', 'Projects என்னென்ன இருக்கு?', 'Contact செய்வது எப்படி?'],
+            };
+        }
+
+        if (q.includes('project') || q.includes('apps')) {
+            return {
+                answer: `வணக்கம்! பிரபு R அவர்கள் 25-க்கும் மேற்பட்ட நிஜ உலக மென்பொருள் திட்டங்களை உருவாக்கியுள்ளார்:
+
+- 🛍️ **EveryKadai:** ரீடெய்ல் பில்லிங் மற்றும் இன்வென்டரி மேனேஜ்மென்ட் சாப்ட்வேர் (Barcode & Thermal Print வசதியுடன்).
+- 🌶️ **Ard Al Jannat:** துபாயில் உள்ள உணவு மற்றும் மசாலா வர்த்தக நிறுவனத்திற்கான பிரத்யேக கார்ப்பரேட் தளம்.
+- 👥 **Piolet HRM:** அட்மின், மேனேஜர், பணியாளர் என பல அடுக்கு பணியாளர் மேலாண்மை சிஸ்டம்.
+- 🏫 **GCMS:** கல்லூரி குறைதீர்ப்பு மற்றும் வளாகப் பராமரிப்பு மேலாண்மை தளம்.
+- 💊 **MediShop ERP & StayHive:** பார்மசி மற்றும் PG விடுதி மேலாண்மை மென்பொருட்கள்.`,
+                suggestions: ['Code Blaza பற்றி சொல்லுங்கள்', 'Contact செய்வது எப்படி?', 'Tech stack என்ன?'],
+            };
+        }
+
+        return {
+            answer: `வணக்கம்! நான் **Recko**, பிரபு R அவர்களின் பிரத்யேக AI போர்ட்ஃபோலியோ உதவியாளர்.
+
+பிரபு R அவர்கள் **Code Blaza Technology-ன் CEO** மற்றும் ஒரு **Full Stack Developer**.
+- 💼 **அனுபவம்:** ${expYears} (March 10, 2025 முதல் கணக்கிடப்பட்டது)
+- 🚀 **Projects:** 25+ மென்பொருள் திட்டங்கள்
+- 📜 **சான்றிதழ்கள்:** 85+ தொழினுட்பச் சான்றிதழ்கள்
+- 🎓 **கல்வி:** B.E. Computer Science, ஞானமணி தொழில்நுட்பக் கல்லூரி (CGPA: 7.86)
+
+அவரது புராஜெக்ட்கள், தொழில்நுட்பத் திறன்கள் அல்லது பிசினஸ் சேவைகள் பற்றி நீங்கள் என்ன தெரிந்து கொள்ள விரும்புகிறீர்கள்?`,
+            suggestions: [
+                'பிரபுவின் புராஜெக்ட்கள் என்னென்ன?',
+                'Code Blaza Technology சேவைகள்',
+                'தொழில்நுட்பத் திறன்கள் (Tech Stack)',
+                'தொடர்பு கொள்ளும் வழிமுறைகள்',
+            ],
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 1. RECKO AI IDENTITY & GREETINGS (Sections 1, 16)
+    // ─────────────────────────────────────────────────────────────
     if (
         q.includes('recko') ||
-        q.includes('your name') ||
-        q.includes('what is your name') ||
         q.includes('who created you') ||
-        q.includes('what are you')
+        q.includes('what is your name') ||
+        q.includes('your identity') ||
+        q.includes('who are you') && (q.includes('assistant') || q.includes('bot') || q.includes('ai'))
     ) {
         return {
-            answer: `🤖 **I am Recko — Prabu R's Personal AI Assistant!**
+            answer: `🤖 **Hello! I'm Recko AI, the official personal portfolio intelligence assistant of Prabu R.**
 
-I am an intelligent humanoid AI agent built and trained specifically on Prabu R's portfolio, full-stack architecture, executive leadership at Code Blaza Technology, and career milestones.
+I represent Prabu R professionally to visitors, recruiters, software clients, and business partners.
 
-I can help you explore:
-- 🚀 **Projects:** His 20+ shipped web applications & enterprise ERPs
-- 💻 **Skills:** React.js, FastAPI, Python, PostgreSQL, Hostinger, Vercel
-- 💼 **Experience:** His internships and CEO leadership
-- 📞 **Contact:** How to hire or get in touch with Prabu directly
+I have comprehensive knowledge of:
+- 👨‍💻 **Developer Profile:** Full Stack Development (React, FastAPI, Python, PostgreSQL, REST APIs)
+- 👑 **Founder Identity:** CEO of Code Blaza Technology leading product direction & company growth
+- 🚀 **Software Projects:** 25+ real-world applications including EveryKadai, Ard Al Jannat, and Piolet HRM
+- 🏢 **Company Services:** Software Development, Digital Marketing, and EduTech Courses
+- 📈 **Verified Milestones:** ${expYears} experience (from March 10, 2025), 4 internships, and 85+ certificates
 
-What would you like to know about Prabu?`,
+How may I assist your exploration today?`,
             suggestions: [
                 'Tell me about Prabu R',
                 'What are his top projects?',
-                'What is his full tech stack?',
+                'What services does Code Blaza offer?',
                 'How can I contact Prabu?',
             ],
         };
     }
 
-    // 2. GREETINGS & INTRODUCTIONS
-    if (/^(hi|hello|hey|hola|vanakkam|namaste|greetings|morning|afternoon|evening)/.test(q)) {
+    // Standard Greetings (Section 16)
+    if (/^(hi|hello|hey|hola|greetings|morning|afternoon|evening)/.test(q)) {
         return {
-            answer: `👋 **Hello! I'm Recko, Prabu R's AI Assistant.**
+            answer: `👋 **Hello! I'm Recko, Prabu R's AI portfolio assistant.**
 
-Welcome to Prabu's portfolio! I am trained on his complete technical background, engineering projects, leadership, and work history.
+I can help you explore his technical expertise, software projects, professional journey and leadership at Code Blaza Technology.
 
-Here is a quick snapshot:
-- 👑 **Current Role:** CEO & Full Stack Developer at **Code Blaza Technology**
-- 💻 **Tech Stack:** React.js, Tailwind CSS, Python, FastAPI, Node.js, PostgreSQL, Hostinger & Vercel
-- 🚀 **Shipped Projects:** 20+ production web applications and tools
-- 🏆 **Credentials:** 97 professional certifications, technical credentials, and symposium awards
-
-How can I help you today? Feel free to ask about his **projects**, **skills**, **work experience**, **education**, or **how to contact him**!`,
+Are you interested in his developer profile, projects or business initiatives?`,
             suggestions: [
-                'Tell me about his work experience',
-                'What are his top projects?',
+                '👨‍💻 Developer Profile & Tech Stack',
+                '🚀 Top Projects & EveryKadai',
+                '👑 Founder Journey at Code Blaza',
+                '🏢 Company Services & Solutions',
+                '📬 How to Contact Prabu',
+            ],
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 2. ABOUT PRABU R (Section 5)
+    // ─────────────────────────────────────────────────────────────
+    if (
+        q.includes('who is prabu') ||
+        q.includes('about prabu') ||
+        q.includes('tell me about prabu') ||
+        q.includes('what does prabu do') ||
+        q.includes('professional background') ||
+        q.includes('what makes him different') ||
+        q.includes('bio') ||
+        q.includes('profile')
+    ) {
+        return {
+            answer: `**Prabu R is the CEO of Code Blaza Technology and a Full Stack Developer** passionate about building practical software solutions and leading technology initiatives.
+
+His professional journey combines software engineering, product development, business leadership and technology mentoring.
+
+- 💼 **Experience:** ${expYears} of professional experience (tracked from March 10, 2025) across 4 internships and executive leadership.
+- 🚀 **Projects:** Worked on more than 25 software projects, including enterprise ERPs and retail POS applications.
+- 📜 **Credentials:** Earned over 85 certificates from Microsoft, NPTEL, MongoDB, MathWorks, and UiPath.
+- 🎯 **Leadership:** As a technology entrepreneur, he focuses on developing digital products, solving real-world business problems and building technology-driven opportunities.
+
+His approach combines hands-on development with strategic thinking and team leadership.`,
+            suggestions: [
+                'Tell me about Code Blaza Technology',
                 'What is his full tech stack?',
+                'Explain his founder journey',
                 'How can I contact or hire Prabu?',
             ],
         };
     }
 
-    // 2. WHO IS PRABU / ABOUT / BIO
+    // ─────────────────────────────────────────────────────────────
+    // 3. FOUNDER JOURNEY & COMPANY MILESTONES (Section 6)
+    // ─────────────────────────────────────────────────────────────
     if (
-        q.includes('who is') ||
-        q.includes('about prabu') ||
-        q.includes('tell me about yourself') ||
-        q.includes('who are you') ||
-        q.includes('introduce') ||
-        q.includes('bio') ||
-        q.includes('profile')
+        q.includes('founder') ||
+        q.includes('milestone') ||
+        q.includes('journey') ||
+        q.includes('started code blaza') ||
+        q.includes('company history') ||
+        q.includes('timeline')
     ) {
         return {
-            answer: `**Prabu R** is an innovative **Full Stack Developer**, **UI/UX Designer**, and entrepreneur serving as the **Chief Executive Officer (CEO) at Code Blaza Technology**.
+            answer: `🚀 **Prabu R's Founder Journey — Code Blaza Technology Milestones:**
 
-📍 **Location / Address:** Kalangani, Namakkal, Tamil Nadu, India  
-🎓 **Education:** B.E. in Computer Science & Engineering from Gnanamani College of Technology (CGPA: 7.86)  
-💼 **Specialization:** Component-driven React frontends, robust FastAPI & Python backends, relational PostgreSQL databases, and high-performance cloud deployments.
+Prabu's entrepreneurial journey started from hands-on software development and evolved into establishing an official technology enterprise:
 
-Beyond code, Prabu is also the founder of **3D Productions**, an award-winning creative channel where he directs awareness short films and digital media.`,
+- 🗓️ **March 10, 2024:** Beginning of the Code Blaza Technology startup journey and digital product development.
+- 🏛️ **March 14, 2025:** Official MSME Government Registration milestone establishing Code Blaza Technology.
+- 🏅 **April 10, 2025:** Institutional Recognition & appreciation from Gnyanamani Educational Institution.
+- 🆔 **December 23, 2025:** First company employee ID card milestone and engineering team identity.
+- 👑 **September 2026:** Stepping into the CEO role, leading organizational development and business strategy.
+- 🌟 **Present:** Leading company initiatives, developing software products, managing technology activities, and exploring new business opportunities.
+
+*(Note: Company milestones are distinct from personal employment experience, which begins March 10, 2025).*`,
             suggestions: [
-                'What is Code Blaza Technology?',
-                'Tell me about his technical skills',
-                'What projects has he built?',
-                'How can I get his resume?',
+                'What does Code Blaza Technology do?',
+                'What is his CEO leadership responsibility?',
+                'Tell me about his developer experience',
             ],
         };
     }
 
-    // 3. CODE BLAZA TECHNOLOGY / CEO / ENTREPRENEURSHIP
+    // ─────────────────────────────────────────────────────────────
+    // 4. CODE BLAZA TECHNOLOGY & SERVICES (Section 9)
+    // ─────────────────────────────────────────────────────────────
     if (
         q.includes('code blaza') ||
         q.includes('cbt') ||
-        q.includes('ceo') ||
-        q.includes('entrepreneur') ||
-        q.includes('founder') ||
-        q.includes('company')
+        q.includes('company') ||
+        q.includes('services') ||
+        q.includes('solutions') ||
+        q.includes('what can code blaza do')
     ) {
         return {
-            answer: `👑 **Prabu R as CEO at Code Blaza Technology**
+            answer: `🏢 **Code Blaza Technology**  
+*Website:* [codeblazatechnology.in](https://codeblazatechnology.in/)  
+*Founder & CEO:* Prabu R  
 
-Prabu founded and leads **Code Blaza Technology** (since September 2026), a forward-thinking digital software agency based in Namakkal, Tamil Nadu.
+Code Blaza Technology is a technology-focused company positioned across three core pillars:
 
-🌐 **Website:** [codeblazatechnology.in](https://codeblazatechnology.in)
+1. 💻 **Software Development (Primary Priority):**
+   - Custom business software & enterprise applications.
+   - Robust ERP applications & institution management platforms.
+   - Retail billing and Point of Sale (POS) systems.
+   - Scalable responsive web applications with React, FastAPI & PostgreSQL.
+   - Business automation pipelines to eliminate repetitive manual operations.
 
-**Key Responsibilities & Vision:**
-- 🏛️ **Executive Leadership:** Guiding strategic roadmap, client partnerships, and engineering standards.
-- 💻 **Technical Architecture:** Architecting scalable frontend web apps, custom ERP solutions, and secure RESTful APIs.
-- 🚀 **Commercial Solutions:** Delivering bespoke software for retail, education, e-commerce, and logistics clients.`,
+2. 📈 **Digital Marketing:**
+   - Search Engine Optimization (SEO) & digital visibility.
+   - Brand growth strategies & social marketing channels.
+   - Structured performance marketing & conversion optimization.
+
+3. 🎓 **EduTech & Technology Training:**
+   - Professional full-stack development workshops & skill training.
+   - Guided student internships and hands-on project mentoring.
+   - Institutional training initiatives and skill-building programs.`,
             suggestions: [
-                'What is his work experience timeline?',
-                'What ERP systems did he build?',
-                'How to contact Code Blaza Technology?',
+                'Can Code Blaza build an ERP for my business?',
+                'What are Prabu’s leadership responsibilities?',
+                'Tell me about EveryKadai',
+                'Visit codeblazatechnology.in',
             ],
         };
     }
 
-    // 4. TECH STACK / SKILLS
+    // ─────────────────────────────────────────────────────────────
+    // 5. LEADERSHIP & CEO RESPONSIBILITIES (Section 10)
+    // ─────────────────────────────────────────────────────────────
+    if (
+        q.includes('ceo') ||
+        q.includes('leadership') ||
+        q.includes('management') ||
+        q.includes('responsibilities') ||
+        q.includes('how does he manage')
+    ) {
+        return {
+            answer: `👑 **Prabu R's Leadership & Technology Management:**
+
+As CEO of Code Blaza Technology, Prabu balances high-level business direction with hands-on engineering involvement:
+
+- 📈 **Business Leadership:** Steering company strategy, business development, institutional partnerships/MOUs, client relationships, and business planning.
+- ⚙️ **Technology Leadership:** Defining product direction, software architecture planning, technology stack selection, and solving technical bottlenecks.
+- 👥 **Team Leadership:** Coordinating team workflows, project monitoring, task assignment, and mentoring developers.
+- 💻 **Engineering Contributions:** Actively writes code, creates frontend UI in React, designs database schemas, and builds functional prototypes.
+
+Prabu is not merely an administrator; he maintains direct, hands-on involvement in product architecture and development.`,
+            suggestions: [
+                'What is his technical developer profile?',
+                'What projects has he built?',
+                'How can I partner with Code Blaza?',
+            ],
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 6. TECHNICAL KNOWLEDGE BASE & SKILLS (Section 7)
+    // ─────────────────────────────────────────────────────────────
     if (
         q.includes('skill') ||
         q.includes('tech stack') ||
         q.includes('technologies') ||
-        q.includes('stack') ||
+        q.includes('programming') ||
         q.includes('languages') ||
-        q.includes('framework')
+        q.includes('react') ||
+        q.includes('python') ||
+        q.includes('fastapi') ||
+        q.includes('backend') ||
+        q.includes('frontend') ||
+        q.includes('database')
     ) {
         return {
-            answer: `🛠️ **Prabu R's Technical Skills & Architecture:**
+            answer: `🛠️ **Prabu R's Technical Skills & Development Expertise:**
 
-- 🎨 **Frontend:** React.js (90%), Tailwind CSS (95%), JavaScript ES6+ (85%), HTML5 & CSS3 (90%), Responsive UI/UX Design (85%).
-- ⚙️ **Backend:** Python, FastAPI, Node.js, RESTful API Design & Integration.
-- 🗄️ **Database:** PostgreSQL (75%), Firebase, Relational Data Modeling & Queries.
-- ☁️ **Deployment & Hosting:** Hostinger, Vercel, CI/CD, Domain & DNS Configuration.
-- 🔧 **Tools & Workflow:** Git / GitHub, Postman, VS Code, Antigravity, Figma / Wireframing.`,
+- 🎨 **Frontend Development:** HTML5, CSS3, JavaScript (ES6+), TypeScript, React.js, Tailwind CSS.
+- ⚙️ **Backend Development:** Python, FastAPI, Node.js, Express.js, REST API architecture.
+- 🗄️ **Database Management:** PostgreSQL, MySQL, MongoDB.
+- 🔧 **Development Tools:** Git, GitHub, Visual Studio Code, Vite, Figma.
+- 🏗️ **Application Architecture:** JWT Authentication, Role-Based Access Control (RBAC), API integration, responsive layout systems, and ERP modular design.
+- 🤖 **Emerging Technologies:** Artificial Intelligence integration, Web Speech API (Speech Recognition & Text-to-Speech), Three.js 3D kinetic visuals.
+- 💼 **Professional Skills:** Technical leadership, project planning, problem-solving, team coordination, and client communication.
+
+*Prabu utilizes these technologies across actual delivered software solutions and business management platforms.*`,
             suggestions: [
-                'Tell me about his backend skills',
-                'What databases does he use?',
-                'What deployment platforms does he use?',
-                'Show me his projects',
+                'Tell me about EveryKadai ERP',
+                'What databases does he use for ERPs?',
+                'What projects use FastAPI and Python?',
+                'How to contact Prabu?',
             ],
         };
     }
 
-    // 5. BACKEND SPECIFIC
-    if (q.includes('backend') || q.includes('python') || q.includes('fastapi') || q.includes('api') || q.includes('node')) {
-        return {
-            answer: `⚙️ **Backend Engineering Capabilities:**
-
-Prabu specializes in building lightweight, ultra-fast backend services:
-- **Python & FastAPI:** High-performance asynchronous microservices with automated OpenAPI/Swagger documentation.
-- **REST APIs:** Structured CRUD endpoints, JWT authentication, and secure request validation.
-- **Node.js:** Server-side scripting, event-driven workflows, and middleware integration.
-- **API Integration:** Connecting third-party payment gateways, messaging APIs (WhatsApp, SMS), and OCR extraction.`,
-            suggestions: [
-                'What database does he use with FastAPI?',
-                'What projects use Python / FastAPI?',
-                'Can he build full stack apps?',
-            ],
-        };
-    }
-
-    // 6. DATABASE SPECIFIC
-    if (q.includes('database') || q.includes('postgres') || q.includes('sql') || q.includes('firebase')) {
-        return {
-            answer: `🗄️ **Database Architecture & Management:**
-
-- **PostgreSQL:** Relational schema design, foreign key constraints, indexed queries, and role-based data isolation (used in his College ERP and Enterprise projects).
-- **Firebase:** Real-time NoSQL database, Firestore document collections, cloud storage, and secure client-side rules.`,
-            suggestions: [
-                'What ERP systems use PostgreSQL?',
-                'What is his full tech stack?',
-            ],
-        };
-    }
-
-    // 7. DEPLOYMENT & HOSTING
-    if (q.includes('deploy') || q.includes('hostinger') || q.includes('vercel') || q.includes('hosting') || q.includes('cloud')) {
-        return {
-            answer: `☁️ **Cloud Deployment & Live Production:**
-
-Prabu configures end-to-end production environments:
-- **Hostinger:** Premium cloud hosting, SSL certification, custom domain routing, and Apache/Nginx configuration for corporate client portals.
-- **Vercel:** Edge continuous deployment, instant preview pipelines, Git-integrated CI/CD, and fast global CDN asset delivery for modern React applications.`,
-            suggestions: [
-                'View his live projects',
-                'What are his contact details?',
-            ],
-        };
-    }
-
-    // 8. PROJECTS OVERVIEW OR SPECIFIC PROJECTS
+    // ─────────────────────────────────────────────────────────────
+    // 7. PROJECT KNOWLEDGE BASE (Section 8)
+    // ─────────────────────────────────────────────────────────────
     if (
         q.includes('project') ||
-        q.includes('portfolio work') ||
-        q.includes('apps') ||
-        q.includes('orascape') ||
-        q.includes('sundarban') ||
+        q.includes('everykadai') ||
+        q.includes('ard al jannat') ||
+        q.includes('piolet') ||
+        q.includes('gcms') ||
+        q.includes('medishop') ||
+        q.includes('stayhive') ||
+        q.includes('school erp') ||
+        q.includes('textile') ||
         q.includes('pos') ||
-        q.includes('erp') ||
-        q.includes('stayhive')
+        q.includes('erp')
     ) {
-        if (q.includes('erp')) {
+        // Specific Project: EveryKadai
+        if (q.includes('everykadai') || (q.includes('billing') && q.includes('pos'))) {
             return {
-                answer: `🏢 **ERP Systems Built by Prabu:**
-1. **Gnanamani Institutions ERP:** Comprehensive educational ERP handling admissions, student records, fee billing, and hostel modules with PostgreSQL and OCR integration.
-2. **MediShop ERP:** Complete medical pharmacy ERP with fast barcode billing, inventory batch tracking, and expiry notifications.
-3. **Shri Aathav Textile ERP:** Textile inventory and stock levels management reducing manual errors with interactive data tables.`,
-                suggestions: ['What POS systems did he build?', 'What other projects exist?', 'Tell me about tech stack'],
+                answer: `🛍️ **EveryKadai — Retail Billing & Inventory Management**  
+*Category:* Retail Billing and Inventory Management  
+
+EveryKadai is a practical retail software application designed to support daily shop operations and streamlined commerce:
+- 💳 **Point of Sale (POS):** Fast customer checkout with item search and instant bill generation.
+- 📦 **Inventory Management:** Live stock level monitoring and low-stock alerts.
+- 🏷️ **Hardware Integration:** Barcode scanner support and thermal receipt printer integration.
+- 👥 **Customer & Supplier Records:** Tracking customer credit, purchase histories, and vendor transactions.
+- 📊 **Business Analytics:** Sales reporting and daily revenue tracking.`,
+                suggestions: ['Tell me about Ard Al Jannat', 'Tell me about Piolet HRM', 'Show other ERP projects'],
             };
         }
 
-        if (q.includes('pos') || q.includes('billing')) {
+        // Specific Project: Ard Al Jannat
+        if (q.includes('ard al jannat') || q.includes('dubai') || q.includes('spice')) {
             return {
-                answer: `💳 **Point-of-Sale (POS) Systems Built by Prabu:**
-1. **EveryKadai:** Retail sports shop billing ERP with SKU search, GST breakdown, customer invoicing, and discount control.
-2. **Mobile Shop Billing POS:** Specialized for mobile retailers featuring IMEI tracking, accessory cataloging, and receipt printing.
-3. **Food POS:** Restaurant billing system with live table management, order summaries, and category filtering.`,
-                suggestions: ['Tell me about Orascape project', 'Show all projects', 'How to contact Prabu?'],
+                answer: `🌶️ **Ard Al Jannat — Corporate Business Web Platform**  
+*Category:* Corporate Business Website  
+
+Ard Al Jannat is a corporate digital platform developed for a Dubai-based foodstuff and spice trading business:
+- 🌍 **Corporate Presentation:** Professional digital showcase for international export clients.
+- 📜 **Quality Certification:** Highlighting organic compliance and import/export standards.
+- 📱 **Responsive Experience:** High-performance layout accessible across desktop and mobile devices.`,
+                suggestions: ['Tell me about EveryKadai', 'Tell me about Piolet HRM', 'Show all projects'],
             };
         }
 
+        // Specific Project: Piolet HRM
+        if (q.includes('piolet') || q.includes('hrm') || q.includes('human resource')) {
+            return {
+                answer: `👥 **Piolet HRM — Human Resource Management**  
+*Category:* Workforce Management Platform  
+
+Piolet HRM is a structured human resource application designed around separate user experiences:
+- 👑 **Admin Portal:** Organizational settings, department management, and policy controls.
+- 👔 **Manager Dashboard:** Team attendance reviews, leave approvals, and shift assignments.
+- 🧑‍💻 **Employee Self-Service:** Daily attendance check-ins, leave requests, and profile records.`,
+                suggestions: ['Tell me about GCMS', 'Tell me about EveryKadai', 'What are other projects?'],
+            };
+        }
+
+        // Specific Project: GCMS
+        if (q.includes('gcms') || q.includes('grievance') || q.includes('campus')) {
+            return {
+                answer: `🏫 **GCMS — Institutional Management Platform**  
+*Category:* Centralized Grievance & Maintenance Management  
+
+GCMS is a centralized digital solution built for institutional grievance handling and campus maintenance operations:
+- 📝 **Complaint Lifecycle:** Multi-category issue submission with automated ticket routing.
+- 🛠️ **Maintenance Tracking:** Work allocation to campus maintenance teams and status updates.
+- 📊 **Administrative Oversight:** Institutional analytics on resolution times and service satisfaction.`,
+                suggestions: ['Tell me about School ERP', 'Tell me about MediShop', 'Show all projects'],
+            };
+        }
+
+        // General Projects Overview
         return {
-            answer: `🚀 **Featured Projects by Prabu R (25+ Total):**
+            answer: `🚀 **Prabu R's Software Projects Portfolio (25+ Projects):**
 
-- 🛍️ **EveryKadai:** Smart web-based retail billing, inventory & supplier ERP ready for thermal printing & barcode scanners.
-- 🌶️ **Ard Al Jannat:** Dubai corporate foodstuff & spice export trading web portal with direct farm certification.
-- 👥 **Piolet HRM:** Enterprise human resource & workforce management suite with multi-role dashboards (Admin, Manager, Employee).
-- 🏫 **GCMS Portal:** Centralized grievance and maintenance tracking platform for Gnyanamani Educational Institutions.
-- 🌿 **Orascape:** Landscaping & garden maintenance corporate web portal in Chennai.
-- 🚢 **Sundarban Cargo:** Dubai international freight, shipment booking & cargo portal.
-- 📱 **Mobile Shop POS:** Electronics store billing with IMEI tracking.
-- 🍽️ **Food POS:** Restaurant ordering & table billing management system.
-- 💊 **MediShop ERP:** Pharmacy inventory management with expiry tracking.
-- 🏡 **StayHive:** Zero-brokerage PG and property rental platform.
-- 🌿 **Thamizhoviyaa:** Organic natural herbal products e-commerce store with FastAPI.
-- 🔒 **Trust Lock:** Social media fake account detection using pattern analysis.
-- 📄 **PDFMaster Pro & DocPix:** Windows desktop document manipulation & conversion utilities.
-- ♟️ **Chess Game & Snake Game:** Interactive web arcade applications with custom game loops.`,
+### Featured Production Applications:
+1. 🛍️ **EveryKadai:** Retail billing, inventory tracking, barcode scanning, and thermal printing POS.
+2. 🌶️ **Ard Al Jannat:** Dubai-based corporate web platform for foodstuff and spice trading.
+3. 👥 **Piolet HRM:** Multi-dashboard human resource and workforce operations suite.
+4. 🏫 **GCMS:** Institutional grievance and campus maintenance management platform.
+5. 💊 **MediShop Pharmacy ERP:** Specialized pharmacy management and stock control application.
+6. 🏡 **StayHive:** Accommodation, tenant, and PG rental management solution.
+
+### Product Development Initiatives:
+- 🎓 **School ERP:** Multi-module institutional management product covering SIS, academics, exams, and fees.
+- 💼 **Code Blaza HRM:** Employee attendance, daily work reports, and workforce management.
+- 🧵 **Shri Athav Textile Mills:** Textile inventory, worker production entries, and salary tracking.
+- 🏭 **Aadhav Textile:** Specialized textile business development solution.
+
+*(Development initiatives are tracked accurately and distinguished from live commercial deployments).*`,
             suggestions: [
-                'Tell me about Piolet HRM',
                 'Tell me about EveryKadai',
-                'Tell me about his ERP projects',
-                'What tech stack does he use?',
+                'Tell me about Ard Al Jannat',
+                'Can Prabu build custom software for me?',
+                'How to contact Prabu?',
             ],
         };
     }
 
-    // 9. WORK EXPERIENCE & INTERNSHIPS
+    // ─────────────────────────────────────────────────────────────
+    // 8. PROFESSIONAL WORK EXPERIENCE & INTERNSHIPS (Section 2, 4)
+    // ─────────────────────────────────────────────────────────────
     if (
         q.includes('experience') ||
         q.includes('internship') ||
         q.includes('work history') ||
-        q.includes('job') ||
         q.includes('career') ||
+        q.includes('job') ||
         q.includes('qmex') ||
         q.includes('optimus')
     ) {
         return {
-            answer: `💼 **Prabu R's Work Experience & Internship Timeline:**
+            answer: `💼 **Prabu R's Professional Experience & Internships:**
 
+*Professional experience duration:* **${expYears}** (calculated from March 10, 2025).
+
+### Career Progression:
 1. 👑 **Chief Executive Officer (CEO) & Full Stack Developer**  
-   *Code Blaza Technology* (01/09/2026 – Present) · Namakkal, TN  
-   *Leading product engineering, client delivery, and technical architecture.*
+   *Code Blaza Technology* (01/09/2026 – Present)  
+   *Steering company initiatives, product direction, technical architecture, and software development.*
 
 2. 💻 **Full Stack Developer Intern**  
-   *Qmex Solutions* (01/08/2026 – 31/08/2026) · Coimbatore, TN  
-   *Full-stack web application development and API integration.*
+   *Qmex Solutions* (01/08/2026 – 31/08/2026)  
+   *Full stack web application development, backend integration, and database operations.*
 
 3. ⚛️ **React Developer Intern**  
-   *Code Blaza Technology* (10/08/2025 – 10/08/2026) · Namakkal, TN  
-   *Building scalable reusable UI components and client dashboards.*
+   *Code Blaza Technology* (10/08/2025 – 10/08/2026)  
+   *Building modular React component systems, responsive interfaces, and API integrations.*
 
 4. 🌐 **Web Developer Intern**  
-   *Optimus Technologies Pvt Ltd* (11/07/2025 – 09/08/2025) · Salem, TN  
-   *Frontend interface design, responsive styling, and web performance optimization.*
+   *Optimus Technologies Pvt Ltd* (11/07/2025 – 09/08/2025)  
+   *Frontend interface design, responsive layouts, and performance optimization.*
 
 5. 🎨 **Frontend Developer Intern**  
-   *Code Blaza Technology* (10/03/2025 – 10/07/2025) · Namakkal, TN  
-   *Prototyping responsive layouts and modern Tailwind UI.*`,
+   *Code Blaza Technology* (10/03/2025 – 10/07/2025)  
+   *Initial internship focusing on Tailwind UI implementation, wireframes, and prototypes.*`,
             suggestions: [
-                'What projects did he build at Code Blaza?',
+                'Tell me about his CEO role',
+                'What projects did he build?',
                 'What is his educational background?',
-                'How can I hire him?',
+                'Can I hire Prabu?',
             ],
         };
     }
 
-    // 10. EDUCATION & COLLEGE
+    // ─────────────────────────────────────────────────────────────
+    // 9. EDUCATION & ACADEMICS (Section 12)
+    // ─────────────────────────────────────────────────────────────
     if (
         q.includes('education') ||
         q.includes('college') ||
@@ -295,171 +486,206 @@ Prabu configures end-to-end production environments:
         q.includes('cgpa') ||
         q.includes('gnanamani') ||
         q.includes('study') ||
+        q.includes('academic') ||
         q.includes('school')
     ) {
         return {
-            answer: `🎓 **Academic Background:**
+            answer: `🎓 **Educational Background of Prabu R:**
 
 - 🏛️ **B.E. in Computer Science and Engineering**  
-  *Gnanamani College of Technology, Namakkal, Tamil Nadu* (2022 – 2026)  
-  📊 **Current CGPA:** **7.86**
+  *Gnanamani College of Technology, Namakkal, Tamil Nadu*  
+  *Duration:* 27/10/2022 – 31/05/2026  
+  📊 **Score:** **CGPA: 7.86** (subject to official record verification)
 
 - 🏫 **Higher Secondary (HSC - Class XII)**  
-  *Government Higher Secondary School, Puduchatram* (2021 – 2022)  
-  📊 **Score:** **73%**
+  *Government Higher Secondary School, Puduchatram*  
+  *Score:* **73%** (2021 – 2022)
 
-- 🏫 **Secondary (SSLC - Class X)**  
-  *Government Higher Secondary School, Kalangani* (2019 – 2020)  
-  📊 **Score:** **69%**`,
+- 🏫 **Secondary School Leaving Certificate (SSLC - Class X)**  
+  *Government Higher Secondary School, Kalangani*  
+  *Score:* **69%** (2019 – 2020)`,
             suggestions: [
                 'What certifications does he hold?',
-                'Tell me about his work experience',
                 'What are his core technical skills?',
+                'Show me his software projects',
             ],
         };
     }
 
-    // 11. CERTIFICATIONS & AWARDS
+    // ─────────────────────────────────────────────────────────────
+    // 10. CERTIFICATIONS & ACHIEVEMENTS (Section 11)
+    // ─────────────────────────────────────────────────────────────
     if (
         q.includes('certificate') ||
         q.includes('certification') ||
         q.includes('award') ||
         q.includes('prize') ||
         q.includes('symposium') ||
-        q.includes('hackathon') ||
-        q.includes('nptel') ||
         q.includes('credentials')
     ) {
         return {
-            answer: `🏆 **Credentials & Certifications (97 Total):**
+            answer: `🏆 **Certifications & Achievements:**
 
-**Key Professional & Industry Certifications (84 Courses):**
-- 📜 **Advance Diploma in Python Programming:** CSC Computer Education (**A+ Grade**, 2022)
-- 📜 **Python for Data Science:** NPTEL (IIT Madras, 2026)
-- 📜 **UiPath Academy:** Agentic Automation Developer Associate Training (2025)
-- 📜 **Automation Anywhere:** Certified Essentials Automation Professional (2025)
-- 📜 **MathWorks Training Services:** Deep Learning, Machine Learning & Statistics Onramp (**100% Score**, 2025)
-- 📜 **MongoDB Skills Series:** Building RAG Apps, Vector Search, CRUD Operations & Document Modeling (2025)
-- 📜 **Microsoft Learn:** 16 Cybersecurity & Microsoft 365 Copilot AI Certifications (2025)
-- 📜 **Autodesk:** BIM for AECO Industry & Structural Design (2025)
-- 📜 **Celonis:** AI Foundations Verified Badge (2025)
-- 📜 **Graphisoft Learn:** Certified Archicad BIM User (2025)
-- 📜 **Naan Mudhalvan & Microsoft:** 29 Certifications in Digital Productivity, AI Fluency & Employability
-- 📜 **Data Science Foundation & UI/UX Design:** Great Learning (2024)
-- 📜 **Problem Solving in Python:** HackerRank Verified (2025)
-- 📜 **Bharat Blockchain Yatra:** IDS & Hedera Blockchain Explorer (2023)
+Prabu maintains a verified portfolio of **85+ course certificates**, **4 internships**, and **13 symposium prizes**:
 
-**Top Symposium & Competition Prizes (13 Awards):**
-- 🥇 **1st Prize - Short Film Direction:** ALGONEXUS'25, Jayalakshmi Institute of Technology
-- 🥇 **1st Prize - Short Film Direction:** Mahendra Engineering College (2024)
-- 🥇 **1st Prize - Treasure Hunt:** Jayalakshmi Institute of Technology (2025)
-- 🥈 **2nd Prize - Short Film Direction:** Mahendra Engineering College (2024)
-- 🥈 **2nd Prize - Fun-a-thon:** Sona College of Technology (2025)
-- 🎖️ Multiple awards in Code Debugging & Bug Hunting.`,
+### Verified Certificate Issuers:
+- 📜 **Microsoft Learn:** Cybersecurity, Microsoft 365 Copilot AI, and cloud fundamentals.
+- 📜 **NPTEL (IIT Madras):** Python for Data Science.
+- 📜 **MongoDB Skills Series:** Vector Search, Document Modeling, and CRUD Operations.
+- 📜 **MathWorks Training Services:** Machine Learning and Deep Learning Onramp (100% Score).
+- 📜 **UiPath Academy:** Agentic Automation Developer Associate.
+- 📜 **Celonis:** AI Foundations Verified Badge.
+- 📜 **Autodesk:** BIM for AECO Industry & Structural Design.
+- 📜 **CSC Computer Education:** Advance Diploma in Python Programming (A+ Grade).
+
+### Selected Symposium Prizes:
+- 🥇 1st Prize — ALGONEXUS'25, Jayalakshmi Institute of Technology.
+- 🥇 1st Prize — Mahendra Engineering College.
+- 🥇 1st Prize — Treasure Hunt, Jayalakshmi Institute of Technology.`,
             suggestions: [
-                'Tell me about his short films & 3D Productions',
-                'Show me his projects',
-                'How can I contact Prabu?',
+                'Tell me about his technical skills',
+                'What projects has he built?',
+                'How to contact Prabu?',
             ],
         };
     }
 
-    // 12. EXTRACURRICULAR / 3D PRODUCTIONS / FILMMAKING
+    // ─────────────────────────────────────────────────────────────
+    // 11. RECRUITMENT & HIRING (Section 13, 19)
+    // ─────────────────────────────────────────────────────────────
     if (
-        q.includes('film') ||
-        q.includes('movie') ||
-        q.includes('3d production') ||
-        q.includes('youtube') ||
-        q.includes('extracurricular') ||
-        q.includes('director') ||
-        q.includes('saalai') ||
-        q.includes('video')
-    ) {
-        return {
-            answer: `🎬 **3D Productions & Filmmaking Passion:**
-
-Prabu is the **Founder & Channel Administrator of 3D Productions** ([@admin3d24](https://youtube.com/@admin3d24?si=W9jzQEE7jwJwZW4g)) on YouTube.
-
-He writes, directs, and edits social awareness short films and creative visual stories:
-- 🚦 **SAALAI : The Road:** Acclaimed road safety awareness short film.
-- 🤝 **Dear Buddy:** Crime thriller short film celebrating friendship & vigilance.
-- 🔍 **SECTION 416:** Prequel crime thriller and suspense drama.
-- 👁️ **Who Blind:** Impactful 1-minute life observation film.
-
-His directing has won **multiple 1st and 2nd prizes** in state-level symposium competitions!`,
-            suggestions: [
-                'Where can I watch his short films?',
-                'What is his tech stack?',
-                'Tell me about his CEO role',
-            ],
-        };
-    }
-
-    // 13. CONTACT / HIRE / EMAIL / PHONE / WHATSAPP
-    if (
-        q.includes('contact') ||
         q.includes('hire') ||
-        q.includes('email') ||
-        q.includes('phone') ||
-        q.includes('whatsapp') ||
-        q.includes('call') ||
-        q.includes('reach') ||
-        q.includes('linkedin') ||
-        q.includes('github') ||
-        q.includes('location')
+        q.includes('recruiting') ||
+        q.includes('recruiter') ||
+        q.includes('job') ||
+        q.includes('available for work') ||
+        q.includes('full time') ||
+        q.includes('contract')
     ) {
         return {
-            answer: `📬 **Get in Touch with Prabu R:**
+            answer: `🤝 **Recruitment & Developer Opportunities:**
 
-- 📧 **Email:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com) | [prabur2k5@outlook.com](mailto:prabur2k5@outlook.com)
-- 📞 **Phone & WhatsApp:** [+91 95248 15890](https://wa.me/919524815890) (Call & WhatsApp)
+Prabu R combines **Full Stack Software Engineering** experience with real-world product delivery:
+- 💻 **Engineering Strengths:** React.js, Tailwind CSS, TypeScript, Python, FastAPI, PostgreSQL, REST APIs.
+- 🏗️ **Architectural Capabilities:** Role-based systems, ERPs, billing applications, and secure authentication.
+- 💼 **Leadership Maturity:** Hands-on CEO experience coordinating timelines, requirements, and deployment pipelines.
+
+You can review his developer credentials, projects, and resume on this portfolio. For career inquiries, please connect directly via:
 - 💼 **LinkedIn:** [linkedin.com/in/prabu-r12092005](https://www.linkedin.com/in/prabu-r12092005)
-- 🐙 **GitHub:** [github.com/praburofficial](https://github.com/praburofficial)
-- 🏢 **Company:** [codeblazatechnology.in](https://codeblazatechnology.in)
-- 📍 **Location / Address:** Kalangani, Namakkal, Tamil Nadu, India
-
-Prabu is open to **Full Stack Engineering roles**, **freelance contracts**, and **technology consulting**!`,
+- 📧 **Email:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com)
+- 📞 **Direct:** [+91 95248 15890](https://wa.me/919524815890)`,
             suggestions: [
-                'Can I download his resume?',
-                'What are his best projects?',
-                'What is his availability?',
+                'View his technical tech stack',
+                'Tell me about EveryKadai ERP',
+                'Download or view resume',
             ],
         };
     }
 
-    // 14. RESUME / CV
-    if (q.includes('resume') || q.includes('cv') || q.includes('download')) {
+    // ─────────────────────────────────────────────────────────────
+    // 12. BUSINESS ENQUIRIES & PARTNERSHIPS (Section 13, 19)
+    // ─────────────────────────────────────────────────────────────
+    if (
+        q.includes('business') ||
+        q.includes('client') ||
+        q.includes('develop an erp') ||
+        q.includes('build custom') ||
+        q.includes('partnership') ||
+        q.includes('mou') ||
+        q.includes('collaborate') ||
+        q.includes('work with colleges')
+    ) {
         return {
-            answer: `📄 **Prabu R's Resume:**
+            answer: `💼 **Business Solutions & Institutional Partnerships:**
 
-Prabu's resume showcases his journey as CEO at Code Blaza Technology, B.E. Computer Science degree (CGPA 7.86), 20+ shipped projects, and full-stack expertise.
+Code Blaza Technology, led by Prabu R, actively collaborates with businesses, startup founders, and educational institutions:
 
-You can preview and download his resume directly on this site using the **"Resume"** button in the navigation or Hero section!`,
+- 🏬 **Custom ERP & POS Software:** Tailored retail billing, school management, and inventory solutions.
+- 🌐 **Corporate Web Applications:** High-performance business platforms.
+- 📈 **Digital Marketing Solutions:** Strategic online growth and SEO optimization.
+- 🤝 **Institutional MOUs & Training:** College workshops, value-added technology courses, and student internship programs.
+
+For project consultations, RFPs, or partnership discussions:
+- 🌐 **Company Portal:** [codeblazatechnology.in](https://codeblazatechnology.in/)
+- 📧 **Direct Inquiry:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com)
+- 📞 **WhatsApp / Phone:** [+91 95248 15890](https://wa.me/919524815890)`,
+            suggestions: [
+                'What is Code Blaza Technology?',
+                'Tell me about EveryKadai ERP',
+                'How to contact Prabu?',
+            ],
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 13. RESUME (Section 2)
+    // ─────────────────────────────────────────────────────────────
+    if (q.includes('resume') || q.includes('cv') || q.includes('download resume') || q.includes('view resume')) {
+        return {
+            answer: `📄 **Prabu R — Professional Resume:**
+
+Prabu's resume outlines his leadership as CEO of Code Blaza Technology, his Full Stack engineering stack, B.E. Computer Science degree (CGPA: 7.86), 25+ projects, 4 internships, and 85+ certifications.
+
+You can inspect the full resume on this portfolio using the **"View Resume"** button on the Home page navigation!`,
             suggestions: [
                 'What are his technical skills?',
                 'Tell me about his work experience',
-                'How to contact him directly?',
+                'How to contact Prabu?',
             ],
         };
     }
 
-    // 15. DEFAULT SMART FALLBACK
+    // ─────────────────────────────────────────────────────────────
+    // 14. CONTACT INFORMATION (Section 2, 19)
+    // ─────────────────────────────────────────────────────────────
+    if (
+        q.includes('contact') ||
+        q.includes('email') ||
+        q.includes('phone') ||
+        q.includes('whatsapp') ||
+        q.includes('linkedin') ||
+        q.includes('github') ||
+        q.includes('website') ||
+        q.includes('reach')
+    ) {
+        return {
+            answer: `📬 **Verified Contact Channels for Prabu R:**
+
+- 📧 **Primary Email:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com)
+- 📧 **Secondary Email:** [prabur2k5@outlook.com](mailto:prabur2k5@outlook.com)
+- 📞 **Phone & WhatsApp:** [+91 95248 15890](https://wa.me/919524815890)
+- 💼 **LinkedIn Profile:** [linkedin.com/in/prabu-r12092005](https://www.linkedin.com/in/prabu-r12092005)
+- 🐙 **GitHub Repository:** [github.com/praburofficial](https://github.com/praburofficial)
+- 🏢 **Company Portal:** [codeblazatechnology.in](https://codeblazatechnology.in/)
+- 🌐 **Personal Portfolio:** [prabu-red.vercel.app](https://prabu-red.vercel.app/)
+- 📍 **Location:** Kalangani, Namakkal, Tamil Nadu, India`,
+            suggestions: [
+                'Tell me about EveryKadai',
+                'What are his technical skills?',
+                'What services does Code Blaza offer?',
+            ],
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 15. ACCURACY & KNOWLEDGE SAFETY FALLBACK (Section 18)
+    // ─────────────────────────────────────────────────────────────
     return {
-        answer: `I understand you're asking about **"${userQuery}"**.
+        answer: `I can help with questions about Prabu's portfolio, technical work and Code Blaza Technology.
 
-Here is what I can tell you about Prabu R:
-- 👑 **CEO & Full Stack Developer** at Code Blaza Technology with expertise in React, FastAPI, Python, and PostgreSQL.
-- 🚀 **Creator of 20+ applications**, including corporate ERPs, retail POS systems, and rental platforms.
-- 🎓 **B.E. Computer Science Graduate (2026)** with a 7.86 CGPA and 97 certifications & awards.
-- 📬 **Direct Contact:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com) / [prabur2k5@outlook.com](mailto:prabur2k5@outlook.com) or WhatsApp at [+91 95248 15890](https://wa.me/919524815890).
+If your inquiry regards specific private records, client data or internal company figures, I don't have verified information about that particular detail. You can contact Prabu directly for confirmation.
 
-Would you like to explore any of these specific areas?`,
+Here is what I can help you explore:
+- 👨‍💻 **Technical Profile:** React, FastAPI, Python, PostgreSQL, REST APIs
+- 🚀 **Projects (25+):** EveryKadai, Ard Al Jannat, Piolet HRM, GCMS, MediShop
+- 👑 **Founder Journey:** CEO of Code Blaza Technology & startup milestones
+- 💼 **Experience:** ${expYears} of experience, 4 internships & 85+ certificates
+- 📬 **Direct Contact:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com) / [+91 95248 15890](https://wa.me/919524815890)`,
         suggestions: [
-            'What is his full tech stack?',
+            'Who is Prabu R?',
             'What are his top projects?',
-            'Tell me about his work experience',
-            'How can I contact or hire Prabu?',
+            'What services does Code Blaza offer?',
+            'How can I contact Prabu?',
         ],
     };
 }
-

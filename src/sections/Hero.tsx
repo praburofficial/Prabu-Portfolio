@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, FileText, ChevronDown, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, FileText, ChevronDown } from 'lucide-react';
 import { ResumeModal } from '../components/ResumeModal';
 import CountUp from 'react-countup';
 
@@ -86,7 +86,7 @@ export function Hero() {
                                     </span>
                                     <span className="mx-2 hidden h-1 w-1 rounded-full bg-slate-500 sm:inline-block" />
                                     <span className="rounded-full border border-sky-400/30 bg-sky-500/10 px-2.5 py-0.5 font-mono text-[0.6875rem] font-semibold tracking-wider text-sky-300 uppercase sm:text-xs">
-                                        CEO · CODE BLAZA TECHNOLOGY
+                                        CEO, CODE BLAZA TECHNOLOGY | FULL STACK DEVELOPER
                                     </span>
                                 </motion.div>
 
@@ -97,9 +97,8 @@ export function Hero() {
                                     transition={{ duration: 0.7, delay: 0.25 }}
                                     className="mt-4 font-display text-[clamp(2.1rem,3.6vw,3.6rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white sm:mt-5"
                                 >
-                                    Connecting<br />
-                                    <span className="text-sky-400">Businesses</span> and<br />
-                                    <span className="text-sky-400">Opportunities</span>
+                                    Building Technology.<br />
+                                    <span className="text-sky-400">Leading Innovation.</span>
                                 </motion.h1>
 
                                 {/* Description */}
@@ -107,9 +106,17 @@ export function Hero() {
                                     initial={{ opacity: 0, y: 16 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.65, delay: 0.35 }}
-                                    className="mt-3.5 max-w-[48ch] text-[0.875rem] leading-relaxed text-slate-300 sm:mt-4 sm:text-[0.9375rem] lg:text-[1rem]"
+                                    className="mt-3.5 max-w-[54ch] text-[0.875rem] leading-relaxed text-slate-300 sm:mt-4 sm:text-[0.9375rem] lg:text-[1rem]"
                                 >
-                                    Prabu R is a seasoned entrepreneur and CEO at Code Blaza Technology, renowned for building scalable web architectures, innovative digital platforms, and forging strategic partnerships that drive growth across industries.
+                                    I am a technology entrepreneur and full stack developer passionate about building scalable software solutions, developing innovative digital products and leading technology initiatives.
+                                </motion.p>
+                                <motion.p
+                                    initial={{ opacity: 0, y: 16 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.65, delay: 0.4 }}
+                                    className="mt-2.5 max-w-[54ch] text-[0.8125rem] leading-relaxed text-slate-400 sm:text-[0.875rem]"
+                                >
+                                    As the CEO of Code Blaza Technology, I focus on business growth, product direction, software development and building technology-driven solutions that solve real-world problems, combining hands-on engineering experience with leadership.
                                 </motion.p>
 
                                 {/* Action Buttons */}
@@ -117,29 +124,50 @@ export function Hero() {
                                     initial={{ opacity: 0, y: 16 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.65, delay: 0.45 }}
-                                    className="mt-6 flex flex-wrap items-center gap-3.5 sm:mt-7"
+                                    className="mt-6 flex flex-wrap items-center gap-2.5 sm:mt-7 sm:gap-3"
                                 >
-                                    {/* Primary CTA — "Connect with Me" */}
+                                    {/* About My Journey */}
                                     <a
-                                        href="#contact"
-                                        className="group inline-flex items-center gap-2.5 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-slate-950 shadow-lg shadow-black/25 transition-all duration-300 hover:scale-[1.03] hover:bg-slate-100 hover:shadow-xl active:scale-[0.98] sm:text-[0.9375rem]"
+                                        href="#journey"
+                                        className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/30 bg-sky-500/10 px-5 py-3 text-xs font-medium text-sky-200 transition-all duration-300 hover:scale-[1.02] hover:border-sky-400/60 hover:bg-sky-500/20 sm:px-6 sm:py-3.5 sm:text-[0.875rem]"
                                     >
-                                        <span>Connect with Me</span>
-                                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                        <span>About My Journey</span>
                                     </a>
 
-                                    {/* Resume Button */}
+                                    {/* View Resume Button */}
                                     <button
                                         onClick={() => setIsResumeModalOpen(true)}
-                                        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3.5 text-sm font-medium text-slate-200 transition-all duration-300 hover:scale-[1.02] hover:border-white/40 hover:bg-white/15 hover:text-white"
+                                        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3 text-xs font-medium text-slate-200 transition-all duration-300 hover:scale-[1.02] hover:border-white/40 hover:bg-white/15 hover:text-white sm:px-6 sm:py-3.5 sm:text-[0.875rem]"
                                     >
                                         <FileText className="h-4 w-4" />
-                                        <span>Resume</span>
+                                        <span>View Resume</span>
                                     </button>
+
+                                    {/* Simple, compact GitHub & LinkedIn icons next to Resume */}
+                                    <div className="flex items-center gap-2">
+                                        <a
+                                            href="https://github.com/praburofficial"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="GitHub profile"
+                                            className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full border border-white/20 bg-white/5 text-slate-200 transition-all duration-300 hover:scale-105 hover:border-sky-400 hover:bg-sky-400 hover:text-slate-950 hover:shadow-[0_0_16px_rgba(56,189,248,0.5)]"
+                                        >
+                                            <Github className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                                        </a>
+                                        <a
+                                            href="https://www.linkedin.com/in/prabu-r12092005"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="LinkedIn profile"
+                                            className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full border border-white/20 bg-white/5 text-slate-200 transition-all duration-300 hover:scale-105 hover:border-[#0a66c2] hover:bg-[#0a66c2] hover:text-white hover:shadow-[0_0_16px_rgba(10,102,194,0.6)]"
+                                        >
+                                            <Linkedin className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                                        </a>
+                                    </div>
                                 </motion.div>
                             </div>
 
-                            {/* Elevated Stats Card with Increased Height + Nearby GitHub & LinkedIn */}
+                            {/* Elevated Stats Card with Increased Height */}
                             <motion.div
                                 initial={{ opacity: 0, y: 16 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -147,7 +175,7 @@ export function Hero() {
                                 className="mt-8 flex flex-wrap items-center gap-3.5 sm:mt-10 sm:gap-4"
                             >
                                 {/* Increased Height Stats Card with Rotating Loop Border Line */}
-                                <div className="relative flex-1 min-w-[280px] overflow-hidden rounded-2xl p-[1.5px] sm:rounded-3xl shadow-xl">
+                                <div className="relative w-full overflow-hidden rounded-2xl p-[1.5px] sm:rounded-3xl shadow-xl">
                                     {/* Rotating loop border line like header box border */}
                                     <motion.div
                                         className="pointer-events-none absolute inset-[-150%] gpu"
@@ -179,28 +207,6 @@ export function Hero() {
                                             </div>
                                         ))}
                                     </div>
-                                </div>
-
-                                {/* GitHub & LinkedIn positioned right nearby stats card */}
-                                <div className="flex items-center gap-2.5 sm:gap-3">
-                                    <a
-                                        href="https://github.com/praburofficial"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label="GitHub profile"
-                                        className="group/gh relative grid h-14 w-14 place-items-center rounded-2xl border border-white/20 bg-white/[0.07] text-slate-200 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-sky-400 hover:bg-sky-400 hover:text-slate-950 hover:shadow-[0_0_24px_rgba(56,189,248,0.7)] sm:h-16 sm:w-16 sm:rounded-3xl"
-                                    >
-                                        <Github className="h-5 w-5 transition-transform duration-300 group-hover/gh:scale-110 sm:h-6 sm:w-6" />
-                                    </a>
-                                    <a
-                                        href="https://www.linkedin.com/in/prabu-r12092005"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label="LinkedIn profile"
-                                        className="group/li relative grid h-14 w-14 place-items-center rounded-2xl border border-white/20 bg-white/[0.07] text-slate-200 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-[#0a66c2] hover:bg-[#0a66c2] hover:text-white hover:shadow-[0_0_24px_rgba(10,102,194,0.85)] sm:h-16 sm:w-16 sm:rounded-3xl"
-                                    >
-                                        <Linkedin className="h-5 w-5 transition-transform duration-300 group-hover/li:scale-110 sm:h-6 sm:w-6" />
-                                    </a>
                                 </div>
                             </motion.div>
                         </div>

@@ -137,10 +137,10 @@ export function About() {
         <section ref={aboutRef} id="about" className="section-y relative z-10 overflow-hidden">
             <div className="shell">
                 <SectionHeading
-                    eyebrow="About"
-                    title="The person behind"
-                    highlight="the pixels"
-                    description="A quick look at the story, the schooling and the day-to-day craft."
+                    eyebrow="About Me"
+                    title="A Technology Founder with an"
+                    highlight="Engineer's Mindset"
+                    description="CEO, Code Blaza Technology | Full Stack Developer"
                     className="mb-12 sm:mb-16"
                 />
 
@@ -175,10 +175,11 @@ export function About() {
                                 </div>
 
                                 <div className="min-w-0 w-full flex-1">
-                                    <h3 className="font-display text-lg font-bold shimmer-text sm:text-xl lg:text-2xl">The Journey</h3>
+                                    <h3 className="font-display text-lg font-bold shimmer-text sm:text-xl lg:text-2xl">Prabu R</h3>
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-primary">CEO, Code Blaza Technology | Full Stack Developer</p>
 
-                                    <p className="mt-3 text-[0.875rem] leading-relaxed text-muted line-clamp-5">
-                                        As Chief Executive Officer (CEO) at Code Blaza Technology and a Computer Science Engineering professional, I'm deeply passionate about the intersection of scalable software architecture, modern design, and exceptional user experience. With expertise in full stack development, component-driven UI architecture, and robust FastAPI backends, I lead and build digital products that are high-performing, accessible, and commercially impactful.
+                                    <p className="mt-3 text-[0.85rem] leading-relaxed text-muted">
+                                        I'm Prabu R, CEO of Code Blaza Technology and a Full Stack Developer passionate about software engineering, product development, and technology entrepreneurship. From hands-on programming to leading digital product initiatives, I bridge technical architecture with strategic leadership—building scalable ERPs, web platforms, and automated business solutions that solve real-world industry challenges.
                                     </p>
 
                                     <div className="mt-4 flex flex-nowrap items-center justify-center gap-1.5 overflow-hidden sm:justify-start">

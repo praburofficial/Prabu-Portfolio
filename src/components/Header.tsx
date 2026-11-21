@@ -8,6 +8,7 @@ const navLinks = [
     { name: 'About', href: '/#about', isHash: true },
     { name: 'Skills', href: '/#skills', isHash: true },
     { name: 'Projects', href: '/#projects', isHash: true },
+    { name: 'Services', href: '/#services', isHash: true },
     { name: 'Journey', href: '/#journey', isHash: true },
     { name: 'Certifications', href: '/#certifications', isHash: true },
     { name: 'Extracurricular', href: '/#extracurricular', isHash: true },

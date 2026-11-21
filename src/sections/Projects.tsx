@@ -245,9 +245,9 @@ export function Projects() {
             <div className="shell">
                 <SectionHeading
                     eyebrow="Selected Work"
-                    title="Featured"
-                    highlight="Projects"
-                    description="Products, tools and experiments — built end to end, from wireframe to shipped interface."
+                    title="Building Solutions That"
+                    highlight="Solve Real Problems"
+                    description="My development journey includes building business applications, enterprise management systems, web platforms and productivity tools, focused on practical functionality and scalable architecture."
                     className="mb-12 sm:mb-16"
                 />
 
@@ -310,6 +310,10 @@ export function Projects() {
                                                 {/* Index chip */}
                                                 <span className="badge-over-image absolute left-4 top-4 rounded-pill px-2.5 py-1 font-display text-[0.6875rem] font-bold tracking-[0.1em]">
                                                     {String(index + 1).padStart(2, '0')}
+                                                </span>
+                                                {/* Status chip */}
+                                                <span className="badge-over-image absolute right-4 top-4 rounded-pill px-2.5 py-1 font-display text-[0.625rem] font-bold uppercase tracking-wider text-primary">
+                                                    {(project as { status?: string }).status || (index < 3 ? 'Live Production' : 'Completed')}
                                                 </span>
                                             </div>
 

@@ -87,6 +87,45 @@ const events: JourneyEvent[] = [
     },
 ];
 
+const companyMilestones = [
+    {
+        date: 'March 10, 2024',
+        title: 'Code Blaza Journey Begins',
+        badge: 'Inception',
+        description: 'The beginning of the Code Blaza Technology startup journey, focusing on digital product development and practical software solutions.',
+    },
+    {
+        date: 'March 14, 2025',
+        title: 'MSME Registration',
+        badge: 'Official Recognition',
+        description: 'Official Micro, Small & Medium Enterprises (MSME) company registration milestone establishing Code Blaza Technology.',
+    },
+    {
+        date: 'April 10, 2025',
+        title: 'Institutional Recognition',
+        badge: 'Academic Partnership',
+        description: 'Appreciation from Gnyanamani Educational Institution for institutional software engineering and technical contribution.',
+    },
+    {
+        date: 'December 23, 2025',
+        title: 'Team Identity Milestone',
+        badge: 'Team Growth',
+        description: 'First official Code Blaza Technology employee ID card milestone and engineering team expansion.',
+    },
+    {
+        date: 'September 2026',
+        title: 'CEO Role',
+        badge: 'Leadership',
+        description: 'Stepping into leadership and company development responsibilities, steering technology direction and business strategy.',
+    },
+    {
+        date: 'Present',
+        title: 'Building Technology Solutions',
+        badge: 'Active Operations',
+        description: 'Leading company initiatives, developing software products, managing technology activities and exploring new business opportunities.',
+    },
+];
+
 export function Journey() {
     const railRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -99,12 +138,52 @@ export function Journey() {
         <section id="journey" className="section-y relative z-10 w-full overflow-hidden">
             <div className="shell">
                 <SectionHeading
-                    eyebrow="Timeline"
-                    title="My"
-                    highlight="Journey"
-                    description="Milestones, moments and the people along the way — captured year by year."
-                    className="mb-14 sm:mb-20"
+                    eyebrow="Founder Journey"
+                    title="From Developer to"
+                    highlight="Technology Founder"
+                    description="Separating startup company milestones from personal employment and career experience."
+                    className="mb-12 sm:mb-16"
                 />
+
+                {/* ─── Company Journey Milestones Timeline ─── */}
+                <div className="mb-16 sm:mb-20">
+                    <div className="mb-6 flex items-center justify-between border-b border-border pb-3">
+                        <span className="text-xs font-bold uppercase tracking-wider text-primary">Company Startup Milestones</span>
+                        <span className="text-xs text-muted">Code Blaza Technology</span>
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        {companyMilestones.map((m, idx) => (
+                            <motion.div
+                                key={m.title}
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                                className="group relative rounded-2xl border border-border bg-white/70 p-5 shadow-e1 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-e2"
+                            >
+                                <div className="flex items-center justify-between gap-2">
+                                    <span className="font-mono text-xs font-bold text-sky-500">{m.date}</span>
+                                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[0.6875rem] font-bold text-primary">
+                                        {m.badge}
+                                    </span>
+                                </div>
+                                <h4 className="mt-2.5 font-display text-base font-bold text-ink transition-colors group-hover:text-primary">
+                                    {m.title}
+                                </h4>
+                                <p className="mt-2 text-xs leading-relaxed text-muted">
+                                    {m.description}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* ─── Captured Memories & Events Gallery Rail ─── */}
+                <div className="mb-6 flex items-center justify-between border-b border-border pb-3">
+                    <span className="text-xs font-bold uppercase tracking-wider text-secondary">Captured Moments & Milestones</span>
+                    <span className="text-xs text-muted">31 Documented Frames</span>
+                </div>
 
                 <div ref={railRef} className="relative">
                     {/* Horizontal rail line — animated smoothly left-to-right on scroll */}

@@ -46,12 +46,31 @@ export function Contact() {
 
             <div className="shell-narrow relative z-10">
                 <SectionHeading
-                    eyebrow="Contact"
-                    title="Get in"
-                    highlight="Touch"
-                    description="Have a role, a project or just an idea worth building? My inbox is always open."
+                    eyebrow="Contact & Collaboration"
+                    title="Let's Build Something"
+                    highlight="Meaningful Together"
+                    description="Whether you are looking for a technology professional, exploring a software project or interested in collaboration, I would be happy to connect."
                     className="mb-12 sm:mb-16"
                 />
+
+                {/* ─── 3 Contact Pathways ─── */}
+                <div className="mb-8 grid gap-3 sm:grid-cols-3">
+                    <div className="rounded-2xl border border-sky-400/30 bg-sky-500/10 p-4 text-center">
+                        <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-sky-400">01. Career Pathways</span>
+                        <h4 className="mt-1 font-display text-sm font-bold text-ink">Career Opportunities</h4>
+                        <p className="mt-1 text-[0.75rem] text-muted">For engineering recruiters &amp; hiring managers seeking senior technical talent.</p>
+                    </div>
+                    <div className="rounded-2xl border border-violet/30 bg-violet/10 p-4 text-center">
+                        <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-violet">02. Software Solutions</span>
+                        <h4 className="mt-1 font-display text-sm font-bold text-ink">Business Enquiries</h4>
+                        <p className="mt-1 text-[0.75rem] text-muted">For enterprises exploring custom ERP, POS billing software, and web applications.</p>
+                    </div>
+                    <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-center">
+                        <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-emerald-500">03. Alliances</span>
+                        <h4 className="mt-1 font-display text-sm font-bold text-ink">Partnerships &amp; MOUs</h4>
+                        <p className="mt-1 text-[0.75rem] text-muted">For startup founders, institutions, and technology partners.</p>
+                    </div>
+                </div>
 
                 {/* ══════════ Contact details ══════════ */}
                 <div className="grid gap-4 sm:grid-cols-3">

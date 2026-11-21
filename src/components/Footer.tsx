@@ -7,6 +7,7 @@ const quickLinks = [
     { name: 'About', href: '/#about', icon: User, color: 'text-emerald-400' },
     { name: 'Skills', href: '/#skills', icon: Code2, color: 'text-purple-400' },
     { name: 'Projects', href: '/#projects', icon: Folder, color: 'text-amber-400' },
+    { name: 'Services', href: '/#services', icon: Activity, color: 'text-sky-400' },
     { name: 'Journey', href: '/#journey', icon: Map, color: 'text-pink-400' },
     { name: 'Certifications', href: '/#certifications', icon: Award, color: 'text-yellow-400' },
     { name: 'Extracurricular', href: '/#extracurricular', icon: Activity, color: 'text-cyan-400' },
@@ -85,8 +86,7 @@ export function Footer() {
                         </a>
 
                         <p className="mt-5 max-w-sm text-sm leading-relaxed text-slate-300">
-                            Full Stack Developer &amp; UI/UX Designer building clean, responsive products with React.js,
-                            Tailwind CSS, Python and FastAPI.
+                            CEO, Code Blaza Technology | Full Stack Developer building scalable software solutions, enterprise management platforms and digital innovation.
                         </p>
 
                         <div className="mt-6 flex gap-2.5">

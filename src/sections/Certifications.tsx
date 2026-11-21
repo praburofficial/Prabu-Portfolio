@@ -850,10 +850,10 @@ export function Certifications() {
 
             <div className="shell relative z-10">
                 <SectionHeading
-                    eyebrow="Credentials"
-                    title="Certifications &"
-                    highlight="Awards"
-                    description="Courses completed and events competed in — every certificate is viewable and downloadable."
+                    eyebrow="Continuous Learning"
+                    title="Practical"
+                    highlight="Achievement"
+                    description="85+ course certificates and credentials from global technology platforms, IIT Madras NPTEL, and industry organizations."
                     className="mb-10 sm:mb-12"
                 />
 

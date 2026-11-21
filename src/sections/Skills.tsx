@@ -143,15 +143,16 @@ const stackSplit = [
     },
 ];
 
-/* Professional grouping of the toolkit — organised by discipline. */
+/* Professional grouping of the toolkit — organised by discipline (8 cards). */
 const toolkit = [
-    { title: 'Programming Languages', icon: Braces, tint: '#22d3ee', items: ['JavaScript', 'Python'] },
-    { title: 'Frontend', icon: Code2, tint: '#00d4ff', items: ['React.js', 'Tailwind CSS', 'HTML5 / CSS3', 'Responsive Design'] },
-    { title: 'Backend', icon: Server, tint: '#8b5cf6', items: ['Python', 'FastAPI', 'Node.js', 'REST API', 'API Integration'] },
-    { title: 'Database', icon: Database, tint: '#10b981', items: ['PostgreSQL', 'Firebase'] },
-    { title: 'Deployment & Hosting', icon: Cloud, tint: '#f59e0b', items: ['Hostinger', 'Vercel'] },
-    { title: 'Design', icon: Palette, tint: '#f472b6', items: ['UI/UX Design', 'Wireframing', 'Prototyping'] },
-    { title: 'Tools & Version Control', icon: Wrench, tint: '#fbbf24', items: ['Git / GitHub', 'Postman', 'VS Code', 'Antigravity'] },
+    { title: 'Frontend Development', icon: Code2, tint: '#00d4ff', items: ['React.js', 'Tailwind CSS', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'] },
+    { title: 'Backend Development', icon: Server, tint: '#8b5cf6', items: ['Python', 'FastAPI', 'Node.js', 'Express.js', 'REST APIs'] },
+    { title: 'Database Management', icon: Database, tint: '#10b981', items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase'] },
+    { title: 'Cloud & Deployment', icon: Cloud, tint: '#f59e0b', items: ['Hostinger', 'Vercel', 'GoDaddy', 'CI/CD Pipelines', 'DNS & Domains'] },
+    { title: 'Development Tools', icon: Wrench, tint: '#fbbf24', items: ['Git', 'GitHub', 'Visual Studio Code', 'Vite', 'Figma'] },
+    { title: 'Application Architecture', icon: Layers, tint: '#3b82f6', items: ['Authentication', 'JWT', 'Role-Based Access Control', 'API Integration', 'Responsive Apps'] },
+    { title: 'Emerging Technologies', icon: Braces, tint: '#f472b6', items: ['AI Integration', 'Web Speech API', 'Speech Recognition', 'Text-to-Speech', 'Three.js'] },
+    { title: 'Professional Skills', icon: Palette, tint: '#ec4899', items: ['Technical Leadership', 'Project Management', 'Product Planning', 'Problem Solving', 'Team Coordination', 'Business Development'] },
 ];
 
 const badgeStyle = (name: string) => badges.find((b) => b.name === name)?.color ?? '';
@@ -591,9 +592,9 @@ export function Skills() {
             <div className="shell relative z-10">
                 <SectionHeading
                     eyebrow="Capabilities"
-                    title="Full Stack"
-                    highlight="Development"
-                    description="Frontend, Backend, Database, and Deployment — measured honestly, grouped by discipline."
+                    title="Technical"
+                    highlight="Expertise"
+                    description="Organized by discipline — frontend, backend, database architecture, emerging technologies and engineering leadership."
                     className="mb-12 sm:mb-16"
                 />
 
@@ -737,7 +738,7 @@ export function Skills() {
                         <span className="h-px flex-1 bg-gradient-to-r from-border-strong to-transparent" />
                     </motion.div>
 
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 [perspective:1200px]">
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 [perspective:1200px]">
                         {toolkit.map((group, i) => {
                             const t = toneStyle(group.tint);
                             return (
