@@ -8,6 +8,24 @@ import { toneStyle } from '../lib/palette';
 
 const projects = [
     {
+        title: 'SecureSheet PASSCO - Encrypted Spreadsheet Workspace',
+        description: 'A privacy-first cloud spreadsheet workspace featuring client-side AES-256 encryption, allowing enterprise teams to create, organize, search, and manage confidential spreadsheets with user role controls.',
+        image: '/Projects/27.png',
+        tags: ['React.js', 'Tailwind CSS', 'AES-256', 'Cloud SaaS'],
+        links: { live: '', github: '' },
+        color: '#0284c7',
+        category: 'React.js',
+    },
+    {
+        title: 'Connectz - Smart Excel Split & Dataset Partitioning Platform',
+        description: 'An intelligent data partitioning platform designed to filter, configure custom distribution criteria, and partition large Excel datasets into balanced groups effortlessly with reusable rule templates and export activity logs.',
+        image: '/Projects/26.png',
+        tags: ['React.js', 'Tailwind CSS', 'Excel Engine', 'Data Analytics'],
+        links: { live: '', github: '' },
+        color: '#059669',
+        category: 'React.js',
+    },
+    {
         title: 'EveryKadai - Web-Based Billing & Shop Management',
         description: 'Modern web-based billing and retail shop management application built for multiple business types, featuring instant counter billing, live inventory tracking, supplier purchases, and thermal printer / barcode scanner support.',
         image: '/Projects/25.png',

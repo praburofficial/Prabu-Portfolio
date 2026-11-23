@@ -18,7 +18,7 @@ ASSISTANT NAME: Recko AI
 1. IDENTITY: Official AI-powered personal portfolio assistant of Prabu R.
 2. CORE IDENTITY: Prabu R, CEO at Code Blaza Technology | Full Stack Developer.
 3. PROFESSIONAL EXPERIENCE: Counted dynamically from March 10, 2025. (March 10, 2024 is the inception of Code Blaza Technology).
-4. METRICS: 25+ projects, 4 internships, 85+ certificates.
+4. METRICS: 27+ projects, 4 internships, 85+ certificates.
 5. SERVICES: 1. Software Development, 2. Digital Marketing, 3. EduTech and Technology Training.
 6. PROJECTS: EveryKadai (Retail Billing & POS), Ard Al Jannat (Corporate Website), Piolet HRM (Human Resource Management), GCMS (Institutional Grievance Management), MediShop Pharmacy ERP, StayHive (Accommodation), plus development initiatives (School ERP, Code Blaza HRM, Shri Athav Textile Mills, Aadhav Textile).
 7. EDUCATION: B.E. Computer Science and Engineering from Gnanamani College of Technology (CGPA: 7.86).
@@ -90,7 +90,7 @@ export function queryPortfolioAI(userQuery: string): AIResponse {
 
 பிரபு R அவர்கள் **Code Blaza Technology-ன் CEO** மற்றும் ஒரு **Full Stack Developer**.
 - 💼 **அனுபவம்:** ${expYears} (March 10, 2025 முதல் கணக்கிடப்பட்டது)
-- 🚀 **Projects:** 25+ மென்பொருள் திட்டங்கள்
+- 🚀 **Projects:** 27+ மென்பொருள் திட்டங்கள்
 - 📜 **சான்றிதழ்கள்:** 85+ தொழினுட்பச் சான்றிதழ்கள்
 - 🎓 **கல்வி:** B.E. Computer Science, ஞானமணி தொழில்நுட்பக் கல்லூரி (CGPA: 7.86)
 
@@ -122,7 +122,7 @@ I represent Prabu R professionally to visitors, recruiters, software clients, an
 I have comprehensive knowledge of:
 - 👨‍💻 **Developer Profile:** Full Stack Development (React, FastAPI, Python, PostgreSQL, REST APIs)
 - 👑 **Founder Identity:** CEO of Code Blaza Technology leading product direction & company growth
-- 🚀 **Software Projects:** 25+ real-world applications including EveryKadai, Ard Al Jannat, and Piolet HRM
+- 🚀 **Software Projects:** 27+ real-world applications including EveryKadai, Ard Al Jannat, and Piolet HRM
 - 🏢 **Company Services:** Software Development, Digital Marketing, and EduTech Courses
 - 📈 **Verified Milestones:** ${expYears} experience (from March 10, 2025), 4 internships, and 85+ certificates
 
@@ -173,7 +173,7 @@ Are you interested in his developer profile, projects or business initiatives?`,
 His professional journey combines software engineering, product development, business leadership and technology mentoring.
 
 - 💼 **Experience:** ${expYears} of professional experience (tracked from March 10, 2025) across 4 internships and executive leadership.
-- 🚀 **Projects:** Worked on more than 25 software projects, including enterprise ERPs and retail POS applications.
+- 🚀 **Projects:** Worked on more than 27 software projects, including enterprise ERPs and retail POS applications.
 - 📜 **Credentials:** Earned over 85 certificates from Microsoft, NPTEL, MongoDB, MathWorks, and UiPath.
 - 🎯 **Leadership:** As a technology entrepreneur, he focuses on developing digital products, solving real-world business problems and building technology-driven opportunities.
 
@@ -333,6 +333,8 @@ Prabu is not merely an administrator; he maintains direct, hands-on involvement 
     // ─────────────────────────────────────────────────────────────
     if (
         q.includes('project') ||
+        q.includes('securesheet') ||
+        q.includes('connectz') ||
         q.includes('everykadai') ||
         q.includes('ard al jannat') ||
         q.includes('piolet') ||
@@ -344,6 +346,38 @@ Prabu is not merely an administrator; he maintains direct, hands-on involvement 
         q.includes('pos') ||
         q.includes('erp')
     ) {
+        // Specific Project: SecureSheet PASSCO
+        if (q.includes('securesheet') || q.includes('passco') || q.includes('encrypted sheet')) {
+            return {
+                answer: `🔒 **SecureSheet PASSCO — Encrypted Spreadsheet Workspace**  
+*Category:* Enterprise SaaS & Data Security  
+*Developed by:* Code Blaza Technology  
+
+SecureSheet PASSCO is a privacy-first web application designed for secure spreadsheet management:
+- 🛡️ **Client-Side AES-256 Encryption:** Keeps all cell data and confidential records encrypted before storage.
+- 📊 **Spreadsheet Workspace:** Create, organize, search, and edit encrypted data grids with ease.
+- 👥 **User Role Management:** Admin and team workspace isolation with secure permissions.
+- 👁️ **Visual Switcher:** Seamless toggle between card view and high-density tabular view.`,
+                suggestions: ['Tell me about Connectz', 'Tell me about EveryKadai', 'Show all projects'],
+            };
+        }
+
+        // Specific Project: Connectz
+        if (q.includes('connectz') || q.includes('conectz') || q.includes('excel split')) {
+            return {
+                answer: `📊 **Connectz — Smart Excel Split & Dataset Partitioning Platform**  
+*Category:* Data Processing & Excel Engine  
+*Developed by:* Code Blaza Technology  
+
+Connectz is an intelligent data partition platform engineered to process and split complex datasets:
+- ⚡ **Custom Distribution Rules:** Filter and partition raw datasets into balanced target groups.
+- 📋 **Reusable Rule Templates:** Save and load custom partitioning criteria across multiple files.
+- 📜 **Activity Audit Logs:** Track dataset operations, split version histories, and verification statuses.
+- 📦 **Automated Export:** Generate balanced batches ready for immediate multi-group export.`,
+                suggestions: ['Tell me about SecureSheet PASSCO', 'Tell me about EveryKadai', 'Show all projects'],
+            };
+        }
+
         // Specific Project: EveryKadai
         if (q.includes('everykadai') || (q.includes('billing') && q.includes('pos'))) {
             return {
@@ -404,15 +438,17 @@ GCMS is a centralized digital solution built for institutional grievance handlin
 
         // General Projects Overview
         return {
-            answer: `🚀 **Prabu R's Software Projects Portfolio (25+ Projects):**
+            answer: `🚀 **Prabu R's Software Projects Portfolio (27 Projects):**
 
 ### Featured Production Applications:
-1. 🛍️ **EveryKadai:** Retail billing, inventory tracking, barcode scanning, and thermal printing POS.
-2. 🌶️ **Ard Al Jannat:** Dubai-based corporate web platform for foodstuff and spice trading.
-3. 👥 **Piolet HRM:** Multi-dashboard human resource and workforce operations suite.
-4. 🏫 **GCMS:** Institutional grievance and campus maintenance management platform.
-5. 💊 **MediShop Pharmacy ERP:** Specialized pharmacy management and stock control application.
-6. 🏡 **StayHive:** Accommodation, tenant, and PG rental management solution.
+1. 🔒 **SecureSheet PASSCO:** Client-side AES-256 encrypted spreadsheet workspace with user management.
+2. 📊 **Connectz:** Smart Excel dataset partitioning and automated split engine with rule templates.
+3. 🛍️ **EveryKadai:** Retail billing, inventory tracking, barcode scanning, and thermal printing POS.
+4. 🌶️ **Ard Al Jannat:** Dubai-based corporate web platform for foodstuff and spice trading.
+5. 👥 **Piolet HRM:** Multi-dashboard human resource and workforce operations suite.
+6. 🏫 **GCMS:** Institutional grievance and campus maintenance management platform.
+7. 💊 **MediShop Pharmacy ERP:** Specialized pharmacy management and stock control application.
+8. 🏡 **StayHive:** Accommodation, tenant, and PG rental management solution.
 
 ### Product Development Initiatives:
 - 🎓 **School ERP:** Multi-module institutional management product covering SIS, academics, exams, and fees.
@@ -677,7 +713,7 @@ If your inquiry regards specific private records, client data or internal compan
 
 Here is what I can help you explore:
 - 👨‍💻 **Technical Profile:** React, FastAPI, Python, PostgreSQL, REST APIs
-- 🚀 **Projects (25+):** EveryKadai, Ard Al Jannat, Piolet HRM, GCMS, MediShop
+- 🚀 **Projects (27+):** EveryKadai, Ard Al Jannat, Piolet HRM, GCMS, MediShop, SecureSheet, Connectz
 - 👑 **Founder Journey:** CEO of Code Blaza Technology & startup milestones
 - 💼 **Experience:** ${expYears} of experience, 4 internships & 85+ certificates
 - 📬 **Direct Contact:** [prabur2k5@gmail.com](mailto:prabur2k5@gmail.com) / [+91 95248 15890](https://wa.me/919524815890)`,
