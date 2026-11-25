@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 export function WelcomeScreen() {
     return (
         <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-[99999] flex flex-col items-center justify-center overflow-hidden bg-[#01040a]"
             style={{
                 backgroundColor: '#01040a',
@@ -24,9 +26,9 @@ export function WelcomeScreen() {
             <div className="relative z-10 flex flex-col items-center text-center px-4">
                 {/* ─── Profile Avatar with Animated Glow Ring ─── */}
                 <motion.div
-                    initial={{ scale: 0.75, opacity: 0, y: 16 }}
+                    initial={{ scale: 0.88, opacity: 0, y: 12 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     className="relative mb-6"
                 >
                     {/* Pulsing outer aura */}
@@ -54,9 +56,9 @@ export function WelcomeScreen() {
 
                 {/* ─── Welcome Title ─── */}
                 <motion.h1
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.45, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                     className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.025em] text-white"
                 >
                     Welcome
@@ -64,9 +66,9 @@ export function WelcomeScreen() {
 
                 {/* ─── Subtitle ─── */}
                 <motion.p
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.45, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
                     className="mt-2.5 font-mono text-xs sm:text-sm font-semibold tracking-[0.25em] text-sky-400 uppercase"
                 >
                     Prabu R · Portfolio
@@ -74,16 +76,16 @@ export function WelcomeScreen() {
 
                 {/* ─── Elegant Progress Bar ─── */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                    transition={{ duration: 0.4, delay: 0.25 }}
                     className="mt-7 flex flex-col items-center gap-2"
                 >
                     <div className="h-1.5 w-44 sm:w-56 overflow-hidden rounded-full bg-white/10 ring-1 ring-white/10 p-[1px]">
                         <motion.div
                             initial={{ width: '0%' }}
                             animate={{ width: '100%' }}
-                            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: 0.95, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                             className="h-full rounded-full bg-gradient-to-r from-sky-400 via-primary to-sky-300 shadow-[0_0_12px_rgba(56,189,248,0.85)]"
                         />
                     </div>

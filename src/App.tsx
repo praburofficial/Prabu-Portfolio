@@ -127,7 +127,7 @@ function App() {
     // Show welcome splash screen while refreshing / initial load
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1800);
+    }, 1250);
 
     return () => clearTimeout(timer);
   }, []);

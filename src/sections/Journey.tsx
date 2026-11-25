@@ -1,7 +1,6 @@
-import { motion } from 'framer-motion';
-import { useRef } from 'react';
-import { useScroll, useSpring } from 'framer-motion';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { SectionHeading } from '../components/SectionHeading';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 
 interface JourneyEvent {
     year: string;
@@ -87,204 +86,302 @@ const events: JourneyEvent[] = [
     },
 ];
 
-const companyMilestones = [
-    {
-        date: 'March 10, 2024',
-        title: 'Code Blaza Journey Begins',
-        badge: 'Inception',
-        description: 'The beginning of the Code Blaza Technology startup journey, focusing on digital product development and practical software solutions.',
-    },
-    {
-        date: 'March 14, 2025',
-        title: 'MSME Registration',
-        badge: 'Official Recognition',
-        description: 'Official Micro, Small & Medium Enterprises (MSME) company registration milestone establishing Code Blaza Technology.',
-    },
-    {
-        date: 'April 10, 2025',
-        title: 'Institutional Recognition',
-        badge: 'Academic Partnership',
-        description: 'Appreciation from Gnyanamani Educational Institution for institutional software engineering and technical contribution.',
-    },
-    {
-        date: 'December 23, 2025',
-        title: 'Team Identity Milestone',
-        badge: 'Team Growth',
-        description: 'First official Code Blaza Technology employee ID card milestone and engineering team expansion.',
-    },
-    {
-        date: 'September 2026',
-        title: 'CEO Role',
-        badge: 'Leadership',
-        description: 'Stepping into leadership and company development responsibilities, steering technology direction and business strategy.',
-    },
-    {
-        date: 'Present',
-        title: 'Building Technology Solutions',
-        badge: 'Active Operations',
-        description: 'Leading company initiatives, developing software products, managing technology activities and exploring new business opportunities.',
-    },
-];
+// Tripled events array to enable seamless infinite looping
+const loopedEvents = [...events, ...events, ...events];
+
+const CARD_WIDTH = 240; // Card width in pixels
+const CARD_GAP = 60;    // Generous gap between cards so cards NEVER overlap when scaled
+const STEP = CARD_WIDTH + CARD_GAP; // Total pitch per item (300px)
+const SINGLE_SET_WIDTH = events.length * STEP;
 
 export function Journey() {
-    const railRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: railRef,
-        offset: ['start 80%', 'end 40%'],
-    });
-    const railScale = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 });
+    const containerRef = useRef<HTMLDivElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    const posRef = useRef(-SINGLE_SET_WIDTH);
+    const isPausedRef = useRef(false);
+    const [isPausedState, setIsPausedState] = useState(false);
+    const [activeCenterEvent, setActiveCenterEvent] = useState<JourneyEvent>(events[events.length - 1]);
+    const [activeFrameNum, setActiveFrameNum] = useState<number>(events.length);
+
+    // Drag / Touch tracking
+    const isDraggingRef = useRef(false);
+    const startXRef = useRef(0);
+    const dragStartPosRef = useRef(0);
+    const lastTimeRef = useRef<number | null>(null);
+
+    // Continuous 60/120fps requestAnimationFrame loop for ultra-smooth centering & scaling
+    useEffect(() => {
+        let animationFrameId: number;
+
+        const updatePositions = (now: number) => {
+            if (lastTimeRef.current === null) {
+                lastTimeRef.current = now;
+            }
+            const delta = Math.min(32, now - lastTimeRef.current);
+            lastTimeRef.current = now;
+
+            if (!isPausedRef.current && !isDraggingRef.current) {
+                // Move smoothly at ~0.8px per 16ms frame
+                posRef.current -= 0.8 * (delta / 16);
+            }
+
+            // Infinite seamless wrap-around
+            if (posRef.current <= -SINGLE_SET_WIDTH * 2) {
+                posRef.current += SINGLE_SET_WIDTH;
+            } else if (posRef.current >= 0) {
+                posRef.current -= SINGLE_SET_WIDTH;
+            }
+
+            // Translate track directly on GPU
+            if (trackRef.current) {
+                trackRef.current.style.transform = `translate3d(${posRef.current}px, 0, 0)`;
+            }
+
+            // Calculate scale for each card based on distance to viewport center
+            if (containerRef.current) {
+                const containerRect = containerRef.current.getBoundingClientRect();
+                const viewportCenter = containerRect.left + containerRect.width / 2;
+                const threshold = STEP * 0.95; // Focus threshold
+
+                let closestDist = Infinity;
+                let closestIndex = 0;
+
+                cardRefs.current.forEach((cardEl, idx) => {
+                    if (!cardEl) return;
+
+                    // Absolute center of card in viewport coordinates
+                    const cardCenter = containerRect.left + posRef.current + (idx * STEP) + (CARD_WIDTH / 2);
+                    const dist = Math.abs(cardCenter - viewportCenter);
+
+                    if (dist < closestDist) {
+                        closestDist = dist;
+                        closestIndex = idx;
+                    }
+
+                    if (dist < threshold) {
+                        // Smooth cosine interpolation from 0.88 at edge to 1.20 at exact center (zero overlap with 60px gap)
+                        const norm = dist / threshold;
+                        const factor = Math.cos(norm * (Math.PI / 2));
+                        const scale = 0.88 + 0.32 * factor;
+                        const opacity = 0.65 + 0.35 * factor;
+                        const zIndex = Math.round(factor * 25) + 1;
+
+                        cardEl.style.transform = `scale(${scale.toFixed(3)})`;
+                        cardEl.style.opacity = `${opacity.toFixed(2)}`;
+                        cardEl.style.zIndex = `${zIndex}`;
+
+                        // Add glow ring if in center focus
+                        const innerBox = cardEl.firstElementChild as HTMLElement;
+                        if (innerBox) {
+                            if (factor > 0.55) {
+                                innerBox.style.borderColor = 'rgba(16, 185, 129, 0.7)';
+                                innerBox.style.boxShadow = '0 16px 36px -10px rgba(16, 185, 129, 0.35), 0 0 0 2px rgba(16, 185, 129, 0.3)';
+                            } else {
+                                innerBox.style.borderColor = 'rgba(226, 232, 240, 0.9)';
+                                innerBox.style.boxShadow = '0 4px 12px rgba(15, 23, 42, 0.05)';
+                            }
+                        }
+                    } else {
+                        cardEl.style.transform = 'scale(0.88)';
+                        cardEl.style.opacity = '0.65';
+                        cardEl.style.zIndex = '1';
+
+                        const innerBox = cardEl.firstElementChild as HTMLElement;
+                        if (innerBox) {
+                            innerBox.style.borderColor = 'rgba(226, 232, 240, 0.9)';
+                            innerBox.style.boxShadow = '0 4px 12px rgba(15, 23, 42, 0.05)';
+                        }
+                    }
+                });
+
+                // Update active center card details if changed
+                const originalIndex = closestIndex % events.length;
+                if (closestDist < STEP * 0.6) {
+                    setActiveCenterEvent((prev) => (prev !== events[originalIndex] ? events[originalIndex] : prev));
+                    setActiveFrameNum(originalIndex + 1);
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(updatePositions);
+        };
+
+        animationFrameId = requestAnimationFrame(updatePositions);
+        return () => cancelAnimationFrame(animationFrameId);
+    }, []);
+
+    // Manual navigation controls
+    const scrollStep = useCallback((direction: 'next' | 'prev') => {
+        const delta = direction === 'next' ? -STEP : STEP;
+        posRef.current += delta;
+    }, []);
+
+    // Toggle pause / play
+    const togglePause = () => {
+        const next = !isPausedRef.current;
+        isPausedRef.current = next;
+        setIsPausedState(next);
+    };
+
+    // Drag / Touch Handlers
+    const handlePointerDown = (e: React.PointerEvent) => {
+        isDraggingRef.current = true;
+        startXRef.current = e.clientX;
+        dragStartPosRef.current = posRef.current;
+        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e: React.PointerEvent) => {
+        if (!isDraggingRef.current) return;
+        const delta = e.clientX - startXRef.current;
+        posRef.current = dragStartPosRef.current + delta;
+    };
+
+    const handlePointerUp = () => {
+        isDraggingRef.current = false;
+    };
 
     return (
         <section id="journey" className="section-y relative z-10 w-full overflow-hidden">
             <div className="shell">
                 <SectionHeading
-                    eyebrow="Founder Journey"
-                    title="From Developer to"
-                    highlight="Technology Founder"
-                    description="Separating startup company milestones from personal employment and career experience."
-                    className="mb-12 sm:mb-16"
+                    eyebrow="My Journey"
+                    title="Milestones &"
+                    highlight="Captured Moments"
+                    description="A visual timeline of continuous milestones, engineering achievements, and unforgettable memories gathered along my path."
+                    className="mb-8 sm:mb-12"
                 />
 
-                {/* ─── Company Journey Milestones Timeline ─── */}
-                <div className="mb-16 sm:mb-20">
-                    <div className="mb-6 flex items-center justify-between border-b border-border pb-3">
-                        <span className="text-xs font-bold uppercase tracking-wider text-primary">Company Startup Milestones</span>
-                        <span className="text-xs text-muted">Code Blaza Technology</span>
-                    </div>
-
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        {companyMilestones.map((m, idx) => (
-                            <motion.div
-                                key={m.title}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                                className="group relative rounded-2xl border border-border bg-white/70 p-5 shadow-e1 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-e2"
-                            >
-                                <div className="flex items-center justify-between gap-2">
-                                    <span className="font-mono text-xs font-bold text-sky-500">{m.date}</span>
-                                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[0.6875rem] font-bold text-primary">
-                                        {m.badge}
-                                    </span>
-                                </div>
-                                <h4 className="mt-2.5 font-display text-base font-bold text-ink transition-colors group-hover:text-primary">
-                                    {m.title}
-                                </h4>
-                                <p className="mt-2 text-xs leading-relaxed text-muted">
-                                    {m.description}
-                                </p>
-                            </motion.div>
-                        ))}
+                {/* ─── Gallery Top Bar Controls ─── */}
+                <div className="mb-6 flex items-center justify-end border-b border-border pb-4">
+                    {/* Navigation Actions */}
+                    <div className="flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={() => scrollStep('prev')}
+                            aria-label="Previous memory"
+                            className="grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink shadow-e1 transition-all duration-200 hover:border-primary/40 hover:text-primary hover:shadow-e2 active:scale-95"
+                        >
+                            <ChevronLeft className="h-4 w-4" />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={togglePause}
+                            title={isPausedState ? 'Resume auto-loop' : 'Pause auto-loop'}
+                            aria-label={isPausedState ? 'Resume auto-loop' : 'Pause auto-loop'}
+                            className="flex h-9 items-center gap-1.5 rounded-full border border-border bg-white px-3 text-xs font-medium text-ink shadow-e1 transition-all duration-200 hover:border-primary/40 hover:text-primary hover:shadow-e2 active:scale-95"
+                        >
+                            {isPausedState ? (
+                                <>
+                                    <Play className="h-3.5 w-3.5 text-emerald-600 fill-emerald-600" />
+                                    <span>Resume</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Pause className="h-3.5 w-3.5 text-muted" />
+                                    <span>Pause</span>
+                                </>
+                            )}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => scrollStep('next')}
+                            aria-label="Next memory"
+                            className="grid h-9 w-9 place-items-center rounded-full border border-border bg-white text-ink shadow-e1 transition-all duration-200 hover:border-primary/40 hover:text-primary hover:shadow-e2 active:scale-95"
+                        >
+                            <ChevronRight className="h-4 w-4" />
+                        </button>
                     </div>
                 </div>
 
-                {/* ─── Captured Memories & Events Gallery Rail ─── */}
-                <div className="mb-6 flex items-center justify-between border-b border-border pb-3">
-                    <span className="text-xs font-bold uppercase tracking-wider text-secondary">Captured Moments & Milestones</span>
-                    <span className="text-xs text-muted">31 Documented Frames</span>
-                </div>
+                {/* ─── Looping Gallery Track with Center Magnification ─── */}
+                <div
+                    ref={containerRef}
+                    onMouseEnter={() => { isPausedRef.current = true; }}
+                    onMouseLeave={() => { if (!isPausedState) isPausedRef.current = false; }}
+                    onPointerDown={handlePointerDown}
+                    onPointerMove={handlePointerMove}
+                    onPointerUp={handlePointerUp}
+                    onPointerCancel={handlePointerUp}
+                    className="relative w-full overflow-hidden py-10 cursor-grab active:cursor-grabbing select-none"
+                    style={{ touchAction: 'pan-y' }}
+                >
+                    {/* Ambient center spotlight glow */}
+                    <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/10 blur-[90px] z-0" />
 
-                <div ref={railRef} className="relative">
-                    {/* Horizontal rail line — animated smoothly left-to-right on scroll */}
-                    <div className="pointer-events-none mb-10 h-0.5 w-full overflow-hidden rounded-full bg-slate-200/80 sm:mb-14">
-                        <motion.div
-                            style={{ scaleX: railScale }}
-                            className="h-full w-full origin-left bg-gradient-to-r from-primary via-violet to-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.35)]"
-                        />
-                    </div>
+                    {/* Translating Track */}
+                    <div
+                        ref={trackRef}
+                        className="flex will-change-transform"
+                        style={{ gap: `${CARD_GAP}px` }}
+                    >
+                        {loopedEvents.map((event, index) => {
+                            const originalIdx = index % events.length;
 
-                    <ol className="relative z-10 grid grid-cols-2 gap-x-4 gap-y-9 sm:grid-cols-3 sm:gap-8 lg:grid-cols-4 xl:grid-cols-5 xl:gap-10">
-                        {events.map((event, index) => {
                             return (
-                                <motion.li
+                                <div
                                     key={index}
-                                    initial={{ opacity: 0, scale: 0.86, y: 26 }}
-                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                    viewport={{ once: true, margin: '-40px' }}
-                                    transition={{
-                                        duration: 0.55,
-                                        type: 'spring',
-                                        stiffness: 140,
-                                        damping: 18,
-                                        delay: index * 0.065,
+                                    ref={(el) => { cardRefs.current[index] = el; }}
+                                    className="shrink-0 select-none will-change-transform transition-all duration-200"
+                                    style={{
+                                        width: `${CARD_WIDTH}px`,
+                                        transformOrigin: 'center center',
                                     }}
-                                    className="group relative flex flex-col items-center gap-4 sm:gap-5"
                                 >
-                                    {/* ─── Horizontal connector line through each row behind nodes ─── */}
-                                    <div className="pointer-events-none absolute -left-2 -right-2 top-[3.75rem] -translate-y-1/2 sm:-left-4 sm:top-[4.5rem] md:top-[5rem] lg:top-[5.25rem] xl:-left-5 xl:-right-5">
-                                        <div className="h-[2px] w-full bg-slate-200/70">
-                                            <motion.div
-                                                initial={{ scaleX: 0 }}
-                                                whileInView={{ scaleX: 1 }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 0.5, delay: (index % 5) * 0.06 }}
-                                                className="h-full w-full origin-left bg-gradient-to-r from-primary/80 via-violet/70 to-emerald-500/80"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* ─── Photo node ─── */}
-                                    <div
-                                        
-                                        className="relative aspect-square w-[7.5rem] shrink-0 sm:w-36 md:w-40 lg:w-[10.5rem]"
-                                    >
-                                        {/* Step number badge (Frame 1 to 31) */}
-                                        <span className="absolute -top-1.5 -right-1.5 z-20 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[0.625rem] font-bold text-primary shadow-e1 ring-1 ring-primary/20 transition-transform duration-300 group-hover:scale-110">
-                                            {index + 1}
-                                        </span>
-                                        {/* Halo */}
-                                        <div
-                                            className="pointer-events-none absolute -inset-2 rounded-full opacity-0 blur-xl transition-opacity duration-700 group-hover:opacity-100"
-                                            style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.28), transparent 70%)' }}
-                                        />
-
-                                        {/* Live pulse on the most recent memory */}
-                                        {event.isActive && (
-                                            <span className="pointer-events-none absolute -inset-1 animate-ping rounded-full border border-primary/35 opacity-40" />
-                                        )}
-
-                                        {/* Conic ring */}
-                                        <div
-                                            className="absolute inset-0 rounded-full opacity-80 transition-opacity duration-500 group-hover:opacity-100 gpu"
-                                            style={{
-                                                background: event.isActive
-                                                    ? 'conic-gradient(from 0deg, #2563eb, #4f46e5, #7c3aed, #059669, #2563eb)'
-                                                    : 'conic-gradient(from 0deg, rgba(203,213,225,0.9), rgba(37,99,235,0.55), rgba(124,58,237,0.45), rgba(203,213,225,0.9))',
-                                                animation: 'conic-spin 10s linear infinite',
-                                            }}
-                                        />
-                                        <div className="absolute inset-[2px] rounded-full bg-background" />
-
-                                        <div className="absolute inset-[5px] overflow-hidden rounded-full bg-surface-2 shadow-[inset_0_0_0_1px_rgba(15,23,42,0.06)]">
+                                    {/* Normal Square Photo Frame Card */}
+                                    <div className="group/card relative flex flex-col rounded-2xl border-2 border-slate-200/90 bg-white p-3 shadow-md shadow-slate-200/50 backdrop-blur-md transition-all duration-300">
+                                        {/* Square photo display */}
+                                        <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-slate-100">
                                             <img
                                                 src={event.image}
                                                 alt={`${event.title} — ${event.year}`}
                                                 loading="lazy"
                                                 decoding="async"
-                                                className="h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.14]"
+                                                className="h-full w-full object-cover select-none pointer-events-none transition-transform duration-500 group-hover/card:scale-105"
+                                                draggable={false}
                                             />
+
+                                            {/* Frame badge */}
+                                            <span className="absolute top-2 right-2 rounded-full bg-slate-900/80 px-2 py-0.5 text-[0.625rem] font-bold text-white shadow-sm backdrop-blur-sm">
+                                                #{originalIdx + 1}
+                                            </span>
+
+                                            {/* Year badge */}
+                                            <span className="absolute top-2 left-2 rounded-full bg-emerald-500 px-2.5 py-0.5 text-[0.6875rem] font-bold text-white shadow-sm">
+                                                {event.year}
+                                            </span>
+                                        </div>
+
+                                        {/* Title and metadata */}
+                                        <div className="mt-2.5 text-center">
+                                            <h4 className="font-display text-xs sm:text-sm font-bold text-ink truncate">
+                                                {event.title}
+                                            </h4>
+                                            <p className="mt-0.5 text-[0.6875rem] text-muted truncate">
+                                                {event.organization}
+                                            </p>
                                         </div>
                                     </div>
-
-                                    {/* ─── Year pill ─── */}
-                                    <div
-                                        className={`relative inline-flex items-center gap-2 rounded-pill px-3.5 py-1.5 transition-all duration-300 group-hover:-translate-y-0.5 sm:px-4 ${event.isActive
-                                            ? 'border border-primary/25 bg-primary-tint shadow-[0_10px_26px_-14px_rgba(37,99,235,0.9)]'
-                                            : 'border border-border bg-white shadow-e1'
-                                            }`}
-                                    >
-                                        <span
-                                            className={`h-1.5 w-1.5 rounded-full ${event.isActive ? 'bg-primary shadow-[0_0_0_3px_rgba(37,99,235,0.18)]' : 'bg-slate-300'}`}
-                                        />
-                                        <span className={`font-display text-sm font-bold tracking-[0.08em] ${event.isActive ? 'text-primary' : 'text-ink'}`}>
-                                            {event.year}
-                                        </span>
-                                    </div>
-                                </motion.li>
+                                </div>
                             );
                         })}
-                    </ol>
+                    </div>
+                </div>
+
+                {/* ─── Active Center Item Highlight Card ─── */}
+                <div className="mt-6 flex flex-col items-center text-center">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm">
+                        <span>Frame #{activeFrameNum} of {events.length}</span>
+                        <span>&bull;</span>
+                        <span>{activeCenterEvent.year}</span>
+                    </div>
+                    <h3 className="mt-2.5 font-display text-lg font-bold text-ink sm:text-xl">
+                        {activeCenterEvent.title}
+                    </h3>
+                    <p className="mt-1 max-w-lg text-xs leading-relaxed text-muted sm:text-sm">
+                        {activeCenterEvent.description}
+                    </p>
                 </div>
             </div>
         </section>

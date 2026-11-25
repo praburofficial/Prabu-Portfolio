@@ -79,15 +79,18 @@ export function Hero() {
                                     initial={{ opacity: 0, y: 14 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.55, delay: 0.15 }}
-                                    className="flex flex-wrap items-center gap-2"
+                                    className="flex items-center"
                                 >
-                                    <span className="font-mono text-xs font-semibold tracking-[0.22em] text-slate-200 uppercase sm:text-sm">
-                                        PRABU R
-                                    </span>
-                                    <span className="mx-2 hidden h-1 w-1 rounded-full bg-slate-500 sm:inline-block" />
-                                    <span className="rounded-full border border-sky-400/30 bg-sky-500/10 px-2.5 py-0.5 font-mono text-[0.6875rem] font-semibold tracking-wider text-sky-300 uppercase sm:text-xs">
-                                        CEO, CODE BLAZA TECHNOLOGY | FULL STACK DEVELOPER
-                                    </span>
+                                    <div className="inline-flex flex-wrap items-center gap-2 sm:gap-2.5 rounded-full border border-sky-400/35 bg-gradient-to-r from-sky-500/15 via-blue-500/10 to-sky-500/15 px-3.5 py-1.5 shadow-[0_0_20px_rgba(56,189,248,0.2)] backdrop-blur-md">
+                                        <span className="flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)] animate-pulse" />
+                                        <span className="font-mono text-xs font-bold tracking-[0.2em] text-white uppercase sm:text-sm">
+                                            PRABU R
+                                        </span>
+                                        <span className="h-3 w-px bg-white/20 hidden sm:inline-block" />
+                                        <span className="font-mono text-[0.6875rem] font-semibold tracking-wider text-sky-300 uppercase sm:text-xs">
+                                            CEO, Code Blaza Technology &bull; Full Stack Developer
+                                        </span>
+                                    </div>
                                 </motion.div>
 
                                 {/* Perfectly Balanced Headline */}
@@ -143,25 +146,25 @@ export function Hero() {
                                         <span>View Resume</span>
                                     </button>
 
-                                    {/* Simple, compact GitHub & LinkedIn icons next to Resume */}
+                                    {/* Colorful, suitable GitHub & LinkedIn icons next to Resume */}
                                     <div className="flex items-center gap-2">
                                         <a
                                             href="https://github.com/praburofficial"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label="GitHub profile"
-                                            className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full border border-white/20 bg-white/5 text-slate-200 transition-all duration-300 hover:scale-105 hover:border-sky-400 hover:bg-sky-400 hover:text-slate-950 hover:shadow-[0_0_16px_rgba(56,189,248,0.5)]"
+                                            className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full border border-slate-700/80 bg-[#161b22] text-white shadow-md shadow-black/50 transition-all duration-300 hover:scale-110 hover:border-slate-500 hover:bg-[#21262d] hover:shadow-[0_0_18px_rgba(255,255,255,0.3)]"
                                         >
-                                            <Github className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                                            <Github className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                         </a>
                                         <a
                                             href="https://www.linkedin.com/in/prabu-r12092005"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label="LinkedIn profile"
-                                            className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full border border-white/20 bg-white/5 text-slate-200 transition-all duration-300 hover:scale-105 hover:border-[#0a66c2] hover:bg-[#0a66c2] hover:text-white hover:shadow-[0_0_16px_rgba(10,102,194,0.6)]"
+                                            className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-full border border-[#0a66c2] bg-[#0a66c2] text-white shadow-md shadow-[#0a66c2]/40 transition-all duration-300 hover:scale-110 hover:bg-[#004182] hover:shadow-[0_0_20px_rgba(10,102,194,0.75)]"
                                         >
-                                            <Linkedin className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                                            <Linkedin className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                                         </a>
                                     </div>
                                 </motion.div>
