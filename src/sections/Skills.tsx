@@ -65,7 +65,6 @@ const diceCardVariants: Variants = {
         rotateZ: i % 2 === 0 ? -25 : 25,
         y: 90,
         z: -250,
-        filter: 'blur(6px)',
     }),
     visible: (i: number) => ({
         opacity: 1,
@@ -75,7 +74,6 @@ const diceCardVariants: Variants = {
         rotateZ: 0,
         y: 0,
         z: 0,
-        filter: 'blur(0px)',
         transition: {
             type: 'spring' as const,
             stiffness: 95,
@@ -93,14 +91,12 @@ const toolkitPopupVariants: Variants = {
         scale: 0.16,
         z: -420,
         y: 50,
-        filter: 'blur(8px)',
     },
     visible: (i: number) => ({
         opacity: 1,
         scale: 1,
         z: 0,
         y: 0,
-        filter: 'blur(0px)',
         transition: {
             type: 'spring' as const,
             stiffness: 220,

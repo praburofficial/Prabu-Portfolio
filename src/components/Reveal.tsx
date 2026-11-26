@@ -37,7 +37,7 @@ export function Reveal({
     direction = 'up',
     distance = 28,
     className,
-    blur = true,
+    blur = false,
 }: RevealProps) {
     return (
         <motion.div

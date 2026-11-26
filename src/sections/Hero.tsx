@@ -23,7 +23,7 @@ const stats: StatItem[] = [
     { value: getExperienceYears(), decimals: 1, suffix: '+', label: 'Years Exp' },
     { value: 27, suffix: '+', label: 'Projects' },
     { value: 4, suffix: '', label: 'Internships' },
-    { value: 85, suffix: '+', label: 'Certificates' },
+    { value: 99, suffix: '+', label: 'Certificates' },
 ];
 
 export function Hero() {

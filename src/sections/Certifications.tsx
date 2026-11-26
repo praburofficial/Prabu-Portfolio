@@ -257,14 +257,6 @@ const certificates = [
         image: '/Course Certificate/1-29.png',
     },
     {
-        title: 'Bharat Blockchain Yatra - Web3 & Blockchain Explorer',
-        issuer: 'IDS & Hedera (KIOT Salem)',
-        grade: 'Participated',
-        gradeColor: '#00d4ff',
-        date: '2023',
-        image: '/Course Certificate/2.png',
-    },
-    {
         title: 'Data Science Foundation',
         issuer: 'Great Learning',
         grade: 'A Grade',
@@ -329,12 +321,20 @@ const certificates = [
         image: '/Course Certificate/10.webp',
     },
     {
+        title: 'Frontend Development Internship',
+        issuer: 'Code Blaza Technology',
+        grade: 'Completed',
+        gradeColor: '#10b981',
+        date: '2025',
+        image: '/Course Certificate/11-0.jpg',
+    },
+    {
         title: 'Web development Internship',
         issuer: 'Optimus Technocrates',
         grade: 'Completed',
         gradeColor: '#10b981',
         date: '2025',
-        image: '/Course Certificate/11.png',
+        image: '/Course Certificate/11-1.png',
     },
     {
         title: 'Placement Preparation Webinar',
@@ -688,6 +688,14 @@ const certificates = [
         date: '2026',
         image: '/Course Certificate/55.jpg',
     },
+    {
+        title: 'React Development Internship',
+        issuer: 'Code Blaza Technology',
+        grade: 'Completed',
+        gradeColor: '#10b981',
+        date: '2026',
+        image: '/Course Certificate/56.jpg',
+    },
 ];
 
 const eventCertificates = [
@@ -930,9 +938,9 @@ export function Certifications() {
                                                 />
                                                 <div className="pointer-events-none absolute inset-0 rounded-t-card ring-1 ring-inset ring-slate-900/[0.06]" />
 
-                                                {/* Certificate Number */}
+                                                {/* Certificate Serial Number */}
                                                 <span className="badge-over-image pointer-events-none absolute left-3 top-3 rounded-pill px-2.5 py-1 text-[0.6875rem] font-mono font-bold tracking-wide text-primary">
-                                                    #{cert.image.split('/').pop()?.replace(/\.[^/.]+$/, '') || index + 1}
+                                                    #{index + 1}
                                                 </span>
 
                                                 {/* Year */}
